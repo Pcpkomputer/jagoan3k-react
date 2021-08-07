@@ -1,0 +1,13 @@
+.owl-dot {
+    width:15px;
+    height:15px;
+    background-color:"#999999";
+    border:solid 2px white;
+    border-radius: 999px;
+    margin-right:10px;
+}
+
+.owl-dot.active {
+    background-color:rgb(36, 183, 152);
+    border:solid 2px white;
+}
