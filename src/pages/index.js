@@ -43,7 +43,7 @@ function Index() {
 
 
     return (
-      <div style={{marginBottom:500}}>
+      <div>
           <div style={{flex:1}}>
               <div class="dotsContainer" style={{position:"absolute",transform:"bottom",bottom:(isTabletOrMobile) ? 80:100,left:80,zIndex:999}}>
               </div>
@@ -233,10 +233,178 @@ function Index() {
                   </Row>
               </Container>
           </div>
-          <div style={{backgroundColor:"#24b596"}}>
-              <Container>
-                    asdasdasd
+          <div style={{backgroundColor:"#24b596",paddingLeft:(isTabletOrMobile) ? 20:null}}>
+              <Container style={{paddingTop:50,paddingBottom:60,background: "url(https://midiatama.co.id/_nuxt/img/keunggulan.7cfd70d.png)",backgroundPosition: "right",backgroundRepeat: "no-repeat",backgroundSize: "contain"}}>
+                    <Col lg={12}>
+                            <div style={{width:(isTabletOrMobile) ? 360:650}}>
+                                <div style={{fontSize:30,fontWeight:"bold",marginBottom:25}}>Kebijakan K3LM Midiatama</div>
+                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white"}}>
+                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
+                                  </div>
+                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white",paddingTop:15}}>
+                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
+                                  </div>
+                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white",paddingTop:15}}>
+                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
+                                  </div>
+                            </div>
+                    </Col>
               </Container>
+          </div>
+          <div style={{paddingTop:50,paddingBottom:40,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+                <div style={{fontSize:30,fontWeight:"bold"}}>Instruktur Berbakat</div>
+                <div style={{width:(isTabletOrMobile) ? 320:800,textAlign:"center",marginTop:30,paddingRight:30,paddingLeft:30}}>
+                Training akan dibimbing oleh banyak sekali instruktur yang
+ahli di bidangnya masing-masing
+                </div>
+                <Container style={{marginTop:50,marginBottom:50}}>
+                <Slider {...settings} style={{padding:10}}>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:300}}>
+                            asdasd
+                          </div>
+                      </div>
+                    </Slider>
+                </Container>
+          </div>
+          <div style={{paddingBottom:50,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+                <div style={{fontSize:30,fontWeight:"bold"}}>Our Client</div>
+                <Container style={{marginTop:50,marginBottom:50}}>
+                <Slider {...settings} style={{padding:10}}>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                      <div style={{backgroundColor:"white",height:"100%"}}>
+                          <div style={{backgroundColor:"whitesmoke",borderRadius:10,marginRight:20,height:100}}>
+                            asdasd
+                          </div>
+                      </div>
+                    </Slider>
+                </Container>
+          </div>
+          <div>
+            <Container fluid={true} style={{padding:0,backgroundColor:"#26b495",paddingTop:30}}>
+                  <Container>
+                      <Row style={{paddingBottom:40}}>
+                            <Col lg={4} style={{color:"white"}}>
+                              <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
+                                  Hubungi Kami
+                              </div>
+                              <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"100px auto"}}>
+                                  <div style={{fontWeight:"bold"}}>TELEPON</div>
+                                  <div>(021) 22545432 (Jam Kerja)<br></br>(021) 21263820 (24 Jam)</div>
+                                  
+                                  <div style={{fontWeight:"bold"}}>WHATSAPP 24 JAM</div>
+                                  <div>
+                                  0815-32705432<br></br>
+                                  0812-73708811<br></br>
+                                  0815-17278777<br></br>
+                                  0821-25012338<br></br>
+                                  </div>
+
+                                  <div style={{fontWeight:"bold"}}>EMAIL</div>
+                                  <div>pjk3midiatama@gmail.com<br></br>info@midiatama.co.id</div>
+                              </div>
+                            </Col>
+                            <Col lg={4} style={{color:"white"}}>
+                            <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
+                                  Hubungi Kami
+                              </div>
+                              <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"100px auto"}}>
+                                  <div style={{fontWeight:"bold"}}>TELEPON</div>
+                                  <div>(021) 22545432 (Jam Kerja)<br></br>(021) 21263820 (24 Jam)</div>
+                                  
+                                  <div style={{fontWeight:"bold"}}>WHATSAPP 24 JAM</div>
+                                  <div>
+                                  0815-32705432<br></br>
+                                  0812-73708811<br></br>
+                                  0815-17278777<br></br>
+                                  0821-25012338<br></br>
+                                  </div>
+
+                                  <div style={{fontWeight:"bold"}}>EMAIL</div>
+                                  <div>pjk3midiatama@gmail.com<br></br>info@midiatama.co.id</div>
+                              </div>
+                            </Col>
+                            <Col lg={4} style={{color:"white"}}>
+                            <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
+                                  Hubungi Kami
+                              </div>
+                              <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"100px auto"}}>
+                                  <div style={{fontWeight:"bold"}}>TELEPON</div>
+                                  <div>(021) 22545432 (Jam Kerja)<br></br>(021) 21263820 (24 Jam)</div>
+                                  
+                                  <div style={{fontWeight:"bold"}}>WHATSAPP 24 JAM</div>
+                                  <div>
+                                  0815-32705432<br></br>
+                                  0812-73708811<br></br>
+                                  0815-17278777<br></br>
+                                  0821-25012338<br></br>
+                                  </div>
+
+                                  <div style={{fontWeight:"bold"}}>EMAIL</div>
+                                  <div>pjk3midiatama@gmail.com<br></br>info@midiatama.co.id</div>
+                              </div>
+                            </Col>
+                      </Row>
+                      <Row style={{borderBottom:"solid 2px white"}}></Row>
+                      <Row style={{paddingTop:30,paddingBottom:30}}>
+                            <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
+                            <div style={{color:"white"}}>© 2021 All rights reserved. HSE PRIME</div>
+                            <div style={{color:"white"}}>Powered by Midiatama</div>
+
+                            </div>
+                           
+                      </Row>
+                  </Container>
+            </Container>
           </div>
       </div>
     );
