@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -9,6 +9,14 @@ import "../custom.css";
 
 import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
+import { useLocation } from 'react-router';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 
@@ -61,6 +69,24 @@ function Index() {
     },[])
 
 
+    let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
+
+
+    useEffect(()=>{
+        if(document.querySelectorAll("#header").length>0){
+          window.addEventListener("scroll",(e)=>{
+            if(document?.querySelectorAll("#header")[0]?.getClientRects()[0]?.top<=0){
+                setStickyHeaderShow(true);
+            }
+            else{
+              setStickyHeaderShow(false);
+            }
+          })
+        }
+    },[])
+
+
+
     return (
       <div style={{overflow:"hidden"}}>
           <div style={{flex:1}}>
@@ -94,7 +120,53 @@ function Index() {
                 
               </div>
           </div>
-          <div style={{backgroundColor:"#24b798"}}>
+
+
+
+        {/* Sticky Header */}
+        {
+          (stickyHeaderShow) &&
+          <div style={{backgroundColor:"#24b798",position:"fixed",width:"100%",top:0,zIndex:9999}}>
+          <Container style={{height:"100%",padding:20}}>
+              <Row style={{height:"100%"}}>
+                  <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
+                      {
+                        (max991) ?
+                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
+                          <div>Logo</div>
+                        </div> 
+                        :
+                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
+                         <div>Logo</div>
+                      </div> 
+                      }
+                  </Col>
+                  {
+                    (max991) ?
+                    <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
+                      <div style={{marginRight:30}}>Burger Menu</div>
+                  </Col>
+                    :
+                    <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
+                      <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
+                      <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
+                      <div>Training</div>
+                      <div>Karir</div>
+                      <div>Galeri</div>
+                      <div>Artikel</div>
+                      <div>Login</div>
+                  </Col>
+                  }
+              </Row>
+          </Container>
+      </div>
+
+        }
+
+
+
+
+          <div id="header" style={{backgroundColor:"#24b798"}}>
               <Container style={{height:"100%",padding:20}}>
                   <Row style={{height:"100%"}}>
                       <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
@@ -116,8 +188,8 @@ function Index() {
                       </Col>
                         :
                         <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                          <div>Home</div>
-                          <div>Jagoan K3</div>
+                          <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
+                          <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
                           <div>Training</div>
                           <div>Karir</div>
                           <div>Galeri</div>
@@ -152,7 +224,7 @@ function Index() {
                                   [1,2,3,4,5].map(()=>{
                                     return (
                                       <div style={{backgroundColor:"white",height:"100%"}}>
-                                          <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
+                                          <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginRight:20,height:330}}>
                                             <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                             <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
