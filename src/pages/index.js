@@ -11,12 +11,16 @@ import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';
 
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
+
+import Footer from '../components/Footer';
 
 
 
@@ -27,20 +31,51 @@ function Index() {
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
 
+  function SampleNextArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <FaArrowAltCircleRight
+        color="grey"
+        size="30px"
+        className={className}
+        style={{ ...style, display: "block",width:25,height:25,marginLeft:0 }}
+        onClick={onClick}
+      />
+    );
+  }
+  
+  function SamplePrevArrow(props) {
+    const { className, style, onClick } = props;
+    return (
+      <FaArrowAltCircleLeft
+        color="grey"
+        size="30px"
+        className={className}
+        style={{ ...style, display: "block",width:25,height:25,marginLeft:0 }}
+        onClick={onClick}
+      />
+    );
+  }
+
+
     let settings = {
       dots: true,
       infinite: true,
       speed: 200,
       slidesToShow: (max991) ? 1:(max1400) ? 2:3,
-      slidesToScroll: (max991) ? 1:(max1400) ? 2:3
+      slidesToScroll: (max991) ? 1:(max1400) ? 2:3,
+      
     };
 
     let settingsInstruktur = {
       dots: true,
       infinite: true,
+      nav:true,
       speed: 200,
       slidesToShow: (max991) ? 1:(max1400) ? 3:4,
-      slidesToScroll: (max991) ? 1:(max1400) ? 3:4
+      slidesToScroll: (max991) ? 1:(max1400) ? 3:4,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
     };
 
 
@@ -49,7 +84,9 @@ function Index() {
       infinite: true,
       speed: 200,
       slidesToShow: (max991) ? 2:(max1400) ? 4:5,
-      slidesToScroll: (max991) ? 2:(max1400) ? 4:5
+      slidesToScroll: (max991) ? 2:(max1400) ? 4:5,
+      nextArrow: <SampleNextArrow />,
+      prevArrow: <SamplePrevArrow />
     };
 
 
@@ -86,9 +123,12 @@ function Index() {
     },[])
 
 
+    
+
+
 
     return (
-      <div style={{overflow:"hidden"}}>
+      <div style={{overflow:"hidden",fontFamily:"Poppins, sans-serif"}}>
           <div style={{flex:1}}>
               <div class="dotsContainer" style={{position:"absolute",transform:"bottom",bottom:(isTabletOrMobile) ? 80:100,left:80,zIndex:999}}>
               </div>
@@ -98,7 +138,7 @@ function Index() {
                   ([1,2,3,4,5]).map(()=>{
                     return (
                       <div class="item">
-                          <div style={{position:"absolute",backgroundColor:"black",opacity:0.3,width:"100%",height:"100%",zIndex:100}}></div>
+                          <div style={{position:"absolute",backgroundColor:"black",opacity:0.5,width:"100%",height:"100%",zIndex:100}}></div>
                           <div style={{display:"flex",alignItems:"center",backgroundImage:`url("https://apimicca.midiatama.co.id/storage/slider/20210424102039.jpg")`,height:"100vh"}}>
                               {
                                 (isTabletOrMobile) ?
@@ -107,7 +147,7 @@ function Index() {
                                     <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>Pembinaan dan sertifikasi ahli k3</div>
                                 </div>
                                 :
-                                <div style={{position:"absolute",paddingRight:100,width:500,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
+                                <div style={{position:"absolute",paddingRight:100,width:800,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
                                     <div style={{fontWeight:"bold"}}>Supervisor Perancah</div>
                                     <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>Pembinaan dan sertifikasi ahli k3</div>
                                 </div>
@@ -150,7 +190,7 @@ function Index() {
                     <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
                       <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
                       <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                      <div>Training</div>
+                      <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
                       <div>Karir</div>
                       <div>Galeri</div>
                       <div>Artikel</div>
@@ -190,7 +230,7 @@ function Index() {
                         <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
                           <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
                           <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                          <div>Training</div>
+                          <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
                           <div>Karir</div>
                           <div>Galeri</div>
                           <div>Artikel</div>
@@ -371,109 +411,8 @@ ahli di bidangnya masing-masing
                     </Slider>
                 </Container>
           </div>
-          <div>
-            <Container fluid={true} style={{padding:0,backgroundColor:"#26b495",paddingTop:30}}>
-                  <Container>
-                      <Row style={{paddingBottom:40}}>
-                            <Col lg={4} style={{color:"white",marginBottom:40,paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                              <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
-                                  Hubungi Kami
-                              </div>
-                              <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"100px auto"}}>
-                                  <div style={{fontWeight:"bold"}}>TELEPON</div>
-                                  <div>(021) 22545432 (Jam Kerja)<br></br>(021) 21263820 (24 Jam)</div>
-                                  
-                                  <div style={{fontWeight:"bold"}}>WHATSAPP 24 JAM</div>
-                                  <div>
-                                  0815-32705432<br></br>
-                                  0812-73708811<br></br>
-                                  0815-17278777<br></br>
-                                  0821-25012338<br></br>
-                                  </div>
-
-                                  <div style={{fontWeight:"bold"}}>EMAIL</div>
-                                  <div>pjk3midiatama@gmail.com<br></br>info@midiatama.co.id</div>
-                              </div>
-                            </Col>
-                            <Col lg={4} style={{color:"white",marginBottom:40,paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                            <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
-                                  Alamat Kami
-                              </div>
-                              <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"auto"}}>
-                                  <div>PT. Mitra Dinamis Yang Utama (PJK3 Midiatama Academy) Gedung Wisma Presisi, Lantai 1 No. 4, Jalan Taman Aries RT.5/RW.2 Meruya Utara Kembangan Jakarta Barat 11620</div>
-
-                                  <div style={{display:"grid",gridTemplateColumns:"100px auto"}}>
-                                      <div style={{fontWeight:"bold"}}>Website</div>
-                                      <div>
-                                      https://midiatama.co.id/<br></br>
-                                      </div>
-                                  </div>
-
-                                  <div style={{display:"grid",gridTemplateColumns:"100px auto"}}>
-                                      <div style={{fontWeight:"bold"}}>Jam Kerja</div>
-                                      <div>
-                                      08.00 WIB - 17.00 WIB<br></br>
-                                      </div>
-                                  </div>
-                              </div>
-                            </Col>
-                            <Col lg={4} style={{color:"white"}}>
-                                <Row>
-                                    <Col lg={6} style={{marginBottom:40,paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                                    <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
-                                        Bantuan
-                                    </div>
-                                    <div style={{display:"flex",flexDirection:"column",marginTop:20}}>
-                                        <a>Hubungi Kami</a>
-                                        <a>Syarat dan Ketentuan</a>
-                                        <a>FAQ</a>
-                                        <a>SOSIAL MEDIA</a>
-                                    </div>
-                                    </Col>
-                                    <Col lg={6} style={{marginBottom:40,paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                                    <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
-                                        Sosial Media
-                                    </div>
-                                    <div style={{display:"flex",flexDirection:"column",marginTop:20}}>
-                                        <div style={{display:"flex",marginBottom:15,flexDirection:"row"}}>
-                                            <img style={{marginRight:10}} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA1MiA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyNiIgcj0iMjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjI2IiByPSIxOC43NDQyIiBmaWxsPSIjMzQ1MzlCIi8+CjxwYXRoIGQ9Ik0yNy4wNTgzIDIzLjk1OTRWMjEuODQzMUMyNy4wNTgzIDIxLjI1OSAyNy41MzIzIDIwLjc4NSAyOC4xMTY0IDIwLjc4NUgyOS4xNzQ2VjE4LjEzOTZIMjcuMDU4M0MyNS4zMDQ5IDE4LjEzOTYgMjMuODgzOSAxOS41NjA3IDIzLjg4MzkgMjEuMzE0MVYyMy45NTk0SDIxLjc2NzZWMjYuNjA0OEgyMy44ODM5VjM1LjA2OTlIMjcuMDU4M1YyNi42MDQ4SDI5LjE3NDZMMzAuMjMyNyAyMy45NTk0SDI3LjA1ODNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K"></img>
-                                            <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/wa.86a926d.svg"></img>
-                                            <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/ig.9259718.svg"></img>
-                                        </div>
-                                        <div style={{display:"flex",flexDirection:"row"}}>
-                                            <img style={{marginRight:10}} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA1MiA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyNiIgcj0iMjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjI2IiByPSIxOC43NDQyIiBmaWxsPSIjMzQ1MzlCIi8+CjxwYXRoIGQ9Ik0yNy4wNTgzIDIzLjk1OTRWMjEuODQzMUMyNy4wNTgzIDIxLjI1OSAyNy41MzIzIDIwLjc4NSAyOC4xMTY0IDIwLjc4NUgyOS4xNzQ2VjE4LjEzOTZIMjcuMDU4M0MyNS4zMDQ5IDE4LjEzOTYgMjMuODgzOSAxOS41NjA3IDIzLjg4MzkgMjEuMzE0MVYyMy45NTk0SDIxLjc2NzZWMjYuNjA0OEgyMy44ODM5VjM1LjA2OTlIMjcuMDU4M1YyNi42MDQ4SDI5LjE3NDZMMzAuMjMyNyAyMy45NTk0SDI3LjA1ODNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K"></img>
-                                            <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/wa.86a926d.svg"></img>
-                                            <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/ig.9259718.svg"></img>
-                                        </div>
-                                    </div>
-                                    </Col>
-                                </Row>
-                                <Row>
-                                    <Col lg={12} style={{paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                                        <div style={{fontSize:25,color:"white",fontWeight:"bold"}}>
-                                            Download Aplikasi
-                                        </div>
-                                        <div style={{marginTop:20}}>
-                                          <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
-                                          <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
-                                        </div>
-                                    </Col>
-                                </Row>
-                            </Col>
-                      </Row>
-                      <Row style={{borderBottom:"solid 2px white"}}></Row>
-                      <Row style={{paddingTop:30,paddingBottom:30,paddingLeft:(isTabletOrMobile) ? 25:null}}>
-                            <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-                            <div style={{color:"white"}}>© 2021 All rights reserved. HSE PRIME</div>
-                            <div style={{color:"white"}}>Powered by Midiatama</div>
-
-                            </div>
-                           
-                      </Row>
-                  </Container>
-            </Container>
-          </div>
-      </div>
+          <Footer/>
+        </div>
     );
   }
   
