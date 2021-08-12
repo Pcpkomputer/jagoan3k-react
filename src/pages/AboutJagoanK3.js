@@ -31,6 +31,19 @@ export default function AboutJagoanK3(props){
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
+  useEffect(()=>{
+    if(document.querySelectorAll("#header").length>0){
+      window.addEventListener("scroll",(e)=>{
+        if(document?.querySelectorAll("#header")[0]?.getClientRects()[0]?.top<=0){
+            setStickyHeaderShow(true);
+        }
+        else{
+          setStickyHeaderShow(false);
+        }
+      })
+    }
+},[])
+
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 

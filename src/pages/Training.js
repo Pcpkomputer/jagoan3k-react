@@ -10,6 +10,8 @@ import "../custom.css";
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 
+import '../css/Training.css';
+
 import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';
@@ -28,14 +30,15 @@ import { DateRange } from 'react-date-range';
 import Footer from '../components/Footer';
 
 function CustomToggle({ children, eventKey }) {
-    const decoratedOnClick = useAccordionButton(eventKey, () =>
-      console.log('totally custom!'),
+    const decoratedOnClick = useAccordionButton(eventKey, () => {
+      console.log('totally custom!');
+    }
     );
   
     return (
       <button
         type="button"
-        style={{ backgroundColor: 'pink' }}
+        style={{backgroundColor:"white",textAlign:"left",paddingTop:10,paddingBottom:10,border:"none",borderTop:"solid 1px grey" }}
         onClick={decoratedOnClick}
       >
         {children}
@@ -45,21 +48,47 @@ function CustomToggle({ children, eventKey }) {
 
 function Accordions(){
     return (
-        <Accordion defaultActiveKey="0">
-        <Card>
-          <Card.Header>
-            <CustomToggle eventKey="0">Click me!</CustomToggle>
-          </Card.Header>
+        <Accordion style={{paddingBottom:100}} defaultActiveKey="-1">
+        <Card style={{border:"none"}}>
+          <CustomToggle eventKey="0">
+              <div>Sertifikat Kemnaker RI</div>
+          </CustomToggle>
           <Accordion.Collapse eventKey="0">
-            <Card.Body>Hello! I'm the body</Card.Body>
+            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
+            </div>
           </Accordion.Collapse>
         </Card>
-        <Card>
-          <Card.Header>
-            <CustomToggle eventKey="1">Click me!</CustomToggle>
-          </Card.Header>
+        <Card style={{border:"none"}}>
+          <CustomToggle eventKey="1">
+              <div>Sertifikat BNSP</div>
+          </CustomToggle>
           <Accordion.Collapse eventKey="1">
-            <Card.Body>Hello! I'm another body</Card.Body>
+            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
+            </div>
+          </Accordion.Collapse>
+        </Card>
+        <Card style={{border:"none"}}>
+          <CustomToggle eventKey="2">
+              <div>Sertifikat BNSP</div>
+          </CustomToggle>
+          <Accordion.Collapse eventKey="2">
+            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
+                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
+            </div>
           </Accordion.Collapse>
         </Card>
       </Accordion>
@@ -73,6 +102,18 @@ export default function Training(props){
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
+  useEffect(()=>{
+    if(document.querySelectorAll("#header").length>0){
+      window.addEventListener("scroll",(e)=>{
+        if(document?.querySelectorAll("#header")[0]?.getClientRects()[0]?.top<=0){
+            setStickyHeaderShow(true);
+        }
+        else{
+          setStickyHeaderShow(false);
+        }
+      })
+    }
+},[])
 
   const [state, setState] = useState([
     {
@@ -191,11 +232,21 @@ export default function Training(props){
                                moveRangeOnFirstSelection={false}
                                ranges={state}
                               />
-                               <div style={{color:"black",fontWeight:"bold",marginBottom:20}}>Kategori Training</div>
+                               <div style={{color:"black",fontWeight:"bold",marginTop:40,marginBottom:20}}>Kategori Training</div>
                                 <Accordions/>
                           </div>
                       </Col>
-                      <Col lg={8}>ddd</Col>
+                      <Col lg={8}>
+                          <div style={{paddingLeft:30,paddingRight:30}}>
+                                <div style={{fontSize:30,paddingBottom:10,borderBottom:"solid 1px black",fontWeight:"bold"}}>AHLI K3 UMUM</div>
+                                <div style={{marginTop:30,gridRowGap:20,display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}}>
+                                    <div>asdasd</div>
+                                    <div>asdasd</div>
+                                    <div>asdasd</div>
+                                    <div>asdasd</div>
+                                </div>
+                          </div>
+                      </Col>
                   </Row>
               </Container>
           </div>
