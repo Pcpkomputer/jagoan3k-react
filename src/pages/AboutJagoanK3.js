@@ -23,6 +23,7 @@ import {
 } from "react-router-dom";
 
 import Footer from '../components/Footer';
+import NavBar from '../components/Navbar';
 
 
 export default function AboutJagoanK3(props){
@@ -52,7 +53,7 @@ export default function AboutJagoanK3(props){
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-1.df32a04.jpg')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
-           <div style={{width:"100%",position:"absolute",zIndex:100,height:300,display:"flex",justifyContent:"center",paddingLeft:150,paddingRight:150,flexDirection:"column"}}>
+           <div style={{width:"100%",position:"absolute",zIndex:100,height:300,display:"flex",justifyContent:"center",paddingLeft:(isTabletOrMobile) ? 80:150,paddingRight:150,flexDirection:"column"}}>
                 <div style={{fontSize:35,letterSpacing:5,fontWeight:"bold",color:"white"}}>JAGOAN K3</div>
                 <div style={{marginTop:10,display:"flex",alignItems:"center",flexDirection:"row"}}>
                     <div style={{color:"white", marginRight:10}}>Home</div>
@@ -65,83 +66,16 @@ export default function AboutJagoanK3(props){
          {/* Sticky Header */}
          {
           (stickyHeaderShow) &&
-          <div style={{backgroundColor:"#24b798",position:"fixed",width:"100%",top:0,zIndex:9999}}>
-          <Container style={{height:"100%",padding:20}}>
-              <Row style={{height:"100%"}}>
-                  <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                      {
-                        (max991) ?
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                          <div>Logo</div>
-                        </div> 
-                        :
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                         <div>Logo</div>
-                      </div> 
-                      }
-                  </Col>
-                  {
-                    (max991) ?
-                    <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                      <div style={{marginRight:30}}>Burger Menu</div>
-                  </Col>
-                    :
-                    <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                      <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                      <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                      <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                      <div>Karir</div>
-                      <div>Galeri</div>
-                      <div>Artikel</div>
-                      <div>Login</div>
-                  </Col>
-                  }
-              </Row>
-          </Container>
-      </div>
-
+          <NavBar sticky={true}/>
         }
 
 
 
 
-          <div id="header" style={{backgroundColor:"#24b798"}}>
-              <Container style={{height:"100%",padding:20}}>
-                  <Row style={{height:"100%"}}>
-                      <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                          {
-                            (max991) ?
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                              <div>Logo</div>
-                            </div> 
-                            :
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                             <div>Logo</div>
-                          </div> 
-                          }
-                      </Col>
-                      {
-                        (max991) ?
-                        <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                          <div style={{marginRight:30}}>Burger Menu</div>
-                      </Col>
-                        :
-                        <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                          <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                          <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                          <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                          <div>Karir</div>
-                          <div>Galeri</div>
-                          <div>Artikel</div>
-                          <div>Login</div>
-                      </Col>
-                      }
-                  </Row>
-              </Container>
-          </div>
+         <NavBar/>
 
 
-          <div style={{marginTop:100,marginBottom:100}}>
+          <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
             <Container>
                   <Row>
                       <Col lg={6} style={{paddingLeft:(isTabletOrMobile) ? 30:null,paddingRight:(isTabletOrMobile) ? 30:null}}>
@@ -155,7 +89,7 @@ export default function AboutJagoanK3(props){
                           </div>
                       </Col>
                       <Col lg={6} style={{paddingLeft:(isTabletOrMobile) ? 30:null,paddingRight:(isTabletOrMobile) ? 30:null}}>
-                            <div style={{paddingTop:50,height:"100%",display:"flex",alignItems:"center"}}>
+                            <div style={{paddingTop:(isTabletOrMobile) ? 0:50,height:"100%",display:"flex",alignItems:"center"}}>
                                     <div>
                                         <h2 style={{fontWeight:"bold"}}>
                                           Tentang Jagoan K3

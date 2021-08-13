@@ -21,6 +21,7 @@ import {
 } from "react-router-dom";
 
 import Footer from '../components/Footer';
+import NavBar from '../components/Navbar';
 
 
 
@@ -38,7 +39,7 @@ function Index() {
         color="grey"
         size="30px"
         className={className}
-        style={{ ...style, display: "block",width:25,height:25,marginLeft:0 }}
+        style={{ ...style, display: "block",width:25,height:25,marginRight:(isTabletOrMobile) ? 20:0,marginLeft:0 }}
         onClick={onClick}
       />
     );
@@ -166,80 +167,15 @@ function Index() {
         {/* Sticky Header */}
         {
           (stickyHeaderShow) &&
-          <div style={{backgroundColor:"#24b798",position:"fixed",width:"100%",top:0,zIndex:9999}}>
-          <Container style={{height:"100%",padding:20}}>
-              <Row style={{height:"100%"}}>
-                  <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                      {
-                        (max991) ?
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                          <div>Logo</div>
-                        </div> 
-                        :
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                         <div>Logo</div>
-                      </div> 
-                      }
-                  </Col>
-                  {
-                    (max991) ?
-                    <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                      <div style={{marginRight:30}}>Burger Menu</div>
-                  </Col>
-                    :
-                    <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                      <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                      <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                      <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                      <div>Karir</div>
-                      <div>Galeri</div>
-                      <div>Artikel</div>
-                      <div>Login</div>
-                  </Col>
-                  }
-              </Row>
-          </Container>
-      </div>
+          <NavBar sticky={true}/>
 
         }
 
+        
+        <NavBar/>
 
 
-
-          <div id="header" style={{backgroundColor:"#24b798"}}>
-              <Container style={{height:"100%",padding:20}}>
-                  <Row style={{height:"100%"}}>
-                      <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                          {
-                            (max991) ?
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                              <div>Logo</div>
-                            </div> 
-                            :
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                             <div>Logo</div>
-                          </div> 
-                          }
-                      </Col>
-                      {
-                        (max991) ?
-                        <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                          <div style={{marginRight:30}}>Burger Menu</div>
-                      </Col>
-                        :
-                        <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                          <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                          <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                          <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                          <div>Karir</div>
-                          <div>Galeri</div>
-                          <div>Artikel</div>
-                          <div>Login</div>
-                      </Col>
-                      }
-                  </Row>
-              </Container>
-          </div>
+          
           <div style={{paddingTop:50,paddingBottom:70,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                 <div style={{fontSize:30,fontWeight:"bold"}}>TENTANG KAMI</div>
                 <div style={{width:(isTabletOrMobile) ? 320:800,textAlign:"center",marginTop:30,paddingRight:30,paddingLeft:30}}>
@@ -377,7 +313,7 @@ function Index() {
                 Training akan dibimbing oleh banyak sekali instruktur yang
 ahli di bidangnya masing-masing
                 </div>
-                <Container style={{marginTop:50,marginBottom:50,paddingLeft:(isTabletOrMobile) ? 50:null}}>
+                <Container style={{marginTop:50,marginBottom:50,paddingRight:(isTabletOrMobile) ? 35:null,paddingLeft:(isTabletOrMobile) ? 50:null}}>
                 <Slider {...settingsInstruktur} style={{padding:10}}>
                           {
                             [1,2,4,5,5].map(()=>{

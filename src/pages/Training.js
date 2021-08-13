@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-import { Container, Row, Col, Accordion, Card } from 'react-bootstrap';
+import { Container, Row, Col, Accordion, Card, Spinner } from 'react-bootstrap';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
@@ -28,6 +28,7 @@ import {
 import { DateRange } from 'react-date-range';
 
 import Footer from '../components/Footer';
+import NavBar from '../components/Navbar';
 
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () => {
@@ -102,6 +103,16 @@ export default function Training(props){
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
+  let [dataIsLoading, setDataIsLoading] = useState(true);
+  let [pelatihan, setPelatihan] = useState([]);
+
+  useEffect(()=>{
+      setTimeout(() => {
+          setDataIsLoading(false);
+          setPelatihan([1,2,3,4]);
+      }, 500);
+  },[])
+
   useEffect(()=>{
     if(document.querySelectorAll("#header").length>0){
       window.addEventListener("scroll",(e)=>{
@@ -131,7 +142,7 @@ export default function Training(props){
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url(https://midiatama.co.id/_nuxt/img/bg-training.7cc257e.png)",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
-           <div style={{width:"100%",position:"absolute",zIndex:100,height:300,display:"flex",justifyContent:"center",paddingLeft:150,paddingRight:150,flexDirection:"column"}}>
+           <div style={{width:"100%",position:"absolute",zIndex:100,height:300,display:"flex",justifyContent:"center",paddingLeft:(isTabletOrMobile) ? 70:150,paddingRight:150,flexDirection:"column"}}>
                 <div style={{fontSize:35,letterSpacing:5,fontWeight:"bold",color:"white"}}>TRAINING</div>
                 <div style={{marginTop:10,display:"flex",alignItems:"center",flexDirection:"row"}}>
                     <div style={{color:"white", marginRight:10}}>Home</div>
@@ -144,92 +155,23 @@ export default function Training(props){
          {/* Sticky Header */}
          {
           (stickyHeaderShow) &&
-          <div style={{backgroundColor:"#24b798",position:"fixed",width:"100%",top:0,zIndex:9999}}>
-          <Container style={{height:"100%",padding:20}}>
-              <Row style={{height:"100%"}}>
-                  <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                      {
-                        (max991) ?
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                          <div>Logo</div>
-                        </div> 
-                        :
-                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                         <div>Logo</div>
-                      </div> 
-                      }
-                  </Col>
-                  {
-                    (max991) ?
-                    <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                      <div style={{marginRight:30}}>Burger Menu</div>
-                  </Col>
-                    :
-                    <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                      <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                      <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                      <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                      <div>Karir</div>
-                      <div>Galeri</div>
-                      <div>Artikel</div>
-                      <div>Login</div>
-                  </Col>
-                  }
-              </Row>
-          </Container>
-      </div>
+          <NavBar sticky={true}/>
 
         }
 
 
+          <NavBar/>
 
-
-          <div id="header" style={{backgroundColor:"#24b798"}}>
-              <Container style={{height:"100%",padding:20}}>
-                  <Row style={{height:"100%"}}>
-                      <Col lg={(max991) ? 12:1} style={{alignItems:"center",display:"flex"}}>
-                          {
-                            (max991) ?
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                              <div>Logo</div>
-                            </div> 
-                            :
-                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                             <div>Logo</div>
-                          </div> 
-                          }
-                      </Col>
-                      {
-                        (max991) ?
-                        <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                          <div style={{marginRight:30}}>Burger Menu</div>
-                      </Col>
-                        :
-                        <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                          <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                          <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                          <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                          <div>Karir</div>
-                          <div>Galeri</div>
-                          <div>Artikel</div>
-                          <div>Login</div>
-                      </Col>
-                      }
-                  </Row>
-              </Container>
-          </div>
-
-
-          <div style={{marginTop:100,marginBottom:100,paddingLeft:20,paddingRight:20}}>
+          <div style={{marginTop:(isTabletOrMobile) ? 50:100,marginBottom:100,paddingLeft:20,paddingRight:20}}>
             <Container>
-                  <Row>
-                      <Col lg={4}>
+                  <Row style={{display:"flex"}}>
+                      <Col lg={4} style={{marginBottom:50}}>
                           <div style={{border:"solid 1px #e8e8e8",padding:20,borderRadius:5}}>
                               <div style={{color:"black",fontWeight:"bold",marginBottom:20}}>Jadwal Training</div>
                               <DateRange
                                editableDateInputs={true}
                                onChange={item => setState([item.selection])}
-                               moveRangeOnFirstSelection={false}
+                               moveRangeOnFifrstSelection={false}
                                ranges={state}
                               />
                                <div style={{color:"black",fontWeight:"bold",marginTop:40,marginBottom:20}}>Kategori Training</div>
@@ -239,12 +181,50 @@ export default function Training(props){
                       <Col lg={8}>
                           <div style={{paddingLeft:30,paddingRight:30}}>
                                 <div style={{fontSize:30,paddingBottom:10,borderBottom:"solid 1px black",fontWeight:"bold"}}>AHLI K3 UMUM</div>
-                                <div style={{marginTop:30,gridRowGap:20,display:"grid",gridTemplateColumns:"1fr 1fr 1fr"}}>
-                                    <div>asdasd</div>
-                                    <div>asdasd</div>
-                                    <div>asdasd</div>
-                                    <div>asdasd</div>
+                                {
+                                  (!dataIsLoading && pelatihan.length===0) &&
+                                  <div style={{paddingTop:70,justifyContent:"center",alignItems:"center",display:"flex"}}>
+                                      <div style={{backgroundColor:"white",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                        Data tidak ditemukan
+                                      </div>
+                                  </div>
+                                }
+                                {
+                                  (dataIsLoading) &&
+                                  <div style={{paddingTop:70,justifyContent:"center",alignItems:"center",display:"flex"}}>
+                                      <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                        Sedang Memuat Data
+                                        <Spinner style={{marginLeft:15}} size="sm" animation="border" variant="primary" />
+                                      </div>
+                                  </div>
+                                }
+                                
+                                {
+                                  (!dataIsLoading) &&
+                                  <div style={{marginTop:30,gridRowGap:40,gridColumnGap:40,display:"grid",gridTemplateColumns:(isTabletOrMobile) ? "1fr":(max991) ? "1fr 1fr":(max1400) ? "1fr 1fr":"1fr 1fr 1fr"}}>
+                                    {
+                                      (pelatihan.length>0 && !dataIsLoading) &&
+                                      pelatihan.map(()=>{
+                                        return (
+                                          <div style={{backgroundColor:"white"}}>
+                                              <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
+                                                <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                                <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:220,position:"relative",top:110,bottom:12,height:210,borderRadius:5}}>
+                                                    <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
+                                                    <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
+                                                    <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
+                                                    <div style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:-13,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
+                                                      Read More
+                                                  </div>
+                                                </div>
+                                               
+                                              </div>
+                                          </div>
+                                        )
+                                      })
+                                    }
                                 </div>
+                                }
                           </div>
                       </Col>
                   </Row>
