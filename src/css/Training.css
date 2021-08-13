@@ -1,0 +1,24 @@
+.readmore {
+    transform: scale(1);
+    transition: all 0.4s;
+}
+
+
+.readmore:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    box-shadow: 4px 4px 15px 0px rgba(0,0,0,0.3);
+}
+
+
+.boxInstruktur {
+    transform: scale(1);
+    transition: all 0.4s;
+}
+
+
+.boxInstruktur:hover{
+    cursor: pointer;
+    transform: scale(0.9);
+
+}

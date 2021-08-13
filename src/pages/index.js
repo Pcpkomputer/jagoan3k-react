@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import "../css/Training.css"
+
 import "../custom.css";
 
 import { useMediaQuery } from 'react-responsive'
@@ -207,7 +209,7 @@ function Index() {
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
                                                 <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
                                             </div>
-                                            <div style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
+                                            <div className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                   Read More
                                               </div>
                                           </div>
@@ -318,7 +320,7 @@ ahli di bidangnya masing-masing
                           {
                             [1,2,4,5,5].map(()=>{
                               return (
-                                <div style={{backgroundColor:"white",height:"100%"}}>
+                                <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%"}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
                                         <img style={{width:"100%",height:300}} src="https://apimicca.midiatama.co.id/storage/muhammad1882/avatar/midiatama-65210427034902.png"></img>
                                         <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,fontWeight:"bold"}}>Yudi Mariandi Mari Mandi. SE SE SE SE</div>

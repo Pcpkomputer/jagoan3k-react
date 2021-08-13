@@ -1,0 +1,21 @@
+@keyframes ScaleAnimation {
+    0% {
+        opacity:0;
+        transform: translateX(-100px);
+    }
+    50%{
+        opacity:1;
+        transform: translateX(0px);
+    }
+    100%{
+        opacity:0;
+        transform: translateX(100px);
+    }
+}
+
+
+.ScaleAnimation_ {
+    animation-name: ScaleAnimation;
+    animation-duration: 1000ms;
+    animation-iteration-count: infinite;
+}

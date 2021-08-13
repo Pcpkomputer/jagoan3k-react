@@ -1,6 +1,9 @@
 import Index from "./pages/Index"
 import AboutJagoanK3 from './pages/AboutJagoanK3';
 import Training from "./pages/Training";
+import Shop from "./pages/Shop";
+
+import "./css/App.css";
 
 import {
   BrowserRouter as Router,
@@ -33,7 +36,9 @@ function App() {
      });
 
      await Promise.all(cache);
-     await setComplete(true);
+     setTimeout(async () => {
+        await setComplete(true);
+     }, 5000);
   }
 
   useEffect(()=>{
@@ -42,8 +47,9 @@ function App() {
 
   if(!complete){
     return (
-      <div>
-        asdasdasd
+      <div style={{display:"flex",justifyContent:"center",paddingBottom:20,flexDirection:"column",alignItems:"center",backgroundColor:"#21b798",height:"100vh",overflow:"hidden"}}>
+        <img src="logo.png" className="ScaleAnimation_" style={{width:250,height:250}}/>
+        <div className="ScaleAnimation_" style={{position:"relative",bottom:40,fontSize:30,color:"white",fontWeight:"bold",fontFamily:"Poppins"}}>Jagoan K3</div>
       </div>
     )
   }
@@ -51,6 +57,9 @@ function App() {
   return (
     <Router>
        <Switch>
+          <Route exact path="/shop">
+            <Shop/>
+          </Route>
           <Route exact path="/training">
             <Training/>
           </Route>

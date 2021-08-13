@@ -6,6 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 import "../custom.css";
+import "../css/Navbar.css";
 
 import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
@@ -25,6 +26,20 @@ export default function NavBar(props){
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
     const max991 = useMediaQuery({ query: '(max-width: 991px)' })
     const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+
+    let [menuFocused, setMenuFocused] = useState(false);
+
+    useEffect(()=>{
+        document.querySelectorAll("a").forEach((el)=>{
+            el.addEventListener("mouseover",()=>{
+                setMenuFocused(true);
+            })
+
+            el.addEventListener("mouseout",()=>{
+                setMenuFocused(false);
+            })
+        })
+    },[])
 
     let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
     
@@ -52,13 +67,13 @@ export default function NavBar(props){
                   </Col>
                     :
                     <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                      <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                      <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                      <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                      <div>Shop</div>
-                      <div>Galeri</div>
-                      <div>Artikel</div>
-                      <div>Login</div>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/" >Home</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/jagoank3" >Jagoan K3</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/training" >Training</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
                   </Col>
                   }
               </Row>
@@ -91,13 +106,13 @@ export default function NavBar(props){
                       </Col>
                         :
                         <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
-                          <Link to="/" style={{color:"white",textDecoration:"none"}}>Home</Link>
-                          <Link to="/jagoank3" style={{color:"white",textDecoration:"none"}}>Jagoan K3</Link>
-                          <Link to="/training" style={{color:"white",textDecoration:"none"}}>Training</Link>
-                          <div>Shop</div>
-                          <div>Galeri</div>
-                          <div>Artikel</div>
-                          <div>Login</div>
+                        <Link className={`${menuFocused ? "dimmed":""}`} to="/" >Home</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/jagoank3" >Jagoan K3</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/training" >Training</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
                       </Col>
                       }
                   </Row>

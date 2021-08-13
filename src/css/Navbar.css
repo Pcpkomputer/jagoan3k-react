@@ -1,0 +1,17 @@
+a {
+    color:white;
+    text-decoration: none;
+    transition: all 0.5s;
+}
+
+
+a.dimmed {
+    opacity:0.5
+}
+
+a:hover {
+    color: white;
+    opacity:1;
+    font-weight: bold;
+    text-decoration: none;
+}
