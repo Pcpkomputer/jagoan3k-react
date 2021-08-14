@@ -36,13 +36,13 @@ export default function Galeri(props){
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
 
-  let [showcase, setShowcase] = useState([]);
-  let [showcaseLoading, setShowcaseLoading] = useState(true);
+  let [galeri, setGaleri] = useState([]);
+  let [galeriLoading, setGaleriLoading] = useState(true);
 
   useEffect(()=>{
     setTimeout(() => {
-            setShowcase([1,2,3,4,5])
-            setShowcaseLoading(false);
+            setGaleri([1,2,3,4,5])
+            setGaleriLoading(false);
     }, 1000);
   },[])
 
@@ -111,7 +111,7 @@ export default function Galeri(props){
                       <div style={{paddingLeft:30,paddingRight:30,marginTop:40}}>
                             <div style={{letterSpacing:3,fontSize:22,fontWeight:"bold"}}>GALERI</div>
                             {
-                                (showcaseLoading) &&
+                                (galeriLoading) &&
                                 <div style={{paddingTop:50,justifyContent:"center",alignItems:"center",display:"flex"}}>
                                     <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
                                     Sedang Memuat Data
@@ -120,7 +120,7 @@ export default function Galeri(props){
                                 </div>
                             }
                             {
-                                (showcase.length===0 && showcaseLoading===false) &&
+                                (galeri.length===0 && galeriLoading===false) &&
                                 <div style={{paddingTop:50,justifyContent:"center",alignItems:"center",display:"flex"}}>
                                     <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
                                      Galeri tidak ditemukan
@@ -128,11 +128,11 @@ export default function Galeri(props){
                                 </div>
                             }
                             {
-                                (showcase.length>0 && showcaseLoading===false) &&
+                                (galeri.length>0 && galeriLoading===false) &&
                                 <Row style={{marginTop:30}}>
                                    
                                     {
-                                        [1,2,3,4,5].map(()=>{
+                                        galeri.map(()=>{
                                             return (
                                                 <Col lg="4" style={{marginBottom:40}}>
                                                         <div id="galeriBox" 
