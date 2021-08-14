@@ -3,6 +3,7 @@ import AboutJagoanK3 from './pages/AboutJagoanK3';
 import Training from "./pages/Training";
 import Shop from "./pages/Shop";
 import Galeri from "./pages/Galeri";
+import Artikel from "./pages/Artikel";
 
 import "./css/App.css";
 
@@ -58,7 +59,10 @@ function App() {
   return (
     <Router>
        <Switch>
-       <Route exact path="/galeri">
+          <Route exact path="/artikel">
+            <Artikel/>
+          </Route>
+          <Route exact path="/galeri">
             <Galeri/>
           </Route>
           <Route exact path="/shop">
