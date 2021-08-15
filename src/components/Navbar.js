@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import Logo from '../assets/logo.png'
+
 import "../custom.css";
 import "../css/Navbar.css";
 
@@ -52,11 +54,11 @@ export default function NavBar(props){
                       {
                         (max991) ?
                         <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                               <img src="logo.png" style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
+                               <img src={`${Logo}`} style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
                             </div> 
                             :
                             <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                             <img src="logo.png" style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
+                             <img src={`${Logo}`} style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
                           </div> 
                       }
                   </Col>
@@ -91,11 +93,11 @@ export default function NavBar(props){
                           {
                             (max991) ?
                             <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",marginTop:20,height:80,width:80,borderRadius:999,zIndex:100}}>
-                               <img src="logo.png" style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
+                               <img src={`${Logo}`} style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
                             </div> 
                             :
                             <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",marginLeft:40,position:"absolute",border:"solid 5px #23b697",height:80,width:80,borderRadius:999,zIndex:100}}>
-                             <img src="logo.png" style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
+                             <img src={`${Logo}`} style={{width:150,height:150,marginBottom:18,marginRight:8}}/>
                           </div> 
                           }
                       </Col>

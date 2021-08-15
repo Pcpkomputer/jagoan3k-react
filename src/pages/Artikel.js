@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 
-import { Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 
 import "../custom.css";
 
@@ -45,6 +46,19 @@ export default function Artikel(props){
     }
 },[])
 
+  let [artikelIsLoading, setArtikelIsLoading] = useState(true);
+  let [artikel, setArtikel] = useState([]);
+
+  useEffect(()=>{
+    setTimeout(() => {
+            setArtikelIsLoading(false);
+            setArtikel([1,2,3,4]);
+    }, 1000);
+  },[])
+
+  let [artikelPopulerIsLoaded, setArtikelPopulerIsLoaded] = useState(false);
+  let [artikelPopuler, setArtikelPopuler] = useState([1,2]);
+
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 
@@ -80,66 +94,86 @@ export default function Artikel(props){
                   <Row>
                         <Col lg={8}>
                             <h2 style={{fontWeight:"bold"}}>ARTIKEL</h2>
-                            <div style={{marginTop:40}}>
-                                <Row style={{paddingRight:(isTabletOrMobile) ? 0:50}}>
-                                   
-                                   {
-                                       [1,2,3,4,5].map((item,index)=>{
-                                           return (
-                                            <Col lg={6} style={{paddingRight:12,marginBottom:35,paddingLeft:12}}>
-                                                <div style={{backgroundColor:"white",overflow:"hidden",borderRadius:20,boxShadow:"0 .125rem .25rem rgba(0,0,0,.1)"}}>
-                                                    <div style={{display:"relative",background:"linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(24,24,184,0) 0%, rgba(255,255,255,1) 100%)"}}>
-                                                        <div style={{position:"relative"}}>
-                                                            <div style={{position:"absolute",width:"100%",backgroundImage:"linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)",height:30,bottom:0}}></div>
-                                                            <img src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:"100%",height:250}}></img>
+                                {
+                                    (artikelIsLoading) &&
+                                    <div style={{paddingTop:50,justifyContent:"center",alignItems:"center",display:"flex"}}>
+                                        <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                        Sedang Memuat Data
+                                        <Spinner style={{marginLeft:15}} size="sm" animation="border" variant="primary" />
+                                        </div>
+                                    </div>
+                                }
+                                {
+                                    (artikel.length===0 && !artikelIsLoading) &&
+                                    <div style={{marginTop:0}}>
+                                         <div style={{paddingTop:50,justifyContent:"center",alignItems:"center",display:"flex"}}>
+                                            <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                            Artikel Kosong / Tidak Ditemukan
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                           
+                                {
+                                    (artikel.length>0 && !artikelIsLoading) &&
+                                    <div style={{marginTop:40}}>
+                                            <Row style={{paddingRight:(isTabletOrMobile) ? 0:50}}>
+                                            
+                                        {
+                                            artikel.map((item,index)=>{
+                                                return (
+                                                    <Col lg={6} style={{paddingRight:12,marginBottom:35,paddingLeft:12}}>
+                                                        <div style={{backgroundColor:"white",overflow:"hidden",borderRadius:20,boxShadow:"0 .125rem .25rem rgba(0,0,0,.1)"}}>
+                                                            <div style={{display:"relative",background:"linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(24,24,184,0) 0%, rgba(255,255,255,1) 100%)"}}>
+                                                                <div style={{position:"relative"}}>
+                                                                    <div style={{position:"absolute",width:"100%",backgroundImage:"linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)",height:30,bottom:0}}></div>
+                                                                    <img src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:"100%",height:250}}></img>
+                                                                </div>
+                                                            </div>
+                                                            <div style={{padding:20}}>
+                                                                <div style={{fontWeight:"bold"}}>Kategori #1</div>
+                                                                <div style={{marginTop:20,marginBottom:20,fontWeight:"bold"}}>Bagaimana prosedur pemilihan gubernur yang baik?</div>
+                                                                <div style={{fontSize:13,marginBottom:30}}>
+                                                                    {
+                                                                        index===1 ? "Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...":
+                                                                        "Izin kerja biasanya dibIzin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...uat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d..."
+                                                                    }
+                                                                </div>
+                                                                <div style={{fontSize:10}}>2 Agustus 2021 - 4 Mins Read - 3x</div>
+                                                                <div style={{marginTop:30,marginBottom:10,borderRadius:20,border:"solid 2.5px #23b697",padding:"10px 15px 10px 15px",marginLeft:50,marginRight:50,textAlign:"center",fontWeight:"bold", color:"#23b697"}}>Lihat Selengkapnya</div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div style={{padding:20}}>
-                                                        <div style={{fontWeight:"bold"}}>Kategori #1</div>
-                                                        <div style={{marginTop:20,marginBottom:20,fontWeight:"bold"}}>Bagaimana prosedur pemilihan gubernur yang baik?</div>
-                                                        <div style={{fontSize:13,marginBottom:30}}>
-                                                            {
-                                                                index===1 ? "Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...":
-                                                                "Izin kerja biasanya dibIzin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...uat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d..."
-                                                            }
-                                                        </div>
-                                                        <div style={{fontSize:10}}>2 Agustus 2021 - 4 Mins Read - 3x</div>
-                                                        <div style={{marginTop:30,marginBottom:10,borderRadius:20,border:"solid 2.5px #23b697",padding:"10px 15px 10px 15px",marginLeft:50,marginRight:50,textAlign:"center",fontWeight:"bold", color:"#23b697"}}>Lihat Selengkapnya</div>
-                                                    </div>
-                                                </div>
-                                            </Col>
-                                           )
-                                       })
-                                   }
-                                    
-                                </Row>
-                            </div>
+                                                    </Col>
+                                                )
+                                            })
+                                        }
+                                            
+                                        </Row>
+                                </div>
+                                }
                         </Col>
                         <Col lg={4}>
                             <div>
                                 <h3 style={{fontWeight:"bold",fontSize:25,borderBottom:"solid 1px #e8e8e8",paddingBottom:20}}>ARTIKEL POPULER</h3>
                             </div>
                             <div style={{display:"flex",flexDirection:"column"}}>
-                                <div style={{backgroundColor:"white",marginTop:30,boxShadow:"rgb(0 0 0 / 10%) 0px 0.125rem 0.25rem",borderRadius:10,overflow:"hidden",display:"flex",flexDirection:"row",maxHeight:160}}>
-                                    <div style={{flex:1,padding:20}}>
-                                        <div style={{maxWidth:220,maxHeight:90,overflow:"hidden",wordWrap:"break-word",fontSize:15,paddingRight:20,fontWeight:"bold"}}>Bagaimana prosesyang asddaaddakdaldkladkladksladklasdklakdlklakdlakdlakdlsakldsadadadadaasdsadsadasdsadsadadamdadmkamkdmabaik?</div>
-                                        <div style={{marginTop:10,fontSize:13,marginBottom:30}}>01 Juli 2021 - 32 Views</div>
-                                    </div>
-                                    <div style={{padding:10,display:"flex",paddingLeft:20,paddingRight:20,justifyContent:"center",alignItems:"center"}}>
-                                        <img  src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:120,height:120,borderRadius:20}}></img>
-                                    </div>
-                                    
-                                </div>
-                                <div style={{backgroundColor:"white",marginTop:30,boxShadow:"rgb(0 0 0 / 10%) 0px 0.125rem 0.25rem",borderRadius:10,overflow:"hidden",display:"flex",flexDirection:"row",maxHeight:160}}>
-                                    <div style={{flex:1,padding:20}}>
-                                        <div style={{maxWidth:220,maxHeight:90,overflow:"hidden",wordWrap:"break-word",fontSize:15,paddingRight:20,fontWeight:"bold"}}>Bagaimana prosesyang asddaaddakdaldkladkladksladklasdklakdlklakdlakdlakdlsakldsadadadadaasdsadsadasdsadsadadamdadmkamkdmabaik?</div>
-                                        <div style={{marginTop:10,fontSize:13,marginBottom:30}}>01 Juli 2021 - 32 Views</div>
-                                    </div>
-                                    <div style={{padding:10,display:"flex",paddingLeft:20,paddingRight:20,justifyContent:"center",alignItems:"center"}}>
-                                        <img  src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:120,height:120,borderRadius:20}}></img>
-                                    </div>
-                                    
-                                </div>
+                                
+                                {
+                                    artikelPopuler.map(()=>{
+                                        return (
+                                            <div style={{backgroundColor:"white",marginTop:30,boxShadow:"rgb(0 0 0 / 10%) 0px 0.125rem 0.25rem",borderRadius:10,overflow:"hidden",display:"flex",flexDirection:"row",maxHeight:160}}>
+                                                <div style={{flex:1,padding:20}}>
+                                                    <div style={{maxWidth:220,maxHeight:90,overflow:"hidden",wordWrap:"break-word",fontSize:15,paddingRight:20,fontWeight:"bold"}}>Bagaimana prosesyang asddaaddakdaldkladkladksladklasdklakdlklakdlakdlakdlsakldsadadadadaasdsadsadasdsadsadadamdadmkamkdmabaik?</div>
+                                                    <div style={{marginTop:10,fontSize:13,marginBottom:30}}>01 Juli 2021 - 32 Views</div>
+                                                </div>
+                                                <div style={{padding:10,display:"flex",paddingLeft:20,paddingRight:20,justifyContent:"center",alignItems:"center"}}>
+                                                    <img  src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:120,height:120,borderRadius:20}}></img>
+                                                </div>
+                                                
+                                            </div>
+                                        )
+                                    })
+                                }
                             </div>
                         </Col>
                   </Row>

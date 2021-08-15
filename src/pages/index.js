@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import "../assets/owl_carousel/assets/owl.carousel.min.css"
+import "../assets/owl_carousel/assets/owl.theme.default.css"
 
 import "../css/Training.css"
 
@@ -26,8 +29,13 @@ import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
 
+import {GlobalContext} from '../App';
+
+
 
 function Index() {
+
+  let globalContext = useContext(GlobalContext);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -96,7 +104,10 @@ function Index() {
 
 
     useEffect(()=>{
-      setTimeout(() => {
+
+      // alert("123");
+
+      if(globalContext.previewLoaded===true){
         window.$('.owl-carousel').owlCarousel({
           loop:false,
           nav:false,
@@ -104,8 +115,22 @@ function Index() {
           items:1,
           dotsContainer:".dotsContainer"
       });
-      //window.scroll(0,0)
-      }, 100);
+      }
+      else{
+        setTimeout(() => {
+          window.$('.owl-carousel').owlCarousel({
+            loop:false,
+            nav:false,
+            dots:true,
+            items:1,
+            dotsContainer:".dotsContainer"
+        });
+        //window.scroll(0,0)
+        globalContext.setPreviewLoaded(true);
+        }, 100);
+      }
+
+    
     },[])
 
 
@@ -320,12 +345,14 @@ ahli di bidangnya masing-masing
                           {
                             [1,2,4,5,5].map(()=>{
                               return (
+                                <Link to="/instruktur/memek">
                                 <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%"}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
                                         <img style={{width:"100%",height:300}} src="https://apimicca.midiatama.co.id/storage/muhammad1882/avatar/midiatama-65210427034902.png"></img>
-                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,fontWeight:"bold"}}>Yudi Mariandi Mari Mandi. SE SE SE SE</div>
+                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,color:"black",fontWeight:"bold"}}>Yudi Mariandi Mari Mandi. SE SE SE SE</div>
                                     </div> 
                                 </div>
+                                </Link>
                               )
                             })
                           }
