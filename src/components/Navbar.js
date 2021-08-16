@@ -25,6 +25,8 @@ import {
 
 export default function NavBar(props){
 
+    
+
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
     const max991 = useMediaQuery({ query: '(max-width: 991px)' })
     const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
