@@ -67,8 +67,8 @@ let settings = {
     <div style={{fontFamily:"Poppins, sans-serif"}}>
       <Helmet>
                 <meta charSet="utf-8" />
-                <script defer type="text/javascript" src="../jquery.js"/>
-                <script  defer src="../owl_carousel/owl.carousel.min.js"></script>
+                <script type="text/javascript" src="../jquery.js"/>
+                <script  src="../owl_carousel/owl.carousel.min.js"></script>
                 <script>
                    window.$ = $;
                 </script>

@@ -29,7 +29,7 @@ import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
 
-export default function Galeri(props){
+export default function DetailTraining(props){
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })

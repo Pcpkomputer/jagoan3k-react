@@ -12,6 +12,8 @@ import "../css/Training.css"
 
 import "../custom.css";
 
+import {Helmet} from "react-helmet";
+
 import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';

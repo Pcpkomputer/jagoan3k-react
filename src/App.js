@@ -6,6 +6,7 @@ import Galeri from "./pages/Galeri";
 import Artikel from "./pages/Artikel";
 import Login from "./pages/Login";
 import Detailnstruktur from "./pages/Instruktur/DetailInstruktur";
+import DetailTraining from "./pages/Training/DetailTraining";
 
 import "./css/App.css";
 
@@ -70,6 +71,9 @@ function App() {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded}}>
     <Router>
        <Switch>
+          <Route exact path="/training/:idtraining">
+            <DetailTraining/>
+          </Route>
           <Route exact path="/instruktur/:instruktur">
             <Detailnstruktur/>
           </Route>
