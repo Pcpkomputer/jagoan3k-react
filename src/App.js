@@ -7,6 +7,7 @@ import Artikel from "./pages/Artikel";
 import Login from "./pages/Login";
 import Detailnstruktur from "./pages/Instruktur/DetailInstruktur";
 import DetailTraining from "./pages/Training/DetailTraining";
+import PemesananTraining from "./pages/Training/PemesananTraining";
 
 import "./css/App.css";
 
@@ -72,9 +73,7 @@ function App() {
     <Router>
        <Switch>
           <Route exact path="/training/:idtraining/pemesanan">
-            <div>
-              asdadad
-            </div>
+            <PemesananTraining/>
           </Route>
           <Route exact path="/training/:idtraining">
             <DetailTraining/>
