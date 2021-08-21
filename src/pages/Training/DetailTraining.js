@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, ProgressBar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -66,6 +66,8 @@ let settings = {
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 
+  let [selectedOffer, setSelectedOffer] = useState(0);
+
 
   useEffect(()=>{
     window.$ = $;
@@ -124,7 +126,7 @@ let settings = {
                                 </div>
                                 <div style={{marginTop:20}}>
                                       <div style={{fontWeight:"bold",fontSize:17}}>Diskon Saat Ini</div>
-                                      <div style={{marginTop:20,boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
+                                      <div style={{marginTop:20,backgroundColor:"#eaffea",boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
                                           <div style={{padding:20,textAlign:"center",fontSize:15}}>Harga Early Bird Ahli K3 Umum Freshgraduate akan berakhir dalam</div>
                                           <div style={{display:"flex",justifyContent:"center",marginTop:10,alignItems:"center",borderBottom:"solid 1px black",paddingBottom:30}}>
                                               <div>
@@ -185,6 +187,26 @@ let settings = {
                                                 <div style={{fontSize:23,fontWeight:"bold",width:250,textAlign:"right",color:"green"}}>IDR 5.500.00000</div>
                                             </div>
                                           </div>
+                                      </div>
+                                      <div style={{marginTop:20,position:"relative"}}>
+                                          <label style={{position:"absolute",textAlign:"center",width:"100%",height:"100%",marginTop:6,color:"white",fontWeight:"bold"}}>Tersisa 29 dari 30</label>
+                                          <ProgressBar style={{height:35,borderRadius:50}} variant="success" now={60} />
+                                      </div>
+                                      <div style={{padding:10,marginTop:20,border:"solid 2px #198753",borderRadius:10,textAlign:"center",color:"#198753",fontWeight:"bold"}}>2x Orang Sudah Pesan</div>
+                                      <div style={{height:1,borderBottom:"solid 1px green",marginTop:30,marginBottom:20}}></div>
+                                      <div>
+                                          <label style={{fontWeight:"bold"}}>Kode Voucher</label>
+                                          <div style={{display:"flex",flexDirection:"row",marginTop:13}}>
+                                              <div style={{flex:1}}>
+                                                <input class="form-control" value={"asdaasd"} placeholder="Kode Voucher" style={{width:"100%",padding:5,paddingLeft:10,paddingRight:10,outline:"none",boxShadow:"none",border:"solid 1px #d8d8d8"}} type="text"/>
+                                              </div>
+                                              <div>
+                                                  <div style={{paddingLeft:20,paddingRight:20,backgroundColor:"#198753",height:"100%",borderRadius:5,textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",color:"white"}}>Proses</div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div style={{marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
+                                          Proses Pemesanan
                                       </div>
                                 </div>
                             </Col>

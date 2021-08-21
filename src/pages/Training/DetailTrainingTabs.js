@@ -47,15 +47,23 @@ class DetailTrainingTabs extends React.Component {
     return (
       <div>
         <Tabs
+         variant="scrollable"
+         scrollButtons="auto"
         TabIndicatorProps={{
           style: {
             backgroundColor: "#23b697"
            }
           }}
         value={index} fullWidth onChange={this.handleChange} style={styles.tabs}>
-          <Tab label="tab n°1" />
-          <Tab label="tab n°2" />
-          <Tab label="tab n°3" />
+          <Tab label="Deskripsi" />
+          <Tab label="Persyaratan" />
+          <Tab label="Materi" />
+          <Tab label="Instruktur" />
+          <Tab label="Fasilitas" />
+          <Tab label="Info Pendaftaran" />
+          <Tab label="Galeri" />
+          <Tab label="Testimoni" />
+          <Tab label="Ulasan" />
         </Tabs>
         <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
           <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
@@ -69,6 +77,7 @@ class DetailTrainingTabs extends React.Component {
             </Select>
           </div>
           <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
+          <div style={Object.assign({}, styles.slide, styles.slide3)}>slide44444</div>
         </SwipeableViews>
       </div>
     );

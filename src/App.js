@@ -71,6 +71,11 @@ function App() {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded}}>
     <Router>
        <Switch>
+          <Route exact path="/training/:idtraining/pemesanan">
+            <div>
+              asdadad
+            </div>
+          </Route>
           <Route exact path="/training/:idtraining">
             <DetailTraining/>
           </Route>
