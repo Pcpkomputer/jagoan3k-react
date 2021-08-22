@@ -177,7 +177,9 @@ let settings = {
                             </div>
                         </Col>
                   </Row>
-                  <Row style={{marginTop:30}}>
+                  {
+                      (currentStep===2) &&
+                      <Row style={{marginTop:30}}>
                       <Col lg={8} style={{marginBottom:50}}>
                           <div style={{fontWeight:"bold",fontSize:20,marginBottom:60}}>Data Peserta</div>
                           <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -238,12 +240,29 @@ let settings = {
                                   </div>
                                   
                               </div>
-                              <div style={{marginLeft:20,marginRight:20,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
-                                  asdasd
+                              <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
+                                  <div style={{fontWeight:"bold"}}>Kode Voucher</div>
+                                  <input type="text" value="" placeholder="Kode Voucher" readOnly={true} style={{marginTop:20,cursor:"not-allowed",padding:5,paddingLeft:15,fontSize:15,paddingRight:15, outline:"none",width:"100%",color:"grey",backgroundColor:"#e8e8e8",borderRadius:5,border:"solid 1px #f8f8f8"}}></input>
+                              </div>
+                              <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
+                                  <div style={{fontWeight:"bold",marginBottom:10}}>Diskon</div>
+                                  <div style={{display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:30}}>
+                                      <div style={{flex:1}}>
+                                          <div style={{fontSize:15}}>Promo K3 Perusahan</div>
+                                      </div>
+                                      <div style={{width:100,textAlign:"right"}}>
+                                          <div style={{fontSize:15}}>-100000</div>
+                                      </div>
+                                  </div>
+                                  <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
+                                        <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
+                                        <div>Rp. 60000000</div>
+                                  </div>
                               </div>
                           </div>
                       </Col>
                   </Row>
+                  }        
               </Container>
           </div>
           <Footer/>
