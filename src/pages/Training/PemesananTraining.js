@@ -340,8 +340,83 @@ let settings = {
                   {
                       (currentStep===4) &&
                       <Row style={{marginTop:30}}>
-                          asdasd
-                      </Row>
+                      <Col lg={8} style={{marginBottom:50}}>
+                            <div style={{backgroundColor:"whitesmoke",padding:50,borderRadius:10}}>
+                                    <div style={{fontSize:20,borderBottom:"dolis 1px black",textAlign:"center",borderBottom:"solid 1px grey",paddingBottom:20,fontWeight:"bold"}}>Rincian Biaya Pendaftaran</div>
+                                    <div style={{marginTop:30}}>
+                                        <div>Kepada Yth:</div>
+                                        <div style={{fontWeight:"bold",marginTop:5}}>Padang P.Y</div>
+                                    </div>
+                                    <div style={{marginTop:50}}>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Training</th>
+                                            <th scope="col">Harga</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td>Ahli K3 Umum Batch 11</td>
+                                            <td>8.000.000</td>
+                                            </tr>
+                                            <tr>
+                                            <th scope="row">2</th>
+                                            <td>Promo Ahli K3 Umum Perusahaan</td>
+                                            <td>-2.000.000</td>
+                                            </tr>
+                                          
+                                        </tbody>
+                                        </table>
+                                    </div>
+                                    <div style={{marginTop:30,fontSize:23,textAlign:"right"}}>
+                                        Total : Rp. 6.000.000
+                                    </div>
+                                    <div style={{justifyContent:"center",marginTop:50,alignItems:"center",display:"flex"}}>
+                                        <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                            SELANJUTNYA
+                                        </div>
+                                    </div>
+                            </div>
+                      </Col>
+                      <Col lg={4} style={{paddingLeft:40,paddingRight:40}}>
+                          <div style={{border:"solid 1px #e8e8e8",borderRadius:10,paddingTop:20,paddingBottom:20}}>
+                              <div style={{fontWeight:"bold",borderBottom:"solid 1px #e8e8e8",paddingBottom:20,marginRight:20,marginLeft:20}}>Pemesanan Anda</div>
+                              <div style={{marginTop:10,marginLeft:20,marginRight:20}}>
+                                  <div style={{display:"flex",marginBottom:20}}>
+                                        <div style={{flex:1}}>
+                                            <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>Ahli K3 asdasdasdsadadasdsasadasdUmum Batcasdadadsadsadsadh 11asdsadasdassadasdasdasd5</div>
+                                            <div style={{fontSize:13,marginTop:10}}>28 Ag 2021</div>
+                                        </div>
+                                        <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                            <img src="https://mos.is3.cloudhost.id/photos/midiatama-58210629085720.png" style={{width:90,borderRadius:10}}></img>
+                                        </div>
+                                  </div>
+                                  
+                              </div>
+                              <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderBottom:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
+                                 <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
+                                     Nama : Padang Perwira Yudha
+                                 </div>
+                                 <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
+                                     No. Whatsapp : 08996189345
+                                 </div>
+                                 <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
+                                    Email : padang@gmail.com
+                                 </div>
+                              </div>
+                              <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
+                                 
+                                  <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
+                                        <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
+                                        <div>Rp. 60000000</div>
+                                  </div>
+                              </div>
+                          </div>
+                      </Col>
+                  </Row>
                   }
               </Container>
           </div>
