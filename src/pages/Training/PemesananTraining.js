@@ -73,7 +73,7 @@ let settings = {
   let [selectedOffer, setSelectedOffer] = useState(0);
 
   
-  let [currentStep, setCurrentStep] = useState(4);
+  let [currentStep, setCurrentStep] = useState(5);
 
 
   useEffect(()=>{
@@ -417,6 +417,20 @@ let settings = {
                           </div>
                       </Col>
                   </Row>
+                  }
+                  {
+                      (currentStep===5) &&
+                      <Row style={{marginTop:20}}>
+                          <Row>
+                              <Col style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",borderRadius:20,padding:"20px 40px 40px 40px"}} lg={12}>
+                                  <div style={{fontSize:40,marginTop:20,paddingBottom:40,fontWeight:"bold",textAlign:"center",borderBottom:"solid 1px black",width:"100%"}}>Terima kasih</div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",justifyContent:"space-between"}}>
+                                      <div>Status</div>
+                                      <div>Menunggu Pembayaran</div>
+                                  </div>
+                              </Col>
+                          </Row>
+                      </Row>
                   }
               </Container>
           </div>
