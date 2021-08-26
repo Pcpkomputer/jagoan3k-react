@@ -166,7 +166,7 @@ let settings = {
                                                     </div>
                                               </div>
                                           </div>
-                                          <div style={{marginTop:20,display:"flex"}}>
+                                          <div style={{marginTop:20,display:(isTabletOrMobile) ? null:"flex"}}>
                                             <div style={{flex:1}}>
               
                                               <div style={{fontSize:18,letterSpacing:3,fontWeight:"bold",wordBreak:"break-word"}}>EARLY BIRD AHLI K3 UMUM PERUSAHAAN</div>
@@ -180,7 +180,7 @@ let settings = {
                                       </div>
                                       <div style={{marginTop:20,boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
                                 
-                                          <div style={{marginTop:20,display:"flex"}}>
+                                          <div style={{marginTop:20,display:(isTabletOrMobile) ? null:"flex"}}>
                                             <div style={{flex:1}}>
               
                                               <div style={{fontSize:18,letterSpacing:3,fontWeight:"bold",wordBreak:"break-word"}}>EARLY BIRD AHLI K3 UMUM PERUSAHAAN</div>
