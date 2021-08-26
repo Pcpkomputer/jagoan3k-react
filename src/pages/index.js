@@ -42,6 +42,7 @@ function Index() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+  const is460 = useMediaQuery({ query: '(max-width: 460px)' })
 
 
   function SampleNextArrow(props) {
@@ -96,8 +97,8 @@ function Index() {
       dots: true,
       infinite: true,
       speed: 200,
-      slidesToShow: (isTabletOrMobile) ? 2:(max991) ? 2:(max1400) ? 4:5,
-      slidesToScroll: (isTabletOrMobile) ? 2:(max991) ? 2:(max1400) ? 4:5,
+      slidesToShow: (is460) ? 2:(max991) ? 2:(max1400) ? 4:5,
+      slidesToScroll: (is460) ? 2:(max991) ? 2:(max1400) ? 4:5,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
     };
@@ -229,9 +230,9 @@ function Index() {
                                   [1,2,3,4,5].map(()=>{
                                     return (
                                       <div style={{backgroundColor:"white",height:"100%"}}>
-                                          <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginLeft:(isTabletOrMobile) ? 20:null,marginRight:20,height:330}}>
-                                            <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(isTabletOrMobile) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
-                                            <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:(isTabletOrMobile) ? 180:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
+                                          <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginLeft:(is460) ? 20:null,marginRight:20,height:330}}>
+                                            <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                            <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:(is460) ? 180:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
                                                 <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
@@ -370,7 +371,7 @@ ahli di bidangnya masing-masing
                         [1,2,3,4,5,6,7,8,9].map(()=>{
                             return (
                               <div style={{backgroundColor:"white",height:"100%"}}>
-                                  <img style={{width:(isTabletOrMobile) ? 130:200,height:100}} src="https://apimicca.midiatama.co.id/storage/bageur.id/our-client/bageur-207210624084541.png"/>
+                                  <img style={{width:(is460) ? 130:200,height:100}} src="https://apimicca.midiatama.co.id/storage/bageur.id/our-client/bageur-207210624084541.png"/>
                               </div>
                             )
                         })

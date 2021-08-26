@@ -10,7 +10,16 @@ import DetailTraining from "./pages/Training/DetailTraining";
 import PemesananTraining from "./pages/Training/PemesananTraining";
 import DetailArtikel from "./pages/DetailArtikel";
 
+import {
+  BrowserView,
+  MobileView,
+  isBrowser,
+  isMobile
+} from "react-device-detect";
+
 import ScrollToTop from "./ScrollToTop";
+
+import { useMediaQuery } from 'react-responsive'
 
 import "./css/App.css";
 
@@ -33,6 +42,8 @@ function App() {
 
 
   let [previewLoaded, setPreviewLoaded] = useState(false);
+
+  let [mobileWidth, setMobileWidth] = useState(false);
 
 
   let [imgs, setImgs] = useState([
@@ -64,7 +75,15 @@ function App() {
     cacheImages();
   },[])
 
-
+  if (isMobile) {
+    return (
+      <div style={{position:"absolute",display:"flex",width:"100%",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"white"}}>
+            <div style={{padding:50,textAlign:"center"}}>
+            Please download android or ios app for this website.
+            </div>
+        </div>
+    )
+}
 
   if(!complete){
     return (
@@ -76,10 +95,19 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded}}>
+    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth}}>
+    
     <Router>
       <ScrollToTop />
        <Switch>
+         {
+           (mobileWidth) &&
+           <div style={{position:"absolute",display:"flex",width:"100%",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"white"}}>
+            <div>
+            Please download android or ios app for this website.
+            </div>
+        </div>
+         }
           <Route  path="/artikel/:idartikel">
             <DetailArtikel/>
           </Route>
