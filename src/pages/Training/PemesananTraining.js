@@ -430,6 +430,72 @@ let settings = {
                                   </div>
                               </Col>
                           </Row>
+
+                          <Row style={{marginTop:30}}>
+                              <Col style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",borderRadius:20,padding:"20px 40px 40px 40px"}} lg={12}>
+                                  <div style={{fontSize:25,marginTop:20,paddingBottom:20,fontWeight:"bold",textAlign:"center",borderBottom:"solid 1px black",width:"100%"}}>Detail Pembayaran</div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
+                                      <div>Tanggal</div>
+                                      <div>24-02-2021</div>
+                                  </div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
+                                      <div>Metode Pembayaran</div>
+                                      <div>Bank Mandiri</div>
+                                  </div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
+                                      <div>Nomor Rekening</div>
+                                      <div>1111111111111111111</div>
+                                  </div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
+                                      <div>Total Pembayaran</div>
+                                      <div>Rp. 600.000.000</div>
+                                  </div>
+                              </Col>
+                          </Row>
+
+                          <Row style={{marginTop:30}}>
+                              <Col style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",borderRadius:20,padding:"20px 40px 40px 40px"}} lg={12}>
+                                  <div style={{fontSize:25,marginTop:20,paddingBottom:20,fontWeight:"bold",textAlign:"center",borderBottom:"solid 1px black",width:"100%"}}>Rincian Biaya Pendaftaran</div>
+                                  
+                                  <div style={{display:"flex",justifyContent:"space-between",width:"100%",marginBottom:20,marginTop:20}}>
+                                      <div>
+                                          <div>Kepada Yth.</div>
+                                          <div style={{marginTop:5,fontWeight:"bold"}}>Padang P.Y</div>
+                                      </div>
+                                      <div>
+                                          <div style={{fontWeight:"bold",textAlign:"right"}}>Nomor Invoice : 12/12/12/12/12/IV</div>
+                                          <div style={{marginTop:5,textAlign:"right"}}>Simpan nomor invoice untuk pengecekan status invoice di kemudian hari</div>
+                                      </div>
+                                  </div>
+                                  
+                                  <div style={{width:"100%",marginTop:40}}>
+                                  <table class="table">
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Training</th>
+                                            <th scope="col">Harga</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                            <th scope="row">1</th>
+                                            <td>Ahli K3 Umum Batch 11</td>
+                                            <td>8.000.000</td>
+                                            </tr>
+                                            <tr>
+                                            <th scope="row">2</th>
+                                            <td>Promo Ahli K3 Umum Perusahaan</td>
+                                            <td>-2.000.000</td>
+                                            </tr>
+                                          
+                                        </tbody>
+                                        </table>
+                                  </div>
+                              </Col>
+                          </Row>
+
+
                       </Row>
                   }
               </Container>
