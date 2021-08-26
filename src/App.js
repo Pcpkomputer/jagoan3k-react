@@ -8,6 +8,7 @@ import Login from "./pages/Login";
 import Detailnstruktur from "./pages/Instruktur/DetailInstruktur";
 import DetailTraining from "./pages/Training/DetailTraining";
 import PemesananTraining from "./pages/Training/PemesananTraining";
+import DetailArtikel from "./pages/DetailArtikel";
 
 import "./css/App.css";
 
@@ -72,6 +73,9 @@ function App() {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded}}>
     <Router>
        <Switch>
+          <Route exact path="/artikel/:idartikel">
+            <DetailArtikel/>
+          </Route>
           <Route exact path="/training/:idtraining/pemesanan">
             <PemesananTraining/>
           </Route>

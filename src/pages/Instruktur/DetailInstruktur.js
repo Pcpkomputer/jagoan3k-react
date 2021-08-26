@@ -38,6 +38,9 @@ export default function Detailnstruktur(props){
   let [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(()=>{
+    
+    window.scrollTo(0,0)
+
     if(document.querySelectorAll("#header").length>0){
       window.addEventListener("scroll",(e)=>{
         if(document?.querySelectorAll("#header")[0]?.getClientRects()[0]?.top<=0){

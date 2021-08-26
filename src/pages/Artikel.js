@@ -140,7 +140,7 @@ export default function Artikel(props){
                                                                     }
                                                                 </div>
                                                                 <div style={{fontSize:10}}>2 Agustus 2021 - 4 Mins Read - 3x</div>
-                                                                <div style={{marginTop:30,marginBottom:10,borderRadius:20,border:"solid 2.5px #23b697",padding:"10px 15px 10px 15px",marginLeft:50,marginRight:50,textAlign:"center",fontWeight:"bold", color:"#23b697"}}>Lihat Selengkapnya</div>
+                                                                <div style={{marginTop:30,cursor:"pointer",marginBottom:10,borderRadius:20,border:"solid 2.5px #23b697",padding:"10px 15px 10px 15px",marginLeft:50,marginRight:50,textAlign:"center",fontWeight:"bold", color:"#23b697"}}>Lihat Selengkapnya</div>
                                                             </div>
                                                         </div>
                                                     </Col>

@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import "../css/Shop.css";
+
 
 import {BiSearchAlt} from 'react-icons/bi';
 
@@ -14,7 +16,7 @@ import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';
 
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaShareAlt, FaShoppingCart } from "react-icons/fa";
 
 
 
@@ -64,6 +66,14 @@ export default function Shop(props){
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+       <div className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
+          <FaShoppingCart color="white" size={30}/>
+          <div style={{position:"absolute",position:"absolute",top:-10,right:-10,backgroundColor:"white",fontWeight:"bold",width:28,height:28,borderRadius:999,justifyContent:"center",alignItems:"center",display:"flex"}}>
+            5
+          </div>
+       </div>
+      
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-karir.993f53c.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
