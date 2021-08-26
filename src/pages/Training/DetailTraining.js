@@ -7,6 +7,8 @@ import "slick-carousel/slick/slick-theme.css";
 
 import DetailTrainingTabs from './DetailTrainingTabs';
 
+
+
 import "../../custom.css";
 import $ from 'jquery';
 

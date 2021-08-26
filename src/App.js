@@ -17,13 +17,14 @@ import {
   isMobile
 } from "react-device-detect";
 
+import Logo from './assets/logo.png';
+
 import ScrollToTop from "./ScrollToTop";
 
 import { useMediaQuery } from 'react-responsive'
 
 import "./css/App.css";
 
-import Logo from './assets/logo.png';
 
 import {
   BrowserRouter as Router,
@@ -45,6 +46,7 @@ function App() {
 
   let [mobileWidth, setMobileWidth] = useState(false);
 
+  let [continueWeb, setContinueWeb] = useState(false);
 
   let [imgs, setImgs] = useState([
     "https://midiatama.co.id/_nuxt/img/bg-training.7cc257e.png",
@@ -75,15 +77,28 @@ function App() {
     cacheImages();
   },[])
 
-  if (isMobile) {
+
+  if(isMobile && continueWeb===false){
     return (
-      <div style={{position:"absolute",display:"flex",width:"100%",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"white"}}>
-            <div style={{padding:50,textAlign:"center"}}>
-            Please download android or ios app for this website.
+      <div style={{position:"absolute",backgroundColor:"#23b697",display:"flex",width:"100%",paddingBottom:220,flexDirection:"column",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"#23b697"}}>
+            
+            <div style={{padding:50,textAlign:"center",color:"white"}}>
+            <img src={`${Logo}`} style={{position:"relative",bottom:-50,width:250,height:250}}/>
+            <div style={{paddingTop:20,fontWeight:"bold"}}>Please download android or ios app for this website.</div>
             </div>
+            <div style={{marginTop:-20}}>
+              <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
+              <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
+            </div>
+            <div 
+            onClick={()=>{
+              setContinueWeb(true);
+            }}
+            style={{marginTop:30,fontSize:12,color:"white"}}>Continue To Web ...</div>
         </div>
     )
-}
+
+  }
 
   if(!complete){
     return (
@@ -101,12 +116,23 @@ function App() {
       <ScrollToTop />
        <Switch>
          {
-           (mobileWidth) &&
-           <div style={{position:"absolute",display:"flex",width:"100%",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"white"}}>
-            <div>
-            Please download android or ios app for this website.
-            </div>
-        </div>
+           (mobileWidth && continueWeb===false) &&
+           <div style={{position:"absolute",backgroundColor:"#23b697",display:"flex",width:"100%",paddingBottom:220,flexDirection:"column",justifyContent:"center",alignItems:"center",height:"100%",backgroundColor:"#23b697"}}>
+            
+              <div style={{padding:50,textAlign:"center",color:"white"}}>
+              <img src={`${Logo}`} style={{position:"relative",bottom:-50,width:250,height:250}}/>
+              <div style={{paddingTop:20,fontWeight:"bold"}}>Please download android or ios app for this website.</div>
+              </div>
+              <div style={{marginTop:-20}}>
+                <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
+                <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
+              </div>
+              <div 
+              onClick={()=>{
+                setContinueWeb(true);
+              }}
+              style={{marginTop:30,fontSize:12,color:"white"}}>Continue To Web ...</div>
+          </div>
          }
           <Route  path="/artikel/:idartikel">
             <DetailArtikel/>
