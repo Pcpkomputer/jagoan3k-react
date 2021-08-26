@@ -236,9 +236,9 @@ function Index() {
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
                                                 <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
                                             </div>
-                                            <div className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
+                                            <Link to="/training/1" className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                   Read More
-                                              </div>
+                                              </Link>
                                           </div>
                                       </div>
                                     )

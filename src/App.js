@@ -10,6 +10,8 @@ import DetailTraining from "./pages/Training/DetailTraining";
 import PemesananTraining from "./pages/Training/PemesananTraining";
 import DetailArtikel from "./pages/DetailArtikel";
 
+import ScrollToTop from "./ScrollToTop";
+
 import "./css/App.css";
 
 import Logo from './assets/logo.png';
@@ -18,12 +20,14 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useLocation
 } from "react-router-dom";
 
-import {useEffect, useState, useContext, createContext} from 'react';
+import {useEffect, useState, useContext, createContext, useLayoutEffect} from 'react';
 
 export let GlobalContext = createContext();
+
 
 function App() {
 
@@ -60,6 +64,8 @@ function App() {
     cacheImages();
   },[])
 
+
+
   if(!complete){
     return (
       <div style={{display:"flex",justifyContent:"center",paddingBottom:20,flexDirection:"column",alignItems:"center",backgroundColor:"#21b798",height:"100vh",overflow:"hidden"}}>
@@ -72,38 +78,39 @@ function App() {
   return (
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded}}>
     <Router>
+      <ScrollToTop />
        <Switch>
-          <Route exact path="/artikel/:idartikel">
+          <Route  path="/artikel/:idartikel">
             <DetailArtikel/>
           </Route>
-          <Route exact path="/training/:idtraining/pemesanan">
+          <Route  path="/training/:idtraining/pemesanan">
             <PemesananTraining/>
           </Route>
-          <Route exact path="/training/:idtraining">
+          <Route  path="/training/:idtraining">
             <DetailTraining/>
           </Route>
-          <Route exact path="/instruktur/:instruktur">
+          <Route  path="/instruktur/:instruktur">
             <Detailnstruktur/>
           </Route>
-          <Route exact path="/login">
+          <Route  path="/login">
             <Login/>
           </Route>
-          <Route exact path="/artikel">
+          <Route  path="/artikel">
             <Artikel/>
           </Route>
-          <Route exact path="/galeri">
+          <Route  path="/galeri">
             <Galeri/>
           </Route>
-          <Route exact path="/shop">
+          <Route  path="/shop">
             <Shop/>
           </Route>
-          <Route exact path="/training">
+          <Route  path="/training">
             <Training/>
           </Route>
-          <Route exact path="/jagoank3">
+          <Route  path="/jagoank3">
             <AboutJagoanK3/>
           </Route>
-          <Route exact path="/">
+          <Route  path="/">
             <Index />
           </Route>
         </Switch>

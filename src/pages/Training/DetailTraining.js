@@ -73,6 +73,10 @@ let settings = {
     window.$ = $;
   },[])
 
+
+  let url = useParams();
+  
+
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
       <Helmet>
@@ -205,9 +209,11 @@ let settings = {
                                               </div>
                                           </div>
                                       </div>
-                                      <div style={{marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
-                                          Proses Pemesanan
-                                      </div>
+                                      <Link to={`${url.idtraining}/pemesanan`}>
+                                        <div style={{marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
+                                            Proses Pemesanan
+                                        </div>
+                                      </Link>
                                 </div>
                             </Col>
                          </Row>

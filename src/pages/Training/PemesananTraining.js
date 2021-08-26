@@ -73,7 +73,7 @@ let settings = {
   let [selectedOffer, setSelectedOffer] = useState(0);
 
   
-  let [currentStep, setCurrentStep] = useState(5);
+  let [currentStep, setCurrentStep] = useState(2);
 
 
   useEffect(()=>{
