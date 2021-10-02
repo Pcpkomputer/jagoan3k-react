@@ -33,6 +33,7 @@ import NavBar from '../components/Navbar';
 
 import {GlobalContext} from '../App';
 
+import endpoint from '../utils/endpoint';
 
 
 function Index() {
@@ -166,21 +167,21 @@ function Index() {
               <div class="owl-carousel">
                 
                 {
-                  ([1,2,3,4,5]).map(()=>{
+                  (globalContext.banner).map((item,index)=>{
                     return (
                       <div class="item">
                           <div style={{position:"absolute",backgroundColor:"black",opacity:0.5,width:"100%",height:"100%",zIndex:100}}></div>
-                          <div style={{display:"flex",alignItems:"center",backgroundImage:`url("https://apimicca.midiatama.co.id/storage/slider/20210424102039.jpg")`,height:"100vh"}}>
+                          <div style={{display:"flex",alignItems:"center",backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/banner/${item.gambar}")`,height:"100vh"}}>
                               {
                                 (isTabletOrMobile) ?
                                   <div style={{position:"absolute",paddingRight:100,width:300,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
-                                    <div style={{fontWeight:"bold"}}>Supervisor Perancah</div>
-                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>Pembinaan dan sertifikasi ahli k3</div>
+                                    <div style={{fontWeight:"bold"}}>{item.caption}</div>
+                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>{item.deskripsi}</div>
                                 </div>
                                 :
                                 <div style={{position:"absolute",paddingRight:100,width:800,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
-                                    <div style={{fontWeight:"bold"}}>Supervisor Perancah</div>
-                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>Pembinaan dan sertifikasi ahli k3</div>
+                                    <div style={{fontWeight:"bold"}}>{item.caption}</div>
+                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>{item.deskripsi}</div>
                                 </div>
                               } 
                           </div>

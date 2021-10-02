@@ -25,6 +25,7 @@ import { useMediaQuery } from 'react-responsive'
 
 import "./css/App.css";
 
+import endpoint from "./utils/endpoint";
 
 import {
   BrowserRouter as Router,
@@ -56,6 +57,7 @@ function App() {
 
   let [complete,setComplete] = useState(false);
 
+  let [chacheLoaded, setChacheloaded] = useState(false);
   let cacheImages = async ()=>{
      let cache = await imgs.map((image)=>{
        return new Promise((resolve,reject)=>{
@@ -68,14 +70,41 @@ function App() {
      });
 
      await Promise.all(cache);
-     setTimeout(async () => {
-        await setComplete(true);
-     }, 5000);
+     setChacheloaded(true);
+  }
+
+
+  let [banner, setBanner] = useState([]);
+  let [bannerLoaded, setBannerLoaded] = useState(false);
+  let fetchBanner = async ()=>{
+
+     let request = await fetch(`${endpoint}/api/banner`);
+     let json = await request.json();
+
+     setBanner(json);
+     setBannerLoaded(true);
+  }
+
+  ///////////////
+  let initialFetch = async()=>{
+     try {
+        cacheImages();
+        fetchBanner();
+     } catch (error) {
+        alert(error.message);
+     }
   }
 
   useEffect(()=>{
-    cacheImages();
+    initialFetch();
   },[])
+
+  useEffect(()=>{
+    if(chacheLoaded && bannerLoaded){
+      alert("complete");
+      setComplete(true);
+    }
+  },[chacheLoaded,bannerLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -110,7 +139,7 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth}}>
+    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, banner, setBanner}}>
     
     <Router>
       <ScrollToTop />
