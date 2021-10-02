@@ -87,7 +87,7 @@ function Index() {
       infinite: true,
       nav:true,
       speed: 200,
-      slidesToShow: (max991) ? 1:(max1400) ? 3:4,
+      slidesToShow: (globalContext.instruktur.length>3) ? (max991) ? 1:(max1400) ? 1:4:globalContext.instruktur.length,
       slidesToScroll: (max991) ? 1:(max1400) ? 3:4,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
@@ -347,13 +347,13 @@ ahli di bidangnya masing-masing
                 <Container style={{marginTop:50,marginBottom:50,paddingRight:(isTabletOrMobile) ? 35:null,paddingLeft:(isTabletOrMobile) ? 50:null}}>
                 <Slider {...settingsInstruktur} style={{padding:10}}>
                           {
-                            [1,2,4,5,5].map(()=>{
+                            globalContext.instruktur.map((item,index)=>{
                               return (
-                                <Link to="/instruktur/memek">
-                                <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%"}}>
+                                <Link to={`/instruktur/${item.id_instruktur}`}>
+                                <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%",marginBottom:40}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
-                                        <img style={{width:"100%",height:300}} src="https://apimicca.midiatama.co.id/storage/muhammad1882/avatar/midiatama-65210427034902.png"></img>
-                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,color:"black",fontWeight:"bold"}}>Yudi Mariandi Mari Mandi. SE SE SE SE</div>
+                                        <img style={{width:"100%",height:300}} src={`${endpoint}/storage/instruktur/${item.foto}`}></img>
+                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,color:"black",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>
                                 </Link>

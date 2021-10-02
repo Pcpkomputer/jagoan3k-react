@@ -22,6 +22,14 @@ import {
 
 export default function Footer(){
 
+// Call center : 021-50812002 
+// WA : 0813-7747-5503 & 08116565850
+// Email : pjk3limaindo@gmail.com 
+// Jam kerja : 08.15-17.00
+// IG : @Limaprimasolusindo 
+// Yt : limaprimasolusindo
+// Fb : limaprimasolusindo
+
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -39,18 +47,16 @@ export default function Footer(){
                           </div>
                           <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"100px auto"}}>
                               <div style={{fontWeight:"bold"}}>TELEPON</div>
-                              <div>(021) 22545432 (Jam Kerja)<br></br>(021) 21263820 (24 Jam)</div>
+                              <div>(021) 50812002 <br></br></div>
                               
                               <div style={{fontWeight:"bold"}}>WHATSAPP 24 JAM</div>
                               <div>
-                              0815-32705432<br></br>
-                              0812-73708811<br></br>
-                              0815-17278777<br></br>
-                              0821-25012338<br></br>
+                              0813-7747-5503<br></br>
+                              0811-6565-850<br></br>
                               </div>
 
                               <div style={{fontWeight:"bold"}}>EMAIL</div>
-                              <div>pjk3midiatama@gmail.com<br></br>info@midiatama.co.id</div>
+                              <div>pjk3limaindo@gmail.com<br></br></div>
                           </div>
                         </Col>
                         <Col lg={4} style={{color:"white",marginBottom:40,paddingLeft:(isTabletOrMobile) ? 25:null}}>
@@ -58,12 +64,12 @@ export default function Footer(){
                               Alamat Kami
                           </div>
                           <div style={{display:"grid",marginTop:20,gridRowGap:20,gridTemplateColumns:"auto"}}>
-                              <div>PT. Mitra Dinamis Yang Utama (PJK3 Midiatama Academy) Gedung Wisma Presisi, Lantai 1 No. 4, Jalan Taman Aries RT.5/RW.2 Meruya Utara Kembangan Jakarta Barat 11620</div>
+                              <div>....</div>
 
                               <div style={{display:"grid",gridTemplateColumns:"100px auto"}}>
                                   <div style={{fontWeight:"bold"}}>Website</div>
                                   <div>
-                                  https://midiatama.co.id/<br></br>
+                                  https://jagoank3.com/<br></br>
                                   </div>
                               </div>
 
@@ -94,15 +100,15 @@ export default function Footer(){
                                 </div>
                                 <div style={{display:"flex",flexDirection:"column",marginTop:20}}>
                                     <div style={{display:"flex",marginBottom:15,flexDirection:"row"}}>
+                                        <a href="https://web.facebook.com/pj3klimaprima/"><img style={{marginRight:10}} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA1MiA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyNiIgcj0iMjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjI2IiByPSIxOC43NDQyIiBmaWxsPSIjMzQ1MzlCIi8+CjxwYXRoIGQ9Ik0yNy4wNTgzIDIzLjk1OTRWMjEuODQzMUMyNy4wNTgzIDIxLjI1OSAyNy41MzIzIDIwLjc4NSAyOC4xMTY0IDIwLjc4NUgyOS4xNzQ2VjE4LjEzOTZIMjcuMDU4M0MyNS4zMDQ5IDE4LjEzOTYgMjMuODgzOSAxOS41NjA3IDIzLjg4MzkgMjEuMzE0MVYyMy45NTk0SDIxLjc2NzZWMjYuNjA0OEgyMy44ODM5VjM1LjA2OTlIMjcuMDU4M1YyNi42MDQ4SDI5LjE3NDZMMzAuMjMyNyAyMy45NTk0SDI3LjA1ODNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K"></img></a>
+                                        <a href="http://wa.me/081377475503"><img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/wa.86a926d.svg"></img></a>
+                                        <a href="https://www.instagram.com/Limaprimasolusindo"><img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/ig.9259718.svg"></img></a>
+                                    </div>
+                                    {/* <div style={{display:"flex",flexDirection:"row"}}>
                                         <img style={{marginRight:10}} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA1MiA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyNiIgcj0iMjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjI2IiByPSIxOC43NDQyIiBmaWxsPSIjMzQ1MzlCIi8+CjxwYXRoIGQ9Ik0yNy4wNTgzIDIzLjk1OTRWMjEuODQzMUMyNy4wNTgzIDIxLjI1OSAyNy41MzIzIDIwLjc4NSAyOC4xMTY0IDIwLjc4NUgyOS4xNzQ2VjE4LjEzOTZIMjcuMDU4M0MyNS4zMDQ5IDE4LjEzOTYgMjMuODgzOSAxOS41NjA3IDIzLjg4MzkgMjEuMzE0MVYyMy45NTk0SDIxLjc2NzZWMjYuNjA0OEgyMy44ODM5VjM1LjA2OTlIMjcuMDU4M1YyNi42MDQ4SDI5LjE3NDZMMzAuMjMyNyAyMy45NTk0SDI3LjA1ODNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K"></img>
                                         <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/wa.86a926d.svg"></img>
                                         <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/ig.9259718.svg"></img>
-                                    </div>
-                                    <div style={{display:"flex",flexDirection:"row"}}>
-                                        <img style={{marginRight:10}} src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTIiIGhlaWdodD0iNTIiIHZpZXdCb3g9IjAgMCA1MiA1MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjYiIGN5PSIyNiIgcj0iMjUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8Y2lyY2xlIGN4PSIyNiIgY3k9IjI2IiByPSIxOC43NDQyIiBmaWxsPSIjMzQ1MzlCIi8+CjxwYXRoIGQ9Ik0yNy4wNTgzIDIzLjk1OTRWMjEuODQzMUMyNy4wNTgzIDIxLjI1OSAyNy41MzIzIDIwLjc4NSAyOC4xMTY0IDIwLjc4NUgyOS4xNzQ2VjE4LjEzOTZIMjcuMDU4M0MyNS4zMDQ5IDE4LjEzOTYgMjMuODgzOSAxOS41NjA3IDIzLjg4MzkgMjEuMzE0MVYyMy45NTk0SDIxLjc2NzZWMjYuNjA0OEgyMy44ODM5VjM1LjA2OTlIMjcuMDU4M1YyNi42MDQ4SDI5LjE3NDZMMzAuMjMyNyAyMy45NTk0SDI3LjA1ODNaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K"></img>
-                                        <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/wa.86a926d.svg"></img>
-                                        <img style={{marginRight:10}} src="https://midiatama.co.id/_nuxt/img/ig.9259718.svg"></img>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 </Col>
                             </Row>
@@ -122,8 +128,8 @@ export default function Footer(){
                   <Row style={{borderBottom:"solid 2px white"}}></Row>
                   <Row style={{paddingTop:30,paddingBottom:30,paddingLeft:(isTabletOrMobile) ? 25:null}}>
                         <div style={{display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
-                        <div style={{color:"white"}}>© 2021 All rights reserved. HSE PRIME</div>
-                        <div style={{color:"white"}}>Powered by Midiatama</div>
+                        <div style={{color:"white"}}>© 2021 All rights reserved. Jagoan K3</div>
+                        <div style={{color:"white"}}>Powered by Limaprimasolusindo</div>
 
                         </div>
                        

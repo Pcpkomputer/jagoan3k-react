@@ -15,6 +15,8 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 import {Helmet} from "react-helmet";
 
+import endpoint from '../../utils/endpoint';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -32,6 +34,8 @@ export default function Detailnstruktur(props){
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+
+  let [pageLoaded, setPageLoaded] = useState(false);
 
   let params = useParams();
 
@@ -51,18 +55,51 @@ export default function Detailnstruktur(props){
     }
 },[])
 
+let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
+
+let [instruktur, setInstruktur] = useState(false);
+let [instrukturLoaded, setInstrukturLoaded] = useState(false);
+let fetchInstruktur = async()=>{
+   let request = await fetch(`${endpoint}/api/instruktur/${params.instruktur}`);
+   let json = await request.json();
+   setInstruktur(json);
+   setInstrukturLoaded(true);
+}
+
+
+let [allInstruktur, setAllInstruktur] = useState([]);
+let [allInstrukturLoaded, setAllInstrukturLoaded] = useState(false);
+let fetchAllInstruktur = async ()=>{
+  let request = await fetch(`${endpoint}/api/instruktur`);
+  let json = await request.json();
+  setAllInstruktur(json);
+  setAllInstrukturLoaded(true);
+}
+
+
+useEffect(()=>{
+   fetchInstruktur();
+   fetchAllInstruktur();
+},[]);
+
+useEffect(()=>{
+    if(instrukturLoaded && allInstrukturLoaded){
+      setPageLoaded(true);
+    }
+},[instrukturLoaded, allInstrukturLoaded])
+
+
 
 let settings = {
   dots: true,
   infinite: true,
   speed: 200,
-  slidesToShow: (max991) ? 1:(max1400) ? 2:3,
+  slidesToShow: (allInstruktur.length>2) ? (max991) ? 1:(max1400) ? 2:3:allInstruktur.length,
   slidesToScroll: (max991) ? 1:(max1400) ? 2:3,
   
 };
 
 
-  let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
@@ -100,57 +137,119 @@ let settings = {
 
          <NavBar/>
 
+         {
+           (pageLoaded) &&
 
           <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
-            <Container>
-                  <Row>
-                      <Col lg={4} style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
-                          <div style={{backgroundColor:"#e8e8e8",borderRadius:999,height:300,width:300}}></div>
-                          <div style={{marginTop:30,textAlign:"center",fontSize:20,fontWeight:"bold"}}>Ir. Lazuardi Nurdin, CSP</div>
-                          <div style={{marginTop:20,padding:10,borderRadius:10,backgroundColor:"#27b394",color:"white"}}>Instruktur</div>
-                          <div style={{borderBottom:"solid 1px grey",marginTop:40,marginBottom:50,width:"100%",height:1}}></div>
-                      </Col>
-                      <Col lg={8} style={{paddingLeft:(isTabletOrMobile) ? 20:40}}>
-                          <h4 style={{fontWeight:"bold"}}>Tentang Muhammad Deny, ST, M.Eng</h4>
-                          <div style={{marginTop:20,lineHeight:2}}>
-                          Bapak Muhammad Deny selaku salahsatu Manajemen Midiatama yang juga sebagai Instruktur Spesialis Topik Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3) berdasarkan PP No.50 Tahun 2012.
+          <Container>
+                <Row>
+                    <Col lg={4} style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+                        <img src={`${endpoint}/storage/instruktur/${instruktur[0].foto}`} style={{backgroundColor:"#e8e8e8",borderRadius:999,height:300,width:300}}></img>
+                        <div style={{marginTop:30,textAlign:"center",fontSize:20,fontWeight:"bold"}}>{instruktur[0].nama}</div>
+                        <div style={{marginTop:20,padding:10,borderRadius:10,backgroundColor:"#27b394",color:"white"}}>{instruktur[0].posisi}</div>
+                        <div style={{borderBottom:"solid 1px grey",marginTop:40,marginBottom:50,width:"100%",height:1}}></div>
+                    </Col>
+                    <Col lg={8} style={{paddingLeft:(isTabletOrMobile) ? 20:40}}>
+                        <h4 style={{fontWeight:"bold"}}>Tentang {instruktur[0].nama}</h4>
+                        <div style={{marginTop:20,lineHeight:2}}>
+                        {instruktur[0].tentang}
+                        </div>
+                        <h4 style={{fontWeight:"bold",marginTop:25}}>Instruktur</h4>
+                        {
+                          (videoLoaded===false) &&
+                          <div style={{width:"100%",height:450,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                 <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                  Sedang Memuat Video
+                                  <Spinner style={{marginLeft:15}} size="sm" animation="border" variant="primary" />
+                                  </div>
                           </div>
-                          <h4 style={{fontWeight:"bold",marginTop:25}}>Instruktur</h4>
-                          {
-                            (videoLoaded===false) &&
-                            <div style={{width:"100%",height:450,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                   <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
-                                    Sedang Memuat Video
-                                    <Spinner style={{marginLeft:15}} size="sm" animation="border" variant="primary" />
+                        }
+                        <iframe 
+                          onLoad={()=>{
+                            setVideoLoaded(true);
+                          }}
+                          width="100%" height="450" style={{padding:30,display:(videoLoaded) ? null:"none",paddingLeft:0}}
+                          src={`https://www.youtube.com/embed/${instruktur[0].videoyt}`}>
+                          </iframe>
+                        <h4 style={{fontWeight:"bold",marginTop:25,marginBottom:30}}>Mulai belajar dengan instruktur lainnya</h4>
+                        
+                        <Slider {...settings} style={{paddingTop:10,paddingBottom:10,marginTop:40}}>
+                              {
+                                allInstruktur.map((item,index)=>{
+                                  return (
+                                    <div style={{backgroundColor:"white",height:"100%"}}>
+                                        <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:300,marginRight:20}}>
+                                            <div style={{display:"flex",backgroundSize:"cover",flex:1,background:`url('${endpoint}/storage/instruktur/${item.foto}')`}}>
+                                          
+                                            </div>
+                                            <div style={{paddingBottom:50,textAlign:"center",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
+                                        </div>
                                     </div>
-                            </div>
-                          }
-                          <iframe 
-                            onLoad={()=>{
-                              setVideoLoaded(true);
-                            }}
-                            width="100%" height="450" style={{padding:30,display:(videoLoaded) ? null:"none",paddingLeft:0}}
-                            src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                            </iframe>
-                          <h4 style={{fontWeight:"bold",marginTop:25}}>Mulai belajar dengan instruktur lainnya</h4>
-                          
-                          <Slider {...settings} style={{paddingTop:10,paddingBottom:10,marginTop:40}}>
-                                {
-                                  [1,2,3,4,5].map(()=>{
-                                    return (
-                                      <div style={{backgroundColor:"white",height:"100%"}}>
-                                          <div style={{backgroundColor:"whitesmoke",height:300,marginRight:20}}>
+                                  )
+                                })
+                              }
+                            </Slider>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+         }
 
-                                          </div>
-                                      </div>
-                                    )
-                                  })
-                                }
-                              </Slider>
-                      </Col>
-                  </Row>
-              </Container>
-          </div>
+
+         {
+           (!pageLoaded) &&
+          <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
+          <Container>
+                <Row>
+                    <Col lg={4} style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
+                        <div style={{backgroundColor:"whitesmoke",borderRadius:999,height:300,width:300}}></div>
+                        <div style={{marginTop:30,textAlign:"center",fontSize:20,fontWeight:"bold",backgroundColor:"whitesmoke",color:"whitesmoke",pointerEvents:"none",userSelect:"none",msUserSelect:"none",WebkitUserSelect:"none",MozUserSelect:"none"}}>Ir. Lazuardi Nurdin, CSP</div>
+                        <div style={{marginTop:20,padding:10,borderRadius:10,backgroundColor:"whitesmoke",color:"whitesmoke",pointerEvents:"none",userSelect:"none",msUserSelect:"none",WebkitUserSelect:"none",MozUserSelect:"none"}}>Instruktur</div>
+                        <div style={{borderBottom:"solid 1px grey",marginTop:40,marginBottom:50,width:"100%",height:1}}></div>
+                    </Col>
+                    <Col lg={8} style={{paddingLeft:(isTabletOrMobile) ? 20:40}}>
+                        <h4 style={{fontWeight:"bold",backgroundColor:"whitesmoke",height:40,borderRadius:10}}></h4>
+                        <div style={{marginTop:20,lineHeight:2,backgroundColor:"whitesmoke",color:"whitesmoke",pointerEvents:"none",userSelect:"none",msUserSelect:"none",WebkitUserSelect:"none",MozUserSelect:"none"}}>
+                        Bapak Muhammad Deny selaku salahsatu Manajemen Midiatama yang juga sebagai Instruktur Spesialis Topik Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3) berdasarkan PP No.50 Tahun 2012.
+                        </div>
+                        <h4 style={{fontWeight:"bold",marginTop:25,height:25,width:200,backgroundColor:"whitesmoke"}}></h4>
+                        {
+                          (videoLoaded===false) &&
+                          <div style={{width:"100%",height:450,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                 <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
+                                  Sedang Memuat Video
+                                  <Spinner style={{marginLeft:15}} size="sm" animation="border" variant="primary" />
+                                  </div>
+                          </div>
+                        }
+                        <iframe 
+                          onLoad={()=>{
+                            setVideoLoaded(true);
+                          }}
+                          width="100%" height="450" style={{padding:30,display:(videoLoaded) ? null:"none",paddingLeft:0}}
+                          src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                          </iframe>
+                        <h4 style={{fontWeight:"bold",marginTop:25}}>Mulai belajar dengan instruktur lainnya</h4>
+                        
+                        <Slider {...settings} style={{paddingTop:10,paddingBottom:10,marginTop:40}}>
+                              {
+                                [1,2,3,4,5].map(()=>{
+                                  return (
+                                    <div style={{backgroundColor:"white",height:"100%"}}>
+                                        <div style={{backgroundColor:"whitesmoke",height:300,marginRight:20}}>
+
+                                        </div>
+                                    </div>
+                                  )
+                                })
+                              }
+                            </Slider>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
+         }
+
           <Footer/>
     </div>
   )

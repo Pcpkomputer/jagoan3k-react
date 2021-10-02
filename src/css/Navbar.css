@@ -9,7 +9,7 @@ a.dimmed {
     opacity:0.5
 }
 
-a:hover {
+a.dimmed:hover {
     color: white;
     opacity:1;
     font-weight: bold;

@@ -74,6 +74,17 @@ function App() {
   }
 
 
+  let [instruktur, setInstruktur] = useState([]);
+  let [instrukturLoaded, setInstrukturLoaded] = useState(false);
+  let fetchInstruktur = async ()=>{
+    let request = await fetch(`${endpoint}/api/instruktur`);
+    let json = await request.json();
+
+    setInstruktur(json);
+    setInstrukturLoaded(true);
+  }
+
+
   let [banner, setBanner] = useState([]);
   let [bannerLoaded, setBannerLoaded] = useState(false);
   let fetchBanner = async ()=>{
@@ -90,6 +101,7 @@ function App() {
      try {
         cacheImages();
         fetchBanner();
+        fetchInstruktur();
      } catch (error) {
         alert(error.message);
      }
@@ -100,11 +112,11 @@ function App() {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded){
       alert("complete");
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -139,7 +151,7 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, banner, setBanner}}>
+    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, banner, setBanner, instruktur, setInstruktur}}>
     
     <Router>
       <ScrollToTop />
