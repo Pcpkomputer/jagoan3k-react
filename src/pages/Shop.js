@@ -30,6 +30,8 @@ import {
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
+import endpoint from '../utils/endpoint';
+
 
 export default function Shop(props){
 
@@ -41,11 +43,15 @@ export default function Shop(props){
   let [showcase, setShowcase] = useState([]);
   let [showcaseLoading, setShowcaseLoading] = useState(true);
 
+  let fetchShop = async()=>{
+    let request = await fetch(`${endpoint}/api/shop`);
+    let json = await request.json();
+    setShowcase(json);
+    setShowcaseLoading(false);
+  }
+
   useEffect(()=>{
-    setTimeout(() => {
-            setShowcase([1,2,3,4,5])
-            setShowcaseLoading(false);
-    }, 1000);
+   fetchShop();
   },[])
 
   useEffect(()=>{
@@ -70,7 +76,7 @@ export default function Shop(props){
        <div className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
           <FaShoppingCart color="white" size={30}/>
           <div style={{position:"absolute",position:"absolute",top:-10,right:-10,backgroundColor:"white",fontWeight:"bold",width:28,height:28,borderRadius:999,justifyContent:"center",alignItems:"center",display:"flex"}}>
-            5
+            0
           </div>
        </div>
       
@@ -141,12 +147,12 @@ export default function Shop(props){
                                 (showcase.length>0 && showcaseLoading===false) &&
                                 <div style={{display:"grid",gridGap:50,gridTemplateColumns:"1fr 1fr 1fr 1fr",marginTop:50}}>
                                    {
-                                       showcase.map(()=>{
+                                       showcase.map((item,index)=>{
                                            return (
-                                            <div style={{backgroundColor:"white",overflow:"hidden",height:450,border:"solid 1px grey",borderRadius:10}}>
-                                                <img style={{width:"100%",backgroundColor:"whitesmoke",height:250}} src="https://cf.shopee.co.id/file/1f1ebe8ec527da5e5419da0a363ab719"/>
-                                                <div style={{marginTop:20,paddingLeft:20,paddingRight:20,fontWeight:"bold"}}>Buku Pelatihan K3 Komplit Lengkap</div>
-                                                <div style={{marginTop:20,marginBottom:30,paddingLeft:20,paddingRight:20,fontWeight:"bold",color:"grey"}}>Rp. 50000</div>
+                                            <div style={{backgroundColor:"white",display:"flex",flexDirection:"column",overflow:"hidden",height:450,border:"solid 1px grey",borderRadius:10}}>
+                                                <img style={{width:"100%",backgroundColor:"whitesmoke",height:250}} src={`${endpoint}/storage/shop/${item.gambar_barang}`}/>
+                                                <div style={{marginTop:20,paddingLeft:20,paddingRight:20,fontWeight:"bold"}}>{item.nama_barang}</div>
+                                                <div style={{marginTop:20,marginBottom:30,flex:1,paddingLeft:20,paddingRight:20,fontWeight:"bold",color:"grey"}}>Rp. {item.harga}</div>
                                                 <div style={{backgroundColor:"#27b394",color:"white",textAlign:"center",paddingTop:20,paddingBottom:20}}>Tambah Ke Keranjang</div>
                                             </div>
                                            )

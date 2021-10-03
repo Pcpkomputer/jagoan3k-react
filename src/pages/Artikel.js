@@ -26,12 +26,68 @@ import {
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
+import endpoint from '../utils/endpoint';
 
 export default function Artikel(props){
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+
+  function trimText(text){
+     if(text.length>=250){
+        let txt = "";
+        for(let i=0;i<=250;i++){
+          txt=txt+text[i];
+        }
+        return txt+"...";
+     }
+     else{
+         return text;
+     }
+  }
+
+  function calculateMinsRead(text){
+    let length = text.length;
+    let minsread = length/250;
+    return (minsread<1) ? 1:minsread;
+  }
+
+  function toLocalDate(d){
+      let date = new Date(d);
+      var tahun = date.getFullYear();
+        var bulan = date.getMonth();
+        var tanggal = date.getDate();
+        var hari = date.getDay();
+        var jam = date.getHours();
+        var menit = date.getMinutes();
+        var detik = date.getSeconds();
+        switch(hari) {
+        case 0: hari = "Minggu"; break;
+        case 1: hari = "Senin"; break;
+        case 2: hari = "Selasa"; break;
+        case 3: hari = "Rabu"; break;
+        case 4: hari = "Kamis"; break;
+        case 5: hari = "Jum'at"; break;
+        case 6: hari = "Sabtu"; break;
+        }
+        switch(bulan) {
+        case 0: bulan = "Januari"; break;
+        case 1: bulan = "Februari"; break;
+        case 2: bulan = "Maret"; break;
+        case 3: bulan = "April"; break;
+        case 4: bulan = "Mei"; break;
+        case 5: bulan = "Juni"; break;
+        case 6: bulan = "Juli"; break;
+        case 7: bulan = "Agustus"; break;
+        case 8: bulan = "September"; break;
+        case 9: bulan = "Oktober"; break;
+        case 10: bulan = "November"; break;
+        case 11: bulan = "Desember"; break;
+        }
+        var tampilTanggal = hari + ", " + tanggal + " " + bulan + " " + tahun;
+        return tampilTanggal;
+  }
 
   useEffect(()=>{
     if(document.querySelectorAll("#header").length>0){
@@ -49,15 +105,20 @@ export default function Artikel(props){
   let [artikelIsLoading, setArtikelIsLoading] = useState(true);
   let [artikel, setArtikel] = useState([]);
 
+
+  let fetchArtikel = async ()=>{
+      let request = await fetch(`${endpoint}/api/artikel`);
+      let json = await request.json();
+      setArtikelIsLoading(false);
+      setArtikel(json);
+  }
+
   useEffect(()=>{
-    setTimeout(() => {
-            setArtikelIsLoading(false);
-            setArtikel([1,2,3,4]);
-    }, 1000);
+    fetchArtikel();
   },[])
 
   let [artikelPopulerIsLoaded, setArtikelPopulerIsLoaded] = useState(false);
-  let [artikelPopuler, setArtikelPopuler] = useState([1,2]);
+  let [artikelPopuler, setArtikelPopuler] = useState([]);
 
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
@@ -127,20 +188,19 @@ export default function Artikel(props){
                                                             <div style={{display:"relative",background:"linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(24,24,184,0) 0%, rgba(255,255,255,1) 100%)"}}>
                                                                 <div style={{position:"relative"}}>
                                                                     <div style={{position:"absolute",width:"100%",backgroundImage:"linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)",height:30,bottom:0}}></div>
-                                                                    <img src="https://mos.is3.cloudhost.id/artikel/bageur-258210721044842.jpeg" style={{width:"100%",height:250}}></img>
+                                                                    <img src={`${endpoint}/storage/artikel/${item.gambar_artikel}`} style={{width:"100%",height:250}}></img>
                                                                 </div>
                                                             </div>
                                                             <div style={{padding:20}}>
-                                                                <div style={{fontWeight:"bold"}}>Kategori #1</div>
-                                                                <div style={{marginTop:20,marginBottom:20,fontWeight:"bold"}}>Bagaimana prosedur pemilihan gubernur yang baik?</div>
-                                                                <div style={{fontSize:13,marginBottom:30}}>
-                                                                    {
-                                                                        index===1 ? "Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...":
-                                                                        "Izin kerja biasanya dibIzin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...uat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d...Izin kerja biasanya dibuat rangkap dua atau rangkap tiga. Ketika dibuat rangkap dua, satu salinan disimpan sebagai dokumentasi dan satu salinan lagi d..."
-                                                                    }
+                                                                <div style={{fontWeight:"bold"}}>{item.kategori}</div>
+                                                                <div style={{marginTop:20,marginBottom:20,fontWeight:"bold"}}>{item.judul_artikel}</div>
+                                                                <div style={{fontSize:13,marginBottom:30,height:150}}>
+                                                                {
+                                                                    trimText(`${item.konten.replace(new RegExp('<[^>]*>', 'g'), '')}`)
+                                                                }
                                                                 </div>
-                                                                <div style={{fontSize:10}}>2 Agustus 2021 - 4 Mins Read - 3x</div>
-                                                                <Link to="/artikel/1">
+                                                                <div style={{fontSize:10}}>{toLocalDate(item.tanggal_dibuat)} - {calculateMinsRead(item.konten)} Mins Read</div>
+                                                                <Link to={`/artikel/${item.id_artikel}`}>
                                                                 <div style={{marginTop:30,cursor:"pointer",marginBottom:10,borderRadius:20,border:"solid 2.5px #23b697",padding:"10px 15px 10px 15px",marginLeft:50,marginRight:50,textAlign:"center",fontWeight:"bold", color:"#23b697"}}>Lihat Selengkapnya</div>
                                                                 </Link>
                                                             </div>

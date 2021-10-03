@@ -210,7 +210,7 @@ function Index() {
           <div style={{paddingTop:50,paddingBottom:70,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                 <div style={{fontSize:30,fontWeight:"bold"}}>TENTANG KAMI</div>
                 <div style={{width:(isTabletOrMobile) ? 320:800,textAlign:"center",marginTop:30,paddingRight:30,paddingLeft:30}}>
-                HSE Prime adalah Mitra Terbaik Anda untuk Pelatihan dan Sertifikasi K3, dan sebagai center Pengembangan Kompetensi Safety atau K3 Nomor 1 di Indonesia, didedikasikan untuk para penggiat keselamatan kerja, praktisi, tenaga ahli dan perusahaan, juga sebagai pusat informasi dan berbagi pengetahuan seputar K3.
+                {globalContext.dashboardText.tentangkami}
                 </div>
           </div>
           <div style={{backgroundColor:"#23b697",paddingTop:50,paddingBottom:50,paddingLeft:30,paddingRight:30}}>
@@ -258,17 +258,17 @@ function Index() {
                       <Col lg={6} style={{paddingLeft:(isTabletOrMobile) ? 30:null,paddingRight:(isTabletOrMobile) ? 30:null}}>
                         <div style={{paddingTop:50}}>
                               <div>
-                                  <h2 style={{fontWeight:"bold"}}>25000+ Peserta</h2>
-                                  <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3>
+                                  <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
+                                  <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
                                   <div style={{marginTop:30}}>
-                                  Midiatama Academy merupakan sebuah perusahaan yang bergerak di bidang Pelatihan (Pembinaan), Sertifikasi dan Konsultansi K3 yang telah ditunjuk oleh Kementrian Ketenagakerjaan RI berupa Surat Keterangan Penunjukkan (SKP). Midiatama memberikan Kepastian pelaksanaan dengan Jaminan Kompetensi yang sesuai dengan bidang dan bakat seseorang untuk dapat bekerja di sebuah perusahaan besar seperti BUMN, Konstruksi, Pertambangan, Minyak, Gas Bumi dan Manufaktur
+                                  {globalContext.dashboardText.section2[0].isi}
                                   </div>
                               </div>
                               <div style={{marginTop:80,marginBottom:(isTabletOrMobile) ? 80:0}}>
-                                  <h2 style={{fontWeight:"bold"}}>25000+ Peserta</h2>
-                                  <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3>
+                                  <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
+                                  <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
                                   <div style={{marginTop:30}}>
-                                  Midiatama Academy merupakan sebuah perusahaan yang bergerak di bidang Pelatihan (Pembinaan), Sertifikasi dan Konsultansi K3 yang telah ditunjuk oleh Kementrian Ketenagakerjaan RI berupa Surat Keterangan Penunjukkan (SKP). Midiatama memberikan Kepastian pelaksanaan dengan Jaminan Kompetensi yang sesuai dengan bidang dan bakat seseorang untuk dapat bekerja di sebuah perusahaan besar seperti BUMN, Konstruksi, Pertambangan, Minyak, Gas Bumi dan Manufaktur
+                                  {globalContext.dashboardText.section2[0].isi}
                                   </div>
                               </div>
                         </div>
@@ -302,17 +302,17 @@ function Index() {
                       <Col lg={6} style={{paddingLeft:(isTabletOrMobile) ? 30:null,paddingRight:(isTabletOrMobile) ? 30:null}}>
                             <div style={{paddingTop:50}}>
                                     <div>
-                                        <h2 style={{fontWeight:"bold"}}>25000+ Peserta</h2>
-                                        <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3>
+                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
+                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
                                         <div style={{marginTop:30}}>
-                                        Midiatama Academy merupakan sebuah perusahaan yang bergerak di bidang Pelatihan (Pembinaan), Sertifikasi dan Konsultansi K3 yang telah ditunjuk oleh Kementrian Ketenagakerjaan RI berupa Surat Keterangan Penunjukkan (SKP). Midiatama memberikan Kepastian pelaksanaan dengan Jaminan Kompetensi yang sesuai dengan bidang dan bakat seseorang untuk dapat bekerja di sebuah perusahaan besar seperti BUMN, Konstruksi, Pertambangan, Minyak, Gas Bumi dan Manufaktur
+                                        {globalContext.dashboardText.section2[0].isi}
                                         </div>
                                     </div>
                                     <div style={{marginTop:80,marginBottom:80}}>
-                                        <h2 style={{fontWeight:"bold"}}>25000+ Peserta</h2>
-                                        <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3>
+                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
+                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
                                         <div style={{marginTop:30}}>
-                                        Midiatama Academy merupakan sebuah perusahaan yang bergerak di bidang Pelatihan (Pembinaan), Sertifikasi dan Konsultansi K3 yang telah ditunjuk oleh Kementrian Ketenagakerjaan RI berupa Surat Keterangan Penunjukkan (SKP). Midiatama memberikan Kepastian pelaksanaan dengan Jaminan Kompetensi yang sesuai dengan bidang dan bakat seseorang untuk dapat bekerja di sebuah perusahaan besar seperti BUMN, Konstruksi, Pertambangan, Minyak, Gas Bumi dan Manufaktur
+                                        {globalContext.dashboardText.section2[0].isi}
                                         </div>
                                     </div>
                               </div>
@@ -324,16 +324,16 @@ function Index() {
               <Container style={{paddingTop:50,paddingBottom:60,background:"url(https://midiatama.co.id/_nuxt/img/keunggulan.7cfd70d.png)",backgroundPosition: "right",backgroundRepeat: "no-repeat",backgroundSize: "contain"}}>
                     <Col lg={12}>
                             <div style={{width:(isTabletOrMobile) ? 360:650}}>
-                                <div style={{fontSize:30,fontWeight:"bold",marginBottom:25}}>Kebijakan K3LM Midiatama</div>
-                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white"}}>
-                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
-                                  </div>
-                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white",paddingTop:15}}>
-                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
-                                  </div>
-                                  <div style={{borderBottom:"solid 1px white",paddingBottom:15,color:"white",paddingTop:15}}>
-                                  Kami manajemen & karyawan berkomitmen menjadi perusahaan Jasa K3LM No.l di Indonesia dengan berusaha untuk:
-                                  </div>
+                                <div style={{fontSize:30,fontWeight:"bold",marginBottom:5}}>Kebijakan Jagoan K3</div>
+                                {
+                                  globalContext.dashboardText.kebijakan.map((el,index)=>{
+                                    return (
+                                      <div style={{borderBottom:"solid 1px white",paddingBottom:15,paddingTop:20,color:"white"}}>
+                                      {el}
+                                      </div>
+                                    )
+                                  })
+                                }
                             </div>
                     </Col>
               </Container>

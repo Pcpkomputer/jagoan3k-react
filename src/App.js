@@ -96,12 +96,24 @@ function App() {
      setBannerLoaded(true);
   }
 
+
+  let [dashboardText, setDashboardText] = useState({});
+  let [dashboardTextLoaded, setDashboardTextLoaded] = useState(false);
+  let fetchDashboardText = async()=>{
+    let request = await fetch(`${endpoint}/api/dashboardtext`);
+    let json = await request.json();
+
+    setDashboardText(json);
+    setDashboardTextLoaded(true);
+  }
+
   ///////////////
   let initialFetch = async()=>{
      try {
         cacheImages();
         fetchBanner();
         fetchInstruktur();
+        fetchDashboardText();
      } catch (error) {
         alert(error.message);
      }
@@ -112,11 +124,11 @@ function App() {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded){
       alert("complete");
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -151,7 +163,8 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, banner, setBanner, instruktur, setInstruktur}}>
+    <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
+    banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText}}>
     
     <Router>
       <ScrollToTop />

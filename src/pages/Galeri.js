@@ -28,6 +28,8 @@ import {
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
+import endpoint from '../utils/endpoint';
+
 
 export default function DetailTraining(props){
 
@@ -39,11 +41,16 @@ export default function DetailTraining(props){
   let [galeri, setGaleri] = useState([]);
   let [galeriLoading, setGaleriLoading] = useState(true);
 
+
+  let fetchGaleri = async()=>{
+    let request = await fetch(`${endpoint}/api/galeri`);
+    let json = await request.json();
+    setGaleri(json);
+    setGaleriLoading(false);
+  }
+
   useEffect(()=>{
-    setTimeout(() => {
-            setGaleri([1,2,3,4,5])
-            setGaleriLoading(false);
-    }, 1000);
+    fetchGaleri();
   },[])
 
   useEffect(()=>{
@@ -132,7 +139,7 @@ export default function DetailTraining(props){
                                 <Row style={{marginTop:30}}>
                                    
                                     {
-                                        galeri.map(()=>{
+                                        galeri.map((item,index)=>{
                                             return (
                                                 <Col lg="4" style={{marginBottom:40}}>
                                                         <div id="galeriBox" 
@@ -154,10 +161,10 @@ export default function DetailTraining(props){
                                                         }}  style={{position:"relative",backgroundColor:"#f8f8f8",overflow:"hidden",borderRadius:20,height:250}}>
                                                         
                                                                 <div className="smokescreen"></div>
-                                                                <img style={{position:"absolute",width:"100%",height:"100%"}} src="https://mos.is3.cloudhost.id/album/598248401781.jpg">
+                                                                <img style={{position:"absolute",width:"100%",height:"100%"}} src={`${endpoint}/storage/galeri/${item.gambar}`}>
                                                                 </img>
 
-                                                                <div className="ballon-gallery" style={{position:"absolute",backgroundColor:"white",fontSize:11,zIndex:100,bottom:20,borderRadius:10,left:15,padding:"3px 10px 3px 10px"}}>Kegiatan ABC K3 123</div>
+                                                                <div className="ballon-gallery" style={{position:"absolute",backgroundColor:"white",fontSize:11,zIndex:100,bottom:20,borderRadius:10,left:15,padding:"3px 10px 3px 10px"}}>{item.judul}</div>
                                                                 <div className="ballon-gallery" style={{position:"absolute",backgroundColor:"white",fontSize:11,zIndex:100,bottom:20,borderRadius:10,right:15,padding:"3px 10px 3px 10px"}}><FaShareAlt/></div>
                                                         </div>
                                                 </Col>

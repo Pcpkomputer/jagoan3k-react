@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Container, Row, Col, Spinner } from 'react-bootstrap';
+import { Container, Row, Col, Spinner, NavLink } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -39,6 +39,10 @@ export default function Detailnstruktur(props){
 
   let params = useParams();
 
+  useEffect(()=>{
+    fetchInstruktur();
+  },[params.instruktur])
+
   let [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(()=>{
@@ -60,6 +64,9 @@ let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 let [instruktur, setInstruktur] = useState(false);
 let [instrukturLoaded, setInstrukturLoaded] = useState(false);
 let fetchInstruktur = async()=>{
+   setPageLoaded(false);
+   setVideoLoaded(false);
+   setInstrukturLoaded(false);
    let request = await fetch(`${endpoint}/api/instruktur/${params.instruktur}`);
    let json = await request.json();
    setInstruktur(json);
@@ -70,6 +77,8 @@ let fetchInstruktur = async()=>{
 let [allInstruktur, setAllInstruktur] = useState([]);
 let [allInstrukturLoaded, setAllInstrukturLoaded] = useState(false);
 let fetchAllInstruktur = async ()=>{
+  setPageLoaded(false);
+  setAllInstrukturLoaded(false);
   let request = await fetch(`${endpoint}/api/instruktur`);
   let json = await request.json();
   setAllInstruktur(json);
@@ -177,14 +186,16 @@ let settings = {
                               {
                                 allInstruktur.map((item,index)=>{
                                   return (
+                                    <Link style="color:black" to={`/instruktur/${item.id_instruktur}`}>
                                     <div style={{backgroundColor:"white",height:"100%"}}>
                                         <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:300,marginRight:20}}>
                                             <div style={{display:"flex",backgroundSize:"cover",flex:1,background:`url('${endpoint}/storage/instruktur/${item.foto}')`}}>
                                           
                                             </div>
-                                            <div style={{paddingBottom:50,textAlign:"center",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
+                                            <div style={{paddingBottom:50,textAlign:"center",color:"black",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
                                         </div>
                                     </div>
+                                    </Link>
                                   )
                                 })
                               }

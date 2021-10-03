@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +13,7 @@ import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
-
+import { GlobalContext } from '../App';
 
 import {
   BrowserRouter as Router,
@@ -31,6 +31,8 @@ export default function AboutJagoanK3(props){
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+
+  let globalContext = useContext(GlobalContext);
 
   useEffect(()=>{
     if(document.querySelectorAll("#header").length>0){
@@ -94,9 +96,9 @@ export default function AboutJagoanK3(props){
                                         <h2 style={{fontWeight:"bold"}}>
                                           Tentang Jagoan K3
                                         </h2>
-                                        <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3>
+                                        {/* <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3> */}
                                         <div style={{marginTop:30}}>
-                                        Midiatama Academy merupakan sebuah perusahaan yang bergerak di bidang Pelatihan (Pembinaan), Sertifikasi dan Konsultansi K3 yang telah ditunjuk oleh Kementrian Ketenagakerjaan RI berupa Surat Keterangan Penunjukkan (SKP). Midiatama memberikan Kepastian pelaksanaan dengan Jaminan Kompetensi yang sesuai dengan bidang dan bakat seseorang untuk dapat bekerja di sebuah perusahaan besar seperti BUMN, Konstruksi, Pertambangan, Minyak, Gas Bumi dan Manufaktur
+                                        {globalContext.dashboardText.tentangkami}
                                         </div>
                                     </div>
                                   
