@@ -1,3 +1,3 @@
-const endpoint = "http://localhost:8000";
+const endpoint = "https://jagoank3.com";
 
 export default endpoint;

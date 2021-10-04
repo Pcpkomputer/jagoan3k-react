@@ -188,7 +188,7 @@ export default function Artikel(props){
                                                             <div style={{display:"relative",background:"linear-gradient(180deg, rgba(2,0,36,1) 0%, rgba(24,24,184,0) 0%, rgba(255,255,255,1) 100%)"}}>
                                                                 <div style={{position:"relative"}}>
                                                                     <div style={{position:"absolute",width:"100%",backgroundImage:"linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%)",height:30,bottom:0}}></div>
-                                                                    <img src={`${endpoint}/storage/artikel/${item.gambar_artikel}`} style={{width:"100%",height:250}}></img>
+                                                                    <img src={`${endpoint}/storage/public/artikel/${item.gambar_artikel}`} style={{width:"100%",height:250}}></img>
                                                                 </div>
                                                             </div>
                                                             <div style={{padding:20}}>

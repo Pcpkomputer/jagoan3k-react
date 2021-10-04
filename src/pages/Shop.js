@@ -150,7 +150,7 @@ export default function Shop(props){
                                        showcase.map((item,index)=>{
                                            return (
                                             <div style={{backgroundColor:"white",display:"flex",flexDirection:"column",overflow:"hidden",height:450,border:"solid 1px grey",borderRadius:10}}>
-                                                <img style={{width:"100%",backgroundColor:"whitesmoke",height:250}} src={`${endpoint}/storage/shop/${item.gambar_barang}`}/>
+                                                <img style={{width:"100%",backgroundColor:"whitesmoke",height:250}} src={`${endpoint}/storage/public/shop/${item.gambar_barang}`}/>
                                                 <div style={{marginTop:20,paddingLeft:20,paddingRight:20,fontWeight:"bold"}}>{item.nama_barang}</div>
                                                 <div style={{marginTop:20,marginBottom:30,flex:1,paddingLeft:20,paddingRight:20,fontWeight:"bold",color:"grey"}}>Rp. {item.harga}</div>
                                                 <div style={{backgroundColor:"#27b394",color:"white",textAlign:"center",paddingTop:20,paddingBottom:20}}>Tambah Ke Keranjang</div>

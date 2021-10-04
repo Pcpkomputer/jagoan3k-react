@@ -171,7 +171,7 @@ function Index() {
                     return (
                       <div class="item">
                           <div style={{position:"absolute",backgroundColor:"black",opacity:0.5,width:"100%",height:"100%",zIndex:100}}></div>
-                          <div style={{display:"flex",alignItems:"center",backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/banner/${item.gambar}")`,height:"100vh"}}>
+                          <div style={{display:"flex",alignItems:"center",backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/public/banner/${item.gambar}")`,height:"100vh"}}>
                               {
                                 (isTabletOrMobile) ?
                                   <div style={{position:"absolute",paddingRight:100,width:300,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
@@ -232,7 +232,7 @@ function Index() {
                                     return (
                                       <div style={{backgroundColor:"white",height:"100%"}}>
                                           <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginLeft:(is460) ? 20:null,marginRight:20,height:330}}>
-                                            <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                            <img src="https://apimicca.midiatama.co.id/storage/public/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                             <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:(is460) ? 180:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
@@ -277,9 +277,9 @@ function Index() {
                         <div style={{width:"100%",height:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
                               {
                                 (max991) ?
-                                <img  style={{width:350,height:350,marginTop:(isTabletOrMobile) ? 10:40,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:350,height:350,marginTop:(isTabletOrMobile) ? 10:40,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
                                 :
-                                <img  style={{width:480,height:480,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
                               }
                           </div>
                       </Col>
@@ -295,7 +295,7 @@ function Index() {
                                 (max991) ?
                                 null
                                 :
-                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
                               }
                           </div>
                       </Col>
@@ -352,7 +352,7 @@ ahli di bidangnya masing-masing
                                 <Link to={`/instruktur/${item.id_instruktur}`}>
                                 <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%",marginBottom:40}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
-                                        <img style={{width:"100%",height:300}} src={`${endpoint}/storage/instruktur/${item.foto}`}></img>
+                                        <img style={{width:"100%",height:300}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
                                         <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,color:"black",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>
@@ -372,7 +372,7 @@ ahli di bidangnya masing-masing
                         [1,2,3,4,5,6,7,8,9].map(()=>{
                             return (
                               <div style={{backgroundColor:"white",height:"100%"}}>
-                                  <img style={{width:(is460) ? 130:200,height:100}} src="https://apimicca.midiatama.co.id/storage/bageur.id/our-client/bageur-207210624084541.png"/>
+                                  <img style={{width:(is460) ? 130:200,height:100}} src="https://apimicca.midiatama.co.id/storage/public/bageur.id/our-client/bageur-207210624084541.png"/>
                               </div>
                             )
                         })

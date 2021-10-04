@@ -86,7 +86,7 @@ export default function AboutJagoanK3(props){
                                 (max991) ?
                                 null
                                 :
-                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
                               }
                           </div>
                       </Col>

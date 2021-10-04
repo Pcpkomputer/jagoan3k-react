@@ -153,7 +153,7 @@ let settings = {
           <Container>
                 <Row>
                     <Col lg={4} style={{display:"flex",alignItems:"center",flexDirection:"column"}}>
-                        <img src={`${endpoint}/storage/instruktur/${instruktur[0].foto}`} style={{backgroundColor:"#e8e8e8",borderRadius:999,height:300,width:300}}></img>
+                        <img src={`${endpoint}/storage/public/instruktur/${instruktur[0].foto}`} style={{backgroundColor:"#e8e8e8",borderRadius:999,height:300,width:300}}></img>
                         <div style={{marginTop:30,textAlign:"center",fontSize:20,fontWeight:"bold"}}>{instruktur[0].nama}</div>
                         <div style={{marginTop:20,padding:10,borderRadius:10,backgroundColor:"#27b394",color:"white"}}>{instruktur[0].posisi}</div>
                         <div style={{borderBottom:"solid 1px grey",marginTop:40,marginBottom:50,width:"100%",height:1}}></div>
@@ -189,7 +189,7 @@ let settings = {
                                     <Link style="color:black" to={`/instruktur/${item.id_instruktur}`}>
                                     <div style={{backgroundColor:"white",height:"100%"}}>
                                         <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:300,marginRight:20}}>
-                                            <div style={{display:"flex",backgroundSize:"cover",flex:1,background:`url('${endpoint}/storage/instruktur/${item.foto}')`}}>
+                                            <div style={{display:"flex",backgroundSize:"cover",flex:1,background:`url('${endpoint}/storage/public/instruktur/${item.foto}')`}}>
                                           
                                             </div>
                                             <div style={{paddingBottom:50,textAlign:"center",color:"black",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>

@@ -161,7 +161,7 @@ export default function DetailTraining(props){
                                                         }}  style={{position:"relative",backgroundColor:"#f8f8f8",overflow:"hidden",borderRadius:20,height:250}}>
                                                         
                                                                 <div className="smokescreen"></div>
-                                                                <img style={{position:"absolute",width:"100%",height:"100%"}} src={`${endpoint}/storage/galeri/${item.gambar}`}>
+                                                                <img style={{position:"absolute",width:"100%",height:"100%"}} src={`${endpoint}/storage/public/galeri/${item.gambar}`}>
                                                                 </img>
 
                                                                 <div className="ballon-gallery" style={{position:"absolute",backgroundColor:"white",fontSize:11,zIndex:100,bottom:20,borderRadius:10,left:15,padding:"3px 10px 3px 10px"}}>{item.judul}</div>
