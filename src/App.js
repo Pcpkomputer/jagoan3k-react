@@ -125,7 +125,6 @@ function App() {
 
   useEffect(()=>{
     if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded){
-      alert("complete");
       setComplete(true);
     }
   },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded])

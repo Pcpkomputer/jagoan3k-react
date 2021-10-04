@@ -265,10 +265,10 @@ function Index() {
                                   </div>
                               </div>
                               <div style={{marginTop:80,marginBottom:(isTabletOrMobile) ? 80:0}}>
-                                  <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
-                                  <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
+                                  <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[1].judul}</h2>
+                                  <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[1].subjudul}</h3>
                                   <div style={{marginTop:30}}>
-                                  {globalContext.dashboardText.section2[0].isi}
+                                  {globalContext.dashboardText.section2[1].isi}
                                   </div>
                               </div>
                         </div>
@@ -302,17 +302,17 @@ function Index() {
                       <Col lg={6} style={{paddingLeft:(isTabletOrMobile) ? 30:null,paddingRight:(isTabletOrMobile) ? 30:null}}>
                             <div style={{paddingTop:50}}>
                                     <div>
-                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
-                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
+                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[2].judul}</h2>
+                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[2].subjudul}</h3>
                                         <div style={{marginTop:30}}>
-                                        {globalContext.dashboardText.section2[0].isi}
+                                        {globalContext.dashboardText.section2[2].isi}
                                         </div>
                                     </div>
                                     <div style={{marginTop:80,marginBottom:80}}>
-                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].judul}</h2>
-                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[0].subjudul}</h3>
+                                        <h2 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[3].judul}</h2>
+                                        <h3 style={{fontWeight:"bold"}}>{globalContext.dashboardText.section2[3].subjudul}</h3>
                                         <div style={{marginTop:30}}>
-                                        {globalContext.dashboardText.section2[0].isi}
+                                        {globalContext.dashboardText.section2[3].isi}
                                         </div>
                                     </div>
                               </div>
