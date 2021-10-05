@@ -98,7 +98,7 @@ function Index() {
       dots: true,
       infinite: true,
       speed: 200,
-      slidesToShow: (is460) ? 2:(max991) ? 2:(max1400) ? 4:5,
+      slidesToShow: (globalContext.ourclient.length>4) ? (is460) ? 2:(max991) ? 2:(max1400) ? 4:5:globalContext.ourclient.length,
       slidesToScroll: (is460) ? 2:(max991) ? 2:(max1400) ? 4:5,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
@@ -279,7 +279,7 @@ function Index() {
                                 (max991) ?
                                 <img  style={{width:350,height:350,marginTop:(isTabletOrMobile) ? 10:40,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
                                 :
-                                <img  style={{width:480,height:480,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480,marginBottom:0}} src={`${endpoint}/storage/public/section2/section2gambar-0.jpg`}></img>
                               }
                           </div>
                       </Col>
@@ -295,7 +295,7 @@ function Index() {
                                 (max991) ?
                                 null
                                 :
-                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480}} src={`${endpoint}/storage/public/section2/section2gambar-1.jpg`}></img>
                               }
                           </div>
                       </Col>
@@ -369,10 +369,10 @@ ahli di bidangnya masing-masing
                 <Slider {...settingsOurClient} style={{padding:10}}>
                     
                       {
-                        [1,2,3,4,5,6,7,8,9].map(()=>{
+                        globalContext.ourclient.map((item,index)=>{
                             return (
                               <div style={{backgroundColor:"white",height:"100%"}}>
-                                  <img style={{width:(is460) ? 130:200,height:100}} src="https://apimicca.midiatama.co.id/storage/public/bageur.id/our-client/bageur-207210624084541.png"/>
+                                  <img style={{width:(is460) ? 130:200,height:100}} src={`${endpoint}/storage/public/ourclient/${item.gambar}`}/>
                               </div>
                             )
                         })

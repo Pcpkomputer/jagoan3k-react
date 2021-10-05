@@ -85,6 +85,17 @@ function App() {
   }
 
 
+  let [ourclient, setOurClient] = useState([]);
+  let [ourClientLoaded, setOurClientLoaded] = useState(false);
+  let fetchOurClient = async ()=>{
+    let request = await fetch(`${endpoint}/api/ourclient`);
+    let json = await request.json();
+
+    setOurClient(json);
+    setOurClientLoaded(true);
+  }
+
+
   let [banner, setBanner] = useState([]);
   let [bannerLoaded, setBannerLoaded] = useState(false);
   let fetchBanner = async ()=>{
@@ -113,6 +124,7 @@ function App() {
         cacheImages();
         fetchBanner();
         fetchInstruktur();
+        fetchOurClient();
         fetchDashboardText();
      } catch (error) {
         alert(error.message);
@@ -124,10 +136,10 @@ function App() {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -163,7 +175,9 @@ function App() {
 
   return (
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
-    banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText}}>
+    banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
+    ourclient,setOurClient
+    }}>
     
     <Router>
       <ScrollToTop />
