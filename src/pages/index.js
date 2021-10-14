@@ -36,6 +36,8 @@ import {GlobalContext} from '../App';
 import endpoint from '../utils/endpoint';
 
 
+
+
 function Index() {
 
   let globalContext = useContext(GlobalContext);
@@ -44,6 +46,15 @@ function Index() {
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
   const is460 = useMediaQuery({ query: '(max-width: 460px)' })
+
+
+  let changeToLocalDateIndonesia = (date)=>{
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+    return `${da}-${mo}-${ye}`;
+  }
 
 
   function SampleNextArrow(props) {
@@ -77,7 +88,7 @@ function Index() {
       dots: true,
       infinite: true,
       speed: 200,
-      slidesToShow: (max991) ? 1:(max1400) ? 2:3,
+      slidesToShow: (globalContext.trainingTerdekat.length>=3) ? (max991) ? 1:(max1400) ? 2:3:globalContext.trainingTerdekat.length,
       slidesToScroll: (max991) ? 1:(max1400) ? 2:3,
       
     };
@@ -156,7 +167,9 @@ function Index() {
 
 
     
-
+    useEffect(()=>{
+     console.log(globalContext.trainingTerdekat);
+    },[])
 
 
     return (
@@ -228,15 +241,15 @@ function Index() {
 
                           <Slider {...settings} style={{padding:10}}>
                                 {
-                                  [1,2,3,4,5].map(()=>{
+                                  globalContext.trainingTerdekat.map((item,index)=>{
                                     return (
                                       <div style={{backgroundColor:"white",height:"100%"}}>
                                           <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginLeft:(is460) ? 20:null,marginRight:20,height:330}}>
                                             <img src="https://apimicca.midiatama.co.id/storage/public/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                             <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:(is460) ? 180:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
-                                                <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
-                                                <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
-                                                <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
+                                                <div style={{textAlign:"center",fontWeight:"bold"}}>{item.namatraining}</div>
+                                                <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi {item.subkategoritraining}</div>
+                                                <div style={{textAlign:"center",marginTop:10}}>{changeToLocalDateIndonesia(item.jadwaltraining)}</div>
                                             </div>
                                             <Link to="/training/1" className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                   Read More

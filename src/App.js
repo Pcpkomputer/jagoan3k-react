@@ -28,11 +28,11 @@ import "./css/App.css";
 import endpoint from "./utils/endpoint";
 
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Switch,
   Route,
   Link,
-  useLocation
+  useLocation,
 } from "react-router-dom";
 
 import {useEffect, useState, useContext, createContext, useLayoutEffect} from 'react';
@@ -118,6 +118,29 @@ function App() {
     setDashboardTextLoaded(true);
   }
 
+  let [credentials, setCredentials] = useState(null);
+  let [credentialsLoaded, setCredentialsLoaded] = useState(false);
+  let fetchCredentials = async()=>{
+     if(window.localStorage.getItem("credentials")===null){
+        setCredentials(null);
+        setCredentialsLoaded(true);
+     }
+     else{
+        setCredentials({});
+        setCredentialsLoaded(true);
+     }
+  }
+
+  let [trainingTerdekat, setTrainingTerdekat] = useState([]);
+  let [trainingTerdekatLoaded, setTrainingTerdekatLoaded] = useState(false);
+  let fetchTrainingTerdekat = async ()=>{
+     let request = await fetch(`${endpoint}/api/jadwaltrainingterdekat`);
+     let json = await request.json();
+     
+     setTrainingTerdekat(json);
+     setTrainingTerdekatLoaded(true);
+  }
+
   ///////////////
   let initialFetch = async()=>{
      try {
@@ -126,6 +149,8 @@ function App() {
         fetchInstruktur();
         fetchOurClient();
         fetchDashboardText();
+        fetchCredentials();
+        fetchTrainingTerdekat();
      } catch (error) {
         alert(error.message);
      }
@@ -136,10 +161,10 @@ function App() {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -176,7 +201,7 @@ function App() {
   return (
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
-    ourclient,setOurClient
+    ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat
     }}>
     
     <Router>
