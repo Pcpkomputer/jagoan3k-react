@@ -141,6 +141,17 @@ function App() {
      setTrainingTerdekatLoaded(true);
   }
 
+
+  let [kategoriTraining, setKategoriTraining] = useState([]);
+  let [kategoriTrainingLoaded, setKategoriTrainingLoaded] = useState(false);
+  let fetchKategoriTraining =  async()=>{
+    let request = await fetch(`${endpoint}/api/kategoritraining`);
+    let json = await request.json();
+    setKategoriTraining(json);
+    setKategoriTrainingLoaded(true);
+  }
+
+
   ///////////////
   let initialFetch = async()=>{
      try {
@@ -151,6 +162,7 @@ function App() {
         fetchDashboardText();
         fetchCredentials();
         fetchTrainingTerdekat();
+        fetchKategoriTraining();
      } catch (error) {
         alert(error.message);
      }
@@ -161,10 +173,10 @@ function App() {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -201,7 +213,7 @@ function App() {
   return (
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
-    ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat
+    ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining
     }}>
     
     <Router>

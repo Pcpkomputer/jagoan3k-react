@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useContext } from 'react';
 
 import { Container, Row, Col, Accordion, Card, Spinner } from 'react-bootstrap';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
@@ -30,6 +30,10 @@ import { DateRange } from 'react-date-range';
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
+import endpoint from '../utils/endpoint';
+
+import { GlobalContext } from '../App';
+
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () => {
       console.log('totally custom!');
@@ -47,51 +51,38 @@ function CustomToggle({ children, eventKey }) {
     );
   }
 
-function Accordions(){
+function Accordions({globalContext, fetchByCategoryAndSubCategory, setSelectedCategory, selectedCategory, setSelectedIndexCategory, selectedIndexCategory, setSelectedSubCategory, selectedSubCategory}){
     return (
         <Accordion style={{paddingBottom:100}} defaultActiveKey="-1">
-        <Card style={{border:"none"}}>
-          <CustomToggle eventKey="0">
-              <div>Sertifikat Kemnaker RI</div>
-          </CustomToggle>
-          <Accordion.Collapse eventKey="0">
-            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
-            </div>
-          </Accordion.Collapse>
-        </Card>
-        <Card style={{border:"none"}}>
-          <CustomToggle eventKey="1">
-              <div>Sertifikat BNSP</div>
-          </CustomToggle>
-          <Accordion.Collapse eventKey="1">
-            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
-            </div>
-          </Accordion.Collapse>
-        </Card>
-        <Card style={{border:"none"}}>
-          <CustomToggle eventKey="2">
-              <div>Sertifikat BNSP</div>
-          </CustomToggle>
-          <Accordion.Collapse eventKey="2">
-            <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat A</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat B</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat C</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat D</div>
-                <div style={{fontSize:13,marginBottom:10}}>Sertifikat E</div>
-            </div>
-          </Accordion.Collapse>
-        </Card>
+        {
+          (globalContext.kategoriTraining).map((item,index)=>{
+            console.log(item);
+            return (
+              <Card style={{border:"none"}}>
+                <CustomToggle eventKey={`${index}`}>
+                    <div>{item.kategori.nama_kategoritraining}</div>
+                </CustomToggle>
+                <Accordion.Collapse eventKey={`${index}`}>
+                  <div style={{paddingLeft:30,paddingRight:30,paddingBottom:10,paddingTop:10}}>
+                      {
+                        item.subkategori.map((item2,index)=>{
+                            return (
+                              <div onClick={async ()=>{
+                                await setSelectedCategory(item.kategori.nama_kategoritraining);
+                                await setSelectedIndexCategory(item.kategori.id_kategoritraining);
+                                await setSelectedSubCategory(item2.nama_subkategoritraining);
+
+                                await fetchByCategoryAndSubCategory(item.kategori.id_kategoritraining,item2.nama_subkategoritraining);
+                              }} style={{fontSize:13,cursor:"pointer",marginBottom:10}}>{item2.nama_subkategoritraining}</div>
+                            )
+                        })
+                      }
+                  </div>
+              </Accordion.Collapse>
+            </Card>
+            )
+          })
+        }
       </Accordion>
     )
 }
@@ -99,18 +90,40 @@ function Accordions(){
 
 export default function Training(props){
 
+  let globalContext = useContext(GlobalContext);
+
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
-  let [dataIsLoading, setDataIsLoading] = useState(true);
-  let [pelatihan, setPelatihan] = useState([]);
+  // let [dataIsLoading, setDataIsLoading] = useState(true);
+
+  let [selectedIndexCategory, setSelectedIndexCategory] = useState(globalContext.kategoriTraining[0]?.kategori?.id_kategoritraining || -1);
+  let [selectedCategory, setSelectedCategory] = useState(globalContext.kategoriTraining[0]?.kategori?.nama_kategoritraining || "");
+  let [selectedSubCategory, setSelectedSubCategory] = useState(globalContext.kategoriTraining[0]?.subkategori[0]?.nama_subkategoritraining || "");
+
+
+  let [training, setTraining] = useState([]);
+  let [trainingLoaded, setTrainingLoaded] = useState(false);
+  let fetchTraining = async ()=>{
+     let request = await fetch(`${endpoint}/api/trainingbydateandcategory`,{
+       method:"POST",
+       body:JSON.stringify({
+         from:new Date().toISOString().slice(0,10),
+         to:new Date(new Date().setDate(new Date().getDate()+7)).toISOString().slice(0,10),
+         id_kategoritraining:selectedIndexCategory
+        }),
+       headers:{
+         "content-type":"application/json"
+       }
+     });
+     let json = await request.json();
+     setTraining(json);
+     setTrainingLoaded(true);
+  }
 
   useEffect(()=>{
-      setTimeout(() => {
-          setDataIsLoading(false);
-          setPelatihan([1,2,3,4]);
-      }, 500);
+    fetchTraining();
   },[])
 
   useEffect(()=>{
@@ -128,14 +141,35 @@ export default function Training(props){
 
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: new Date().getTime(),
+      endDate: new Date().setDate(new Date().getDate()+7),
       key: 'selection'
     }
   ]);
 
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
+
+  let changeToLocalDateIndonesia = (date)=>{
+    let d = new Date(date);
+    let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+    let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+    let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+    return `${ye}-${mo}-${da}`;
+  }
+
+  let fetchByCategoryAndSubCategory = async (id_kategoritraining, nama_subkategoritraining)=>{
+    
+    let start = state[0].startDate;
+    let end = state[0].endDate;
+
+    start = changeToLocalDateIndonesia(start);
+    end = changeToLocalDateIndonesia(end);
+
+    console.log(start);
+    console.log(end);
+  
+  }
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
@@ -170,19 +204,28 @@ export default function Training(props){
                               <div style={{color:"black",fontWeight:"bold",marginBottom:20}}>Jadwal Training</div>
                               <DateRange
                                editableDateInputs={true}
-                               onChange={item => setState([item.selection])}
+                               onChange={item => {
+                                setState([item.selection]);
+                               }}
                                moveRangeOnFifrstSelection={false}
                                ranges={state}
                               />
                                <div style={{color:"black",fontWeight:"bold",marginTop:40,marginBottom:20}}>Kategori Training</div>
-                                <Accordions/>
+                                <Accordions 
+                                setSelectedCategory={setSelectedCategory}
+                                selectedCategory={selectedCategory}
+                                setSelectedIndexCategory={setSelectedIndexCategory}
+                                selectedIndexCategory={selectedIndexCategory}
+                                setSelectedSubCategory={setSelectedSubCategory}
+                                selectedSubCategory={selectedSubCategory}
+                                fetchByCategoryAndSubCategory={fetchByCategoryAndSubCategory} globalContext={globalContext}/>
                           </div>
                       </Col>
                       <Col lg={8}>
                           <div style={{paddingLeft:30,paddingRight:30}}>
-                                <div style={{fontSize:30,paddingBottom:10,borderBottom:"solid 1px black",fontWeight:"bold"}}>AHLI K3 UMUM</div>
+                                <div style={{fontSize:30,paddingBottom:10,borderBottom:"solid 1px black",fontWeight:"bold"}}>{selectedCategory.toUpperCase()}</div>
                                 {
-                                  (!dataIsLoading && pelatihan.length===0) &&
+                                  (trainingLoaded && training.length===0) &&
                                   <div style={{paddingTop:70,justifyContent:"center",alignItems:"center",display:"flex"}}>
                                       <div style={{backgroundColor:"white",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
                                         Data tidak ditemukan
@@ -190,7 +233,7 @@ export default function Training(props){
                                   </div>
                                 }
                                 {
-                                  (dataIsLoading) &&
+                                  (!trainingLoaded) &&
                                   <div style={{paddingTop:70,justifyContent:"center",alignItems:"center",display:"flex"}}>
                                       <div style={{backgroundColor:"white",display:"flex",justifyContent:"center",alignItems:"center",padding:15,boxShadow:"2px 9px 25px 2px rgba(0,0,0,0.1)"}}> 
                                         Sedang Memuat Data
@@ -200,11 +243,11 @@ export default function Training(props){
                                 }
                                 
                                 {
-                                  (!dataIsLoading) &&
+                                  (trainingLoaded) &&
                                   <div style={{marginTop:30,gridRowGap:40,gridColumnGap:40,display:"grid",gridTemplateColumns:(isTabletOrMobile) ? "1fr":(max991) ? "1fr 1fr":(max1400) ? "1fr 1fr":"1fr 1fr 1fr"}}>
                                     {
-                                      (pelatihan.length>0 && !dataIsLoading) &&
-                                      pelatihan.map(()=>{
+                                      (training.length>0 && trainingLoaded) &&
+                                      training.map(()=>{
                                         return (
                                           <div style={{backgroundColor:"white"}}>
                                               <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
