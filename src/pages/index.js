@@ -245,13 +245,13 @@ function Index() {
                                     return (
                                       <div style={{backgroundColor:"white",height:"100%"}}>
                                           <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",marginLeft:(is460) ? 20:null,marginRight:20,height:330}}>
-                                            <img src="https://apimicca.midiatama.co.id/storage/public/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                            <img src={`/storage/public/training/${item.foto}`} style={{backgroundColor:"whitesmoke",width:(is460) ? 200:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                             <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:(is460) ? 180:220,position:"absolute",bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>{item.namatraining}</div>
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi {item.subkategoritraining}</div>
                                                 <div style={{textAlign:"center",marginTop:10}}>{changeToLocalDateIndonesia(item.jadwaltraining)}</div>
                                             </div>
-                                            <Link to="/training/1" className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
+                                            <Link to={`/training/${item.id_training}`} className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:0,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                   Read More
                                               </Link>
                                           </div>

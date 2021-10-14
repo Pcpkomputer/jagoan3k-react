@@ -36,7 +36,7 @@ import { GlobalContext } from '../App';
 
 function CustomToggle({ children, eventKey }) {
     const decoratedOnClick = useAccordionButton(eventKey, () => {
-      console.log('totally custom!');
+      //console.log('totally custom!');
     }
     );
   
@@ -56,7 +56,6 @@ function Accordions({globalContext, fetchByCategoryAndSubCategory, setSelectedCa
         <Accordion style={{paddingBottom:100}} defaultActiveKey="-1">
         {
           (globalContext.kategoriTraining).map((item,index)=>{
-            console.log(item);
             return (
               <Card style={{border:"none"}}>
                 <CustomToggle eventKey={`${index}`}>
@@ -159,6 +158,8 @@ export default function Training(props){
   }
 
   let fetchByCategoryAndSubCategory = async (id_kategoritraining, nama_subkategoritraining)=>{
+
+    setTrainingLoaded(false);
     
     let start = state[0].startDate;
     let end = state[0].endDate;
@@ -166,8 +167,60 @@ export default function Training(props){
     start = changeToLocalDateIndonesia(start);
     end = changeToLocalDateIndonesia(end);
 
-    console.log(start);
-    console.log(end);
+
+    let request = await fetch(`${endpoint}/api/trainingbydateandsubcategory`,{
+      method:"POST",
+      body:JSON.stringify({
+        from:start,
+        to:end,
+        id_kategoritraining:id_kategoritraining,
+        subkategori:nama_subkategoritraining
+       }),
+      headers:{
+        "content-type":"application/json"
+      }
+    });
+    let json = await request.json();
+
+    
+    setTraining(json);
+
+    setTrainingLoaded(true);
+  
+  };
+
+
+  let fetchByCategoryAndSubCategory2 = async (id_kategoritraining, nama_subkategoritraining, state)=>{
+
+    setTrainingLoaded(false);
+
+    console.log(state);
+    
+    let start = state[0].startDate;
+    let end = state[0].endDate;
+
+    start = changeToLocalDateIndonesia(start);
+    end = changeToLocalDateIndonesia(end);
+
+
+    let request = await fetch(`${endpoint}/api/trainingbydateandsubcategory`,{
+      method:"POST",
+      body:JSON.stringify({
+        from:start,
+        to:end,
+        id_kategoritraining:id_kategoritraining,
+        subkategori:nama_subkategoritraining
+       }),
+      headers:{
+        "content-type":"application/json"
+      }
+    });
+    let json = await request.json();
+
+    
+    setTraining(json);
+
+    setTrainingLoaded(true);
   
   }
 
@@ -204,8 +257,9 @@ export default function Training(props){
                               <div style={{color:"black",fontWeight:"bold",marginBottom:20}}>Jadwal Training</div>
                               <DateRange
                                editableDateInputs={true}
-                               onChange={item => {
+                               onChange={async (item) => {
                                 setState([item.selection]);
+                                await fetchByCategoryAndSubCategory2(selectedIndexCategory,selectedSubCategory,[item.selection]);
                                }}
                                moveRangeOnFifrstSelection={false}
                                ranges={state}
@@ -247,16 +301,16 @@ export default function Training(props){
                                   <div style={{marginTop:30,gridRowGap:40,gridColumnGap:40,display:"grid",gridTemplateColumns:(isTabletOrMobile) ? "1fr":(max991) ? "1fr 1fr":(max1400) ? "1fr 1fr":"1fr 1fr 1fr"}}>
                                     {
                                       (training.length>0 && trainingLoaded) &&
-                                      training.map(()=>{
+                                      training.map((item,index)=>{
                                         return (
                                           <div style={{backgroundColor:"white"}}>
                                               <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
                                                 <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                                 <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:220,position:"relative",top:110,bottom:12,height:210,borderRadius:5}}>
-                                                    <div style={{textAlign:"center",fontWeight:"bold"}}>Ahli K3 Listrik Batch 13</div>
-                                                    <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi Ahli K3 Listrik Kemnaker RI</div>
-                                                    <div style={{textAlign:"center",marginTop:10}}>20 Agustus 2021</div>
-                                                    <Link to="/training/1" className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:-13,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
+                                                <div style={{textAlign:"center",fontWeight:"bold"}}>{item.namatraining}</div>
+                                                <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi {item.subkategoritraining}</div>
+                                                <div style={{textAlign:"center",marginTop:10}}>{changeToLocalDateIndonesia(item.jadwaltraining)}</div>
+                                                <Link to={`/training/${item.id_training}`} className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:-13,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                       Read More
                                                   </Link>
                                                 </div>

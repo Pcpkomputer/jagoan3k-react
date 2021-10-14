@@ -33,15 +33,22 @@ import {
   Route,
   Link,
   useLocation,
+  withRouter
 } from "react-router-dom";
 
-import {useEffect, useState, useContext, createContext, useLayoutEffect} from 'react';
+import {useEffect, useState, useContext, createContext, useLayoutEffect, useRef} from 'react';
 
 export let GlobalContext = createContext();
 
+let interval = {};
 
-function App() {
+function App(props) {
 
+  // let location = useLocation();
+
+  // useEffect(()=>{
+  //   alert("111");
+  // },[location.pathname])
 
   let [previewLoaded, setPreviewLoaded] = useState(false);
 
@@ -213,7 +220,8 @@ function App() {
   return (
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
-    ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining
+    ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
+    interval
     }}>
     
     <Router>
@@ -238,39 +246,84 @@ function App() {
               style={{marginTop:30,fontSize:12,color:"white"}}>Continue To Web ...</div>
           </div>
          }
-          <Route  path="/artikel/:idartikel">
-            <DetailArtikel/>
-          </Route>
-          <Route  path="/training/:idtraining/pemesanan">
-            <PemesananTraining/>
-          </Route>
-          <Route  path="/training/:idtraining">
-            <DetailTraining/>
-          </Route>
-          <Route  path="/instruktur/:instruktur">
-            <Detailnstruktur/>
-          </Route>
-          <Route  path="/login">
-            <Login/>
-          </Route>
-          <Route  path="/artikel">
-            <Artikel/>
-          </Route>
-          <Route  path="/galeri">
-            <Galeri/>
-          </Route>
-          <Route  path="/shop">
-            <Shop/>
-          </Route>
-          <Route  path="/training">
-            <Training/>
-          </Route>
-          <Route  path="/jagoank3">
-            <AboutJagoanK3/>
-          </Route>
-          <Route  path="/">
-            <Index />
-          </Route>
+          <Route  path="/artikel/:idartikel" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <DetailArtikel/>;
+          }} />
+        
+          <Route path="/training/:idtraining/pemesanan" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <PemesananTraining/>;
+          }} />
+
+          <Route  path="/training/:idtraining" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <DetailTraining/>;
+          }} />
+
+          <Route  path="/instruktur/:instruktur" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <Detailnstruktur/>;
+          }} />
+            
+          <Route  path="/login" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <Login/>
+          }} />
+            
+          <Route  path="/artikel" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return  <Artikel/>
+          }} />
+           
+          <Route  path="/galeri" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <Galeri/>;
+          }} />
+            
+          <Route  path="/shop" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <Shop/>
+          }} />
+            
+          <Route  path="/training" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <Training/>
+          }} />
+            
+          <Route  path="/jagoank3" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return  <AboutJagoanK3/>
+          }} />
+           
+          <Route  path="/" render={()=>{
+            Object.keys(interval).forEach((keys)=>{
+                clearInterval(interval[keys]);
+            })
+
+            return  <Index />
+          }}/>
+           
         </Switch>
     </Router>
     </GlobalContext.Provider>
