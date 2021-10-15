@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,6 +16,8 @@ import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
+import { GlobalContext } from '../App';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -25,7 +27,7 @@ import {
 
 export default function NavBar(props){
 
-    
+    let globalContext = useContext(GlobalContext);
 
     const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
     const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -77,7 +79,12 @@ export default function NavBar(props){
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
-                      <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
+                      {
+                          (globalContext.credentials) ?
+                          <Link className={`${menuFocused ? "dimmed":""}`} to="/dashboard" >Dashboard</Link>
+                          :
+                          <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
+                      }
                   </Col>
                   }
               </Row>
@@ -116,7 +123,12 @@ export default function NavBar(props){
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
-                      <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
+                      {
+                          (globalContext.credentials) ?
+                          <Link className={`${menuFocused ? "dimmed":""}`} to="/dashboard" >Dashboard</Link>
+                          :
+                          <Link className={`${menuFocused ? "dimmed":""}`} to="/login" >Login</Link>
+                      }
                       </Col>
                       }
                   </Row>

@@ -14,7 +14,6 @@ import $ from 'jquery';
 
 import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
-import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
@@ -28,7 +27,8 @@ import {
   Route,
   Link,
   useParams,
-  useHistory
+  useHistory,
+  useLocation
 } from "react-router-dom";
 
 import Footer from '../../components/Footer';
@@ -42,6 +42,12 @@ import { toLocaleTimestamp, formatRupiah, makeid} from '../../utils/function';
 export default function DetailTraining(props){
 
   let history = useHistory();
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+
+  let query = useQuery();
 
 
   let globalContext = useContext(GlobalContext);
@@ -412,7 +418,12 @@ let settings = {
                                                ]
                                              }
                                            });
-                                           history.push(`${url.idtraining}/pemesanan`);
+                                           if(query.get("referral")){
+                                             history.push(`${url.idtraining}/pemesanan?referral=${query.get("referral")}`);
+                                           }
+                                           else{
+                                            history.push(`${url.idtraining}/pemesanan`);
+                                           }
                                          }} style={{cursor:"pointer",marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
                                              Proses Pemesanan
                                          </div>

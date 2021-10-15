@@ -253,6 +253,17 @@ function App(props) {
               style={{marginTop:30,fontSize:12,color:"white"}}>Continue To Web ...</div>
           </div>
          }
+
+        <Route  path="/dashboard" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return (
+              <div>ini dashboard</div>
+            )
+          }} />
+
+
           <Route  path="/artikel/:idartikel" render={()=>{
              Object.keys(interval).forEach((keys)=>{
               clearInterval(interval[keys]);

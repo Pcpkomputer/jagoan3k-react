@@ -29,7 +29,8 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  useHistory
 } from "react-router-dom";
 
 import Footer from '../../components/Footer';
@@ -38,8 +39,14 @@ import endpoint from '../../utils/endpoint';
 
 import { toLocaleTimestamp, formatRupiah } from '../../utils/function';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
 
 export default function PemesananTraining(props){
+
+  let query = useQuery();
+  let history = useHistory();
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -118,6 +125,15 @@ let settings = {
     setJumlahBayar(t);
 
   },[])
+
+  let [referral, setReferral] = useState(null);
+  let [pendaftaranLoading, setPendaftaranLoading] = useState(false);
+
+  useEffect(()=>{
+    if(query.get("referral")){
+        alert("cek referral");
+    }
+  },[query]);
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
@@ -228,7 +244,7 @@ let settings = {
                                     Nama Anda
                                 </Col>
                                 <Col lg={8} style={{paddingRight:10}}>
-                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                    <input readOnly value={globalContext.credentials.detail.nama} style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
                                 </Col>
                             </Row>
                             <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -236,7 +252,7 @@ let settings = {
                                       Email
                                 </Col>
                                 <Col lg={8} style={{paddingRight:10}}>
-                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                    <input readOnly value={globalContext.credentials.detail.email} style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
                                 </Col>
                             </Row>
                             <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -244,7 +260,7 @@ let settings = {
                                       No. Hp
                                 </Col>
                                 <Col lg={8} style={{paddingRight:10}}>
-                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                    <input readOnly value={globalContext.credentials.detail.notelepon} style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
                                 </Col>
                             </Row>
                             <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -252,19 +268,23 @@ let settings = {
                                       No. Referral
                                 </Col>
                                 <Col lg={8} style={{paddingRight:10}}>
-                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
-                                    <label style={{marginTop:10}}>Masukan Kode Refferal Dapatkan potongan Hingga 100rb</label>
+                                    <input placeholder="####" readOnly value={query.get("referral") || ""} style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                    <label style={{marginTop:10}}>Gunakan Kode Refferal Dapatkan potongan Hingga 100rb</label>
                                 </Col>
                             </Row>
                             <div style={{marginTop:40}}>
-                                <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                <div 
+                                onClick={()=>{
+                                    setCurrentStep(3);
+                                }}
+                                style={{backgroundColor:"#e23b25",cursor:"pointer",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
                                     SELANJUTNYA
                                 </div>
                             </div>
                             <div style={{height:1,marginTop:50,marginBottom:30,borderBottom:"solid 1px #e8e8e8"}}></div>
-                            <div style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
+                            {/* <div style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
                               Sudah memiliki akun? <label style={{marginLeft:5,fontWeight:"bold"}}>Masuk</label>
-                            </div>
+                            </div> */}
                         </Col>
                         :
                         <Col lg={8} style={{marginBottom:50,position:"relative"}}>
@@ -341,7 +361,7 @@ let settings = {
                                   Nama Anda
                               </Col>
                               <Col lg={8} style={{paddingRight:10}}>
-                                  Padang Perwira Yudha
+                                  {globalContext.credentials.detail.nama}
                               </Col>
                           </Row>
                           <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -349,7 +369,7 @@ let settings = {
                                     Email
                               </Col>
                               <Col lg={8} style={{paddingRight:10}}>
-                                  padangperwirayudha@gmail.com
+                              {globalContext.credentials.detail.email}
                               </Col>
                           </Row>
                           <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
@@ -357,11 +377,15 @@ let settings = {
                                     No. Whatsapp
                               </Col>
                               <Col lg={8} style={{paddingRight:10}}>
-                                  089961989345
+                                {globalContext.credentials.detail.notelepon}
                               </Col>
                           </Row>
                           <div style={{marginTop:40}}>
-                              <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                              <div 
+                              onClick={()=>{
+                                setCurrentStep(4);
+                            }}
+                              style={{backgroundColor:"#e23b25",cursor:"pointer",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
                                   SELANJUTNYA
                               </div>
                           </div>
@@ -371,15 +395,21 @@ let settings = {
                           <div style={{border:"solid 1px #e8e8e8",borderRadius:10,paddingTop:20,paddingBottom:20}}>
                               <div style={{fontWeight:"bold",borderBottom:"solid 1px #e8e8e8",paddingBottom:20,marginRight:20,marginLeft:20}}>Pemesanan Anda</div>
                               <div style={{marginTop:10,marginLeft:20,marginRight:20}}>
-                                  <div style={{display:"flex",marginBottom:20}}>
-                                        <div style={{flex:1}}>
-                                            <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>Ahli K3 asdasdasdsadadasdsasadasdUmum Batcasdadadsadsadsadh 11asdsadasdassadasdasdasd5</div>
-                                            <div style={{fontSize:13,marginTop:10}}>28 Ag 2021</div>
-                                        </div>
-                                        <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                            <img src="https://mos.is3.cloudhost.id/photos/midiatama-58210629085720.png" style={{width:90,borderRadius:10}}></img>
-                                        </div>
-                                  </div>
+                                 {
+                                     globalContext.pemesanan.keranjang.map((item,index)=>{
+                                         return (
+                                            <div style={{display:"flex",marginBottom:20}}>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>{item.itemtraining.namapaketpelatihan}</div>
+                                                        <div style={{fontSize:13,marginTop:10}}>{toLocaleTimestamp(new Date())}</div>
+                                                    </div>
+                                                    <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                                        <img src={`${endpoint}/storage/public/training/${item.training.foto}`} style={{width:90,borderRadius:10}}></img>
+                                                    </div>
+                                            </div>
+                                         )
+                                     })
+                                 }
                                   
                               </div>
                               <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
@@ -389,16 +419,25 @@ let settings = {
                               <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
                                   <div style={{fontWeight:"bold",marginBottom:10}}>Diskon</div>
                                   <div style={{display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:30}}>
-                                      <div style={{flex:1}}>
-                                          <div style={{fontSize:15}}>Promo K3 Perusahan</div>
-                                      </div>
-                                      <div style={{width:100,textAlign:"right"}}>
-                                          <div style={{fontSize:15}}>-100000</div>
-                                      </div>
+                                     {
+                                         globalContext.pemesanan.diskon===null ?
+                                         <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                             <div>Tidak memakai diskon</div>
+                                        </div>
+                                         :
+                                         <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                            <div style={{flex:1}}>
+                                                <div style={{fontSize:15}}>Promo K3 Perusahan</div>
+                                            </div>
+                                            <div style={{textAlign:"right"}}>
+                                                <div style={{fontSize:15}}>-100000</div>
+                                            </div>
+                                        </div>
+                                     }
                                   </div>
                                   <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
                                         <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
-                                        <div>Rp. 60000000</div>
+                                        <div>Rp. {formatRupiah(jumlahBayar)}</div>
                                   </div>
                               </div>
                           </div>
@@ -413,7 +452,7 @@ let settings = {
                                     <div style={{fontSize:20,borderBottom:"dolis 1px black",textAlign:"center",borderBottom:"solid 1px grey",paddingBottom:20,fontWeight:"bold"}}>Rincian Biaya Pendaftaran</div>
                                     <div style={{marginTop:30}}>
                                         <div>Kepada Yth:</div>
-                                        <div style={{fontWeight:"bold",marginTop:5}}>Padang P.Y</div>
+                                        <div style={{fontWeight:"bold",marginTop:5}}>{globalContext.credentials.detail.nama}</div>
                                     </div>
                                     <div style={{marginTop:50}}>
                                     <table class="table">
@@ -425,27 +464,80 @@ let settings = {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                            <th scope="row">1</th>
-                                            <td>Ahli K3 Umum Batch 11</td>
-                                            <td>8.000.000</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">2</th>
-                                            <td>Promo Ahli K3 Umum Perusahaan</td>
-                                            <td>-2.000.000</td>
-                                            </tr>
-                                          
+                                           {
+                                               globalContext.pemesanan.keranjang.map((item,index)=>{
+                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+                                                return (
+                                                    <tr>
+                                                    <th scope="row">{index+1}</th>
+                                                    <td>{item.itemtraining.namapaketpelatihan}</td>
+                                                    <td>Rp. {promosudahlewat ? formatRupiah(item.itemtraining.hargapaketpelatihan):formatRupiah(item.itemtraining.hargapromopaketpelatihan)}</td>
+                                                    </tr>
+                                                   )
+                                               })
+                                           }
+                                           {
+                                               (globalContext.pemesanan.voucher) &&
+                                               <tr>
+                                                    <th scope="row">#</th>
+                                                    <td>Diskon Potongan Voucher ()</td>
+                                                    <td>Rp. 123</td>
+                                                </tr>
+                                           }
+                                           {
+                                               (referral) &&
+                                               <tr>
+                                                    <th scope="row">#</th>
+                                                    <td>Potongan Dari Referral</td>
+                                                    <td>Rp. {formatRupiah(referral.nominal)}</td>
+                                                </tr>
+                                           }
                                         </tbody>
                                         </table>
                                     </div>
                                     <div style={{marginTop:30,fontSize:23,textAlign:"right"}}>
-                                        Total : Rp. 6.000.000
+                                        Total : Rp. {formatRupiah(jumlahBayar)}
                                     </div>
                                     <div style={{justifyContent:"center",marginTop:50,alignItems:"center",display:"flex"}}>
-                                        <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
-                                            SELANJUTNYA
-                                        </div>
+                                        {
+                                            (pendaftaranLoading) ?
+                                            <div                           
+                                            style={{cursor:"pointer",backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                               <Spinner style={{marginLeft:15}} variant="light" size="sm" animation="border" />
+                                            </div>
+                                            
+                                            :
+                                            <div 
+                                            onClick={async ()=>{
+                                                
+                                                setPendaftaranLoading(true);
+                                                let payload = {
+                                                    pemesanan:globalContext.pemesanan,
+                                                    credentials:globalContext.credentials,
+                                                    referral:referral,
+                                                    totaldibayarfrontend:jumlahBayar
+
+                                                };
+                                               
+                                                let request = await fetch(`${endpoint}/api/createinvoice`,{
+                                                    method:"POST",
+                                                    headers:{
+                                                        "content-type":"application/json",
+                                                        "authorization":`Bearer ${globalContext.credentials.token}`
+                                                    },
+                                                    body:JSON.stringify(payload)
+                                                });
+                                                let json = await request.json();
+
+                                                setPendaftaranLoading(false);
+                                                setCurrentStep(5);
+                                                
+                                            }}                                        
+                                            style={{cursor:"pointer",backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                                SELANJUTNYA
+                                            </div>
+                                        }
+                                       
                                     </div>
                             </div>
                       </Col>
@@ -453,33 +545,39 @@ let settings = {
                           <div style={{border:"solid 1px #e8e8e8",borderRadius:10,paddingTop:20,paddingBottom:20}}>
                               <div style={{fontWeight:"bold",borderBottom:"solid 1px #e8e8e8",paddingBottom:20,marginRight:20,marginLeft:20}}>Pemesanan Anda</div>
                               <div style={{marginTop:10,marginLeft:20,marginRight:20}}>
-                                  <div style={{display:"flex",marginBottom:20}}>
-                                        <div style={{flex:1}}>
-                                            <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>Ahli K3 asdasdasdsadadasdsasadasdUmum Batcasdadadsadsadsadh 11asdsadasdassadasdasdasd5</div>
-                                            <div style={{fontSize:13,marginTop:10}}>28 Ag 2021</div>
-                                        </div>
-                                        <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                            <img src="https://mos.is3.cloudhost.id/photos/midiatama-58210629085720.png" style={{width:90,borderRadius:10}}></img>
-                                        </div>
-                                  </div>
+                                 {
+                                     globalContext.pemesanan.keranjang.map((item,index)=>{
+                                         return (
+                                            <div style={{display:"flex",marginBottom:20}}>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>{item.itemtraining.namapaketpelatihan}</div>
+                                                        <div style={{fontSize:13,marginTop:10}}>{toLocaleTimestamp(new Date())}</div>
+                                                    </div>
+                                                    <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                                        <img src={`${endpoint}/storage/public/training/${item.training.foto}`} style={{width:90,borderRadius:10}}></img>
+                                                    </div>
+                                            </div>
+                                         )
+                                     })
+                                 }
                                   
                               </div>
                               <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderBottom:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
                                  <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
-                                     Nama : Padang Perwira Yudha
+                                     Nama : {globalContext.credentials.detail.nama}
                                  </div>
                                  <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
-                                     No. Whatsapp : 08996189345
+                                     No. Whatsapp :  {globalContext.credentials.detail.notelepon}
                                  </div>
                                  <div style={{display:"flex",flexDirection:"row",marginBottom:5,fontSize:13}}>
-                                    Email : padang@gmail.com
+                                    Email :  {globalContext.credentials.detail.email}
                                  </div>
                               </div>
                               <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
                                  
                                   <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
                                         <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
-                                        <div>Rp. 60000000</div>
+                                        <div>Rp. {formatRupiah(jumlahBayar)}</div>
                                   </div>
                               </div>
                           </div>

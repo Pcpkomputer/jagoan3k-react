@@ -67,7 +67,21 @@ export default function Login(props){
   let history = useHistory();
 
   useEffect(()=>{
-    alert(globalContext.credentials);
+    if(globalContext.credentials!==null){
+        history.replace("/dashboard");
+    }
+  },[])
+
+  let [ingatkanSaya, setIngatkanSaya] = useState(false);
+
+  useEffect(()=>{
+     let exist = window.localStorage.getItem("ingatkansaya");
+     if(exist){
+         let parsed = JSON.parse(window.localStorage.getItem("ingatkansaya"));
+         setLoginEmail(parsed.email);
+         setLoginKataSandi(parsed.katasandi);
+         setIngatkanSaya(true);
+     }
   },[])
 
   return (
@@ -124,9 +138,9 @@ export default function Login(props){
                                 <div class="form-check">
                                 <input class="form-check-input" 
                                 onChange={(e)=>{
-                                    //alert(e.target.checked);
+                                    setIngatkanSaya(e.target.checked);
                                 }}
-                                type="checkbox" value="" id="flexCheckDefault"/>
+                                type="checkbox" checked={ingatkanSaya} id="flexCheckDefault"/>
                                 <label class="form-check-label" for="flexCheckDefault">
                                     Ingatkan saya
                                 </label>
@@ -161,13 +175,24 @@ export default function Login(props){
                                                 });
                                                 let json = await request.json();
                                                 
+                                               
                                                 if(json.success){
                                                     globalContext.setCredentials(json.credentials);
+                                                    if(ingatkanSaya){
+                                                        window.localStorage.setItem("ingatkansaya",JSON.stringify({
+                                                            email:loginEmail,
+                                                            katasandi:loginKataSandi
+                                                        }))
+                                                    }
+                                                    else{
+                                                        window.localStorage.removeItem("ingatkansaya");
+                                                    }
+
                                                     if(query.get("origin")==="pemesanan"){
                                                         history.goBack();
                                                     }
                                                     else{
-                                                        alert("555");
+                                                        history.replace("/dashboard");
                                                     }
                                                 }
                                                 else{
