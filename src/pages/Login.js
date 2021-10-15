@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
-import { Container, Row, Col, Form } from 'react-bootstrap';
+import { Container, Row, Col, Form, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,20 +15,29 @@ import { useLocation } from 'react-router';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 
-
+import endpoint from '../utils/endpoint';
 
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
+import { GlobalContext } from '../App';
+
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+  }
+  
 
 export default function Login(props){
+
+  let globalContext = useContext(GlobalContext);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -49,6 +58,17 @@ export default function Login(props){
 
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
+
+  let [loginEmail, setLoginEmail] = useState("");
+  let [loginKataSandi, setLoginKataSandi] = useState("");
+  let [loginLoading, setLoginLoading] = useState(false);
+
+  let query = useQuery();
+  let history = useHistory();
+
+  useEffect(()=>{
+    alert(globalContext.credentials);
+  },[])
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
@@ -85,18 +105,26 @@ export default function Login(props){
                             <div style={{fontWeight:"bold",fontSize:22}}>MASUK</div>
                             <div style={{marginTop:25}}>
                                 <div style={{fontWeight:"bold"}}>Alamat email / Username</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="padangperwirayudha@gmail.com" />
+                                <Form.Control 
+                                onChange={(text)=>{
+                                    setLoginEmail(text.target.value);
+                                }}
+                                value={loginEmail} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="emailkamu@mail.com" />
                             </div>
                             <div style={{marginTop:15}}>
                                 <div style={{fontWeight:"bold"}}>Kata sandi</div>
-                                <Form.Control id="inputID"  style={{marginTop:10,fontSize:15}} placeholder="Masukkan kata sandi" type="password" />
+                                <Form.Control 
+                                 onChange={(text)=>{
+                                    setLoginKataSandi(text.target.value);
+                                }}
+                                value={loginKataSandi} id="inputID"  style={{marginTop:10,fontSize:15}} placeholder="Masukkan kata sandi" type="password" />
                             </div>
                             <div style={{marginTop:39,display:"flex",flexDirection:"row",justifyContent:"space-between"}}>
                                 <div style={{fontSize:14}}>
                                 <div class="form-check">
                                 <input class="form-check-input" 
                                 onChange={(e)=>{
-                                    alert(e.target.checked);
+                                    //alert(e.target.checked);
                                 }}
                                 type="checkbox" value="" id="flexCheckDefault"/>
                                 <label class="form-check-label" for="flexCheckDefault">
@@ -107,9 +135,52 @@ export default function Login(props){
                                 <div style={{color:"#23b697",fontSize:13}}>Lupa kata sandi?</div>
                             </div>
                             <div style={{marginTop:30,marginBottom:20}}>
-                                <div style={{backgroundColor:"#23b697",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>
-                                    Masuk
-                                </div>
+                                {
+                                    (loginLoading) ?
+                                    <div 
+                                    style={{backgroundColor:"#23b697",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>
+                                        <Spinner style={{marginLeft:15}} variant="light" size="sm" animation="border" />
+                                    </div>
+                                    :
+                                    <div 
+                                        onClick={async ()=>{
+                                            if(loginEmail.length===0 || loginKataSandi.length===0){
+                                                alert("Masukkan email dan password!");
+                                            }
+                                            else{
+                                                setLoginLoading(true);
+                                                let request = await fetch(`${endpoint}/api/login`,{
+                                                    method:"POST",
+                                                    headers:{
+                                                        "content-type":"application/json"
+                                                    },
+                                                    body:JSON.stringify({
+                                                        email:loginEmail,
+                                                        katasandi:loginKataSandi
+                                                    })
+                                                });
+                                                let json = await request.json();
+                                                
+                                                if(json.success){
+                                                    globalContext.setCredentials(json.credentials);
+                                                    if(query.get("origin")==="pemesanan"){
+                                                        history.goBack();
+                                                    }
+                                                    else{
+                                                        alert("555");
+                                                    }
+                                                }
+                                                else{
+                                                    alert(json.msg);
+                                                }
+
+                                                setLoginLoading(false);
+                                            }
+                                        }}
+                                        style={{backgroundColor:"#23b697",cursor:"pointer",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>
+                                            Masuk
+                                        </div>
+                                }
                             </div>
                         </div>
                      </Col>
@@ -118,23 +189,23 @@ export default function Login(props){
                             <div style={{fontWeight:"bold",fontSize:22}}>REGISTER</div>
                             <div style={{marginTop:25}}>
                                 <div style={{fontWeight:"bold"}}>Nama</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Padang Perwira Yudha" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nama" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Username</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="padangpy" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Username" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Nickname</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="perwirayudha" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nickname" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Email</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="padang.yudha@gmail.com" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Email" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>No. Telepon</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="082180344523" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan No. Telepon" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Kata Sandi</div>
@@ -142,7 +213,7 @@ export default function Login(props){
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Konfirmasi Kata Sandi</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="password" value={55} placeholder="Konfirmasi kata sandi" />
+                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="password" placeholder="Konfirmasi kata sandi" />
                             </div>
                             <div style={{marginTop:30,marginBottom:20}}>
                                 <div style={{backgroundColor:"#23b697",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>

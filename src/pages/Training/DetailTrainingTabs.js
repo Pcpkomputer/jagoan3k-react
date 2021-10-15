@@ -5,6 +5,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import SwipeableViews from 'react-swipeable-views';
 
+import endpoint from '../../utils/endpoint';
+
 const styles = {
   tabs: {
     background: '#fff',
@@ -25,9 +27,42 @@ const styles = {
 };
 
 class DetailTrainingTabs extends React.Component {
+
+  constructor(props){
+    super(props);
+    this.fetchTestimoni = async()=>{
+      try {
+        let parsed = JSON.parse(props.training.testimoni);
+        let id = parsed.map((item)=>parseInt(item.id_pelatihantestimoni));
+        let request = await fetch(`${endpoint}/api/gettestimoni`,{
+          method:"POST",
+          headers:{
+            "content-type":"application/json"
+          },
+          body:JSON.stringify({
+            id_testimoni:[1,2,3,4,5]
+          })
+        });
+        let json = await request.json();
+        this.setState({
+          testimoni:json
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }
+
   state = {
     index: 0,
+    testimoni : []
   };
+
+  
+
+  componentDidMount(){
+    this.fetchTestimoni();
+  }
 
   handleChange = (event, value) => {
     this.setState({
@@ -43,6 +78,7 @@ class DetailTrainingTabs extends React.Component {
 
   render() {
     const { index } = this.state;
+    
 
     return (
       <div>
@@ -65,19 +101,39 @@ class DetailTrainingTabs extends React.Component {
           <Tab label="Testimoni" />
           <Tab label="Ulasan" />
         </Tabs>
-        <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex}>
-          <div style={Object.assign({}, styles.slide, styles.slide1)}>slide n°1</div>
-          <div style={Object.assign({}, styles.slide, styles.slide2)}>
-            slide n°2
-            <Select value={10} autoWidth={false}>
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-            </Select>
+        <SwipeableViews index={index} style={{marginTop:15}} onChangeIndex={this.handleChangeIndex}>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.deskripsipenuh }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.persyaratan }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.materi }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.instruktur }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.fasilitas }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.infopendaftaran }}></div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})}>
+              <div style={{display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gridGap:30}}>
+                  {
+                    JSON.parse(this.props.training.galeri).map((item,index)=>{
+                      return (
+                        <div>
+                            <img src={`${endpoint}/storage/public/galeri/${item.url}`} style={{width:"100%",height:250,backgroundColor:"whitesmoke",borderRadius:10}}></img>
+                        </div>
+                      )
+                    })
+                  }                  
+              </div>
           </div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>slide n°3</div>
-          <div style={Object.assign({}, styles.slide, styles.slide3)}>slide44444</div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})}>
+                {
+                  this.state.testimoni.map((item,index)=>{
+                    return (
+                      <div style={{padding:25,backgroundColor:"whitesmoke",borderRadius:10,marginBottom:20}}>
+                          <div style={{fontWeight:"bold"}}>{item.nama}</div>
+                          <div style={{marginTop:5}}>{item.testimoni}</div>
+                      </div>
+                    )
+                  })
+                }
+          </div>
+          <div style={Object.assign({}, styles.slide, styles.slide1, {color:"black"})} dangerouslySetInnerHTML={{ __html: this.props.training.ulasan }}></div>
         </SwipeableViews>
       </div>
     );

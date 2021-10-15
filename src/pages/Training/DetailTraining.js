@@ -27,7 +27,8 @@ import {
   Switch,
   Route,
   Link,
-  useParams
+  useParams,
+  useHistory
 } from "react-router-dom";
 
 import Footer from '../../components/Footer';
@@ -40,6 +41,8 @@ import { toLocaleTimestamp, formatRupiah, makeid} from '../../utils/function';
 
 export default function DetailTraining(props){
 
+  let history = useHistory();
+
 
   let globalContext = useContext(GlobalContext);
 
@@ -48,6 +51,9 @@ export default function DetailTraining(props){
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
 
   let [dataLoaded, setDataLoaded] = useState(false);
+
+  let [jumlahStok, setJumlahStok] = useState(0);
+  let [stokTerpenuhi, setStokTerpenuhi] = useState(0);
 
   let params = useParams();
 
@@ -161,6 +167,32 @@ let settings = {
           })
       }
   },[training,dataLoaded])
+
+
+
+  let fetchStokKursi = async (id_training, id_itemtraining)=>{
+      let request = await fetch(`${endpoint}/api/getstokkursi`,{
+        method:"POST",
+        headers:{
+          "content-type":"application/json"
+        },
+        body:JSON.stringify({
+          id_training,
+          id_itemtraining
+        })
+      });
+      let json = await request.json();
+      
+      setStokTerpenuhi(json.kursiterpenuhi);
+      setJumlahStok(json.stokkursi);
+  }
+
+  useEffect(()=>{
+    if(dataLoaded){
+      let {id_training,id} = training.itemtraining[selectedIndexPromo];
+      fetchStokKursi(id_training,id);
+    }
+  },[dataLoaded])
   
 
   return (
@@ -225,7 +257,7 @@ let settings = {
                       <Col lg={12} style={{marginBottom:30}}>
                           <Row style={{backgroundColor:"white",borderRadius:10,padding:30,boxShadow:"0 0 .25rem rgba(0,0,0,.1)"}}>
                              <Col lg={6} style={{marginBottom:30}}>
-                               <img style={{width:"100%",borderRadius:10}} src="https://mos.is3.cloudhost.id/photos/midiatama-58210629085720.png"/>
+                               <img style={{width:"100%",borderRadius:10}} src={`${endpoint}/storage/public/training/${training.foto}`}/>
                              </Col>
                              <Col lg={6}>
                                  <div style={{fontWeight:"bold",fontSize:17}}>{training.namatraining}</div>
@@ -302,7 +334,10 @@ let settings = {
                                          (training.itemtraining).map((item,index)=>{
                                               if(!item.sedangpromo){
                                                 return (
-                                                  <div onClick={()=>{setSelectedIndexPromo(index)}}  id={`promodanpaket-${index}`} style={{cursor:"pointer",backgroundColor:(index===selectedIndexPromo) ? "#eaffea":null,marginTop:20,boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
+                                                  <div onClick={async ()=>{
+                                                    await fetchStokKursi(training.id_training, item.id);
+                                                    setSelectedIndexPromo(index);
+                                                    }}  id={`promodanpaket-${index}`} style={{cursor:"pointer",backgroundColor:(index===selectedIndexPromo) ? "#eaffea":null,marginTop:20,boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
                                                   <div style={{marginTop:20,display:(isTabletOrMobile) ? null:"flex"}}>
                                                     <div style={{flex:1}}>
                       
@@ -321,7 +356,10 @@ let settings = {
 
                                                 return (
                                                   <div 
-                                                  onClick={()=>{setSelectedIndexPromo(index)}}
+                                                  onClick={async ()=>{
+                                                    await fetchStokKursi(training.id_training, item.id);
+                                                    setSelectedIndexPromo(index)
+                                                  }}
                                                   id={`promodanpaket-${index}`} style={{marginTop:20,cursor:"pointer",backgroundColor:(index===selectedIndexPromo) ? "#eaffea":null,boxShadow:"0 0 .25rem rgba(0,0,0,.1)",borderRadius:10,padding:20}}>
                                                       <div style={{padding:20,textAlign:"center",fontSize:15}}>Harga {item.namapaketpelatihan.toUpperCase()} akan berakhir dalam</div>
                                                       <div id="countdownContainer" style={{display:"flex",justifyContent:"center",marginTop:10,alignItems:"center",borderBottom:"solid 1px black",paddingBottom:30}}>
@@ -345,10 +383,10 @@ let settings = {
                                          })
                                        }
                                        <div style={{marginTop:20,position:"relative"}}>
-                                           <label style={{position:"absolute",textAlign:"center",width:"100%",height:"100%",marginTop:6,color:"white",fontWeight:"bold"}}>Tersisa 29 dari 30</label>
-                                           <ProgressBar style={{height:35,borderRadius:50}} variant="success" now={60} />
+                                           <label style={{position:"absolute",textAlign:"center",width:"100%",height:"100%",marginTop:6,color:"white",fontWeight:"bold"}}>Tersisa {jumlahStok-stokTerpenuhi} dari {jumlahStok}</label>
+                                           <ProgressBar style={{height:35,borderRadius:50}} variant="success" now={100-(stokTerpenuhi/jumlahStok*100)} />
                                        </div>
-                                       <div style={{padding:10,marginTop:20,border:"solid 2px #198753",borderRadius:10,textAlign:"center",color:"#198753",fontWeight:"bold"}}>2x Orang Sudah Pesan</div>
+                                       <div style={{padding:10,marginTop:20,border:"solid 2px #198753",borderRadius:10,textAlign:"center",color:"#198753",fontWeight:"bold"}}>{stokTerpenuhi}x Orang Sudah Pesan</div>
                                        <div style={{height:1,borderBottom:"solid 1px green",marginTop:30,marginBottom:20}}></div>
                                        <div>
                                            <label style={{fontWeight:"bold"}}>Kode Voucher</label>
@@ -361,18 +399,31 @@ let settings = {
                                                </div>
                                            </div>
                                        </div>
-                                       <Link to={`${url.idtraining}/pemesanan`}>
-                                         <div style={{marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
+                                  
+                                         <div onClick={()=>{
+                                           globalContext.setPemesanan((prev)=>{
+                                             return {
+                                               ...prev,
+                                               keranjang:[
+                                                 {
+                                                   training:training,
+                                                   itemtraining:training.itemtraining[selectedIndexPromo]
+                                                 }
+                                               ]
+                                             }
+                                           });
+                                           history.push(`${url.idtraining}/pemesanan`);
+                                         }} style={{cursor:"pointer",marginTop:25,backgroundColor:"#27b394",color:"white",fontWeight:"bold",borderRadius:10,padding:10,textAlign:"center"}}>
                                              Proses Pemesanan
                                          </div>
-                                       </Link>
+                                 
                                  </div>
                              </Col>
                           </Row>
                       </Col>
                    </Row>
                    <Row style={{marginTop:30}}>
-                     <DetailTrainingTabs/>
+                     <DetailTrainingTabs training={training}/>
                    </Row>
                </Container>
            </div>

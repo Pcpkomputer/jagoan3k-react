@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 
 import { Container, Row, Col, Spinner, ProgressBar } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import { GlobalContext } from '../../App';
 
 import DetailTrainingTabs from './DetailTrainingTabs';
 
@@ -32,6 +34,9 @@ import {
 
 import Footer from '../../components/Footer';
 import NavBar from '../../components/Navbar';
+import endpoint from '../../utils/endpoint';
+
+import { toLocaleTimestamp, formatRupiah } from '../../utils/function';
 
 
 export default function PemesananTraining(props){
@@ -39,6 +44,8 @@ export default function PemesananTraining(props){
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+  
+  let globalContext = useContext(GlobalContext);
 
   let params = useParams();
 
@@ -75,9 +82,41 @@ let settings = {
   
   let [currentStep, setCurrentStep] = useState(2);
 
+  let [jumlahBayar, setJumlahBayar] = useState(0);
+
 
   useEffect(()=>{
     window.$ = $;
+  },[])
+
+  useEffect(()=>{
+    let total = 0;
+    let diskon = 0;
+    globalContext.pemesanan.keranjang.map((item,index)=>{
+        if(item.itemtraining.sedangpromo){
+            let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+            if(promosudahlewat){
+                total = total+item.itemtraining.hargapaketpelatihan;
+            }
+            else{
+                total = total+item.itemtraining.hargapromopaketpelatihan;
+            }
+        }
+        else{
+            total = total+item.itemtraining.hargapaketpelatihan;
+        }
+    });
+    
+    if(globalContext.pemesanan.diskon===null){
+        diskon = 0;
+    }
+    else{
+        diskon = 0;
+    }
+
+    let t = total-diskon;
+    setJumlahBayar(t);
+
   },[])
 
   return (
@@ -180,64 +219,84 @@ let settings = {
                   {
                       (currentStep===2) &&
                       <Row style={{marginTop:30}}>
-                      <Col lg={8} style={{marginBottom:50}}>
+                      {
+                          (globalContext.credentials) ?
+                          <Col lg={8} style={{marginBottom:50,position:"relative"}}>
                           <div style={{fontWeight:"bold",fontSize:20,marginBottom:60}}>Data Peserta</div>
-                          <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
-                              <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
-                                  Nama Anda
-                              </Col>
-                              <Col lg={8} style={{paddingRight:10}}>
-                                  <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
-                              </Col>
-                          </Row>
-                          <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
-                              <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
-                                    Email
-                              </Col>
-                              <Col lg={8} style={{paddingRight:10}}>
-                                  <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
-                              </Col>
-                          </Row>
-                          <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
-                              <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
-                                    No. Hp
-                              </Col>
-                              <Col lg={8} style={{paddingRight:10}}>
-                                  <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
-                              </Col>
-                          </Row>
-                          <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
-                              <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
-                                    No. Referral
-                              </Col>
-                              <Col lg={8} style={{paddingRight:10}}>
-                                  <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
-                                  <label style={{marginTop:10}}>Masukan Kode Refferal Dapatkan potongan Hingga 100rb</label>
-                              </Col>
-                          </Row>
-                          <div style={{marginTop:40}}>
-                              <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
-                                  SELANJUTNYA
-                              </div>
-                          </div>
-                          <div style={{height:1,marginTop:50,marginBottom:30,borderBottom:"solid 1px #e8e8e8"}}></div>
-                          <div style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
-                            Sudah memiliki akun? <label style={{marginLeft:5,fontWeight:"bold"}}>Masuk</label>
-                          </div>
-                      </Col>
+                            <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
+                                <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
+                                    Nama Anda
+                                </Col>
+                                <Col lg={8} style={{paddingRight:10}}>
+                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                </Col>
+                            </Row>
+                            <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
+                                <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
+                                      Email
+                                </Col>
+                                <Col lg={8} style={{paddingRight:10}}>
+                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                </Col>
+                            </Row>
+                            <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
+                                <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
+                                      No. Hp
+                                </Col>
+                                <Col lg={8} style={{paddingRight:10}}>
+                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                </Col>
+                            </Row>
+                            <Row style={{marginTop:20,justifyContent:"center",alignItems:"center"}}>
+                                <Col lg={4} style={{fontWeight:"bold",fontSize:17,marginBottom:10}}>
+                                      No. Referral
+                                </Col>
+                                <Col lg={8} style={{paddingRight:10}}>
+                                    <input style={{width:"100%",padding:5,border:"solid 1px",borderRadius:5}} type="text"></input>
+                                    <label style={{marginTop:10}}>Masukan Kode Refferal Dapatkan potongan Hingga 100rb</label>
+                                </Col>
+                            </Row>
+                            <div style={{marginTop:40}}>
+                                <div style={{backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                    SELANJUTNYA
+                                </div>
+                            </div>
+                            <div style={{height:1,marginTop:50,marginBottom:30,borderBottom:"solid 1px #e8e8e8"}}></div>
+                            <div style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
+                              Sudah memiliki akun? <label style={{marginLeft:5,fontWeight:"bold"}}>Masuk</label>
+                            </div>
+                        </Col>
+                        :
+                        <Col lg={8} style={{marginBottom:50,position:"relative"}}>
+                             <div style={{fontWeight:"bold",fontSize:20,marginBottom:60}}>Data Peserta</div>
+                            <div style={{height:250,padding:"0px 30px 0px 30px",backgroundColor:"whitesmoke",borderRadius:10,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                Untuk melanjutkan pemesanan silakan <Link to={`/login?origin=pemesanan`}><b style={{marginLeft:5,color:"black",marginRight:5}}>login</b></Link> atau <Link to={`/login?origin=pemesanan`}><b style={{marginLeft:5,color:"black",marginRight:5}}>daftar</b></Link> terlebih dahulu...
+                            </div>
+                            <div style={{height:1,marginTop:50,marginBottom:30,borderBottom:"solid 1px #e8e8e8"}}></div>
+                            <div style={{justifyContent:"center",alignItems:"center",display:"flex"}}>
+                              Sudah memiliki akun? <Link to={`/login?origin=pemesanan`}><label style={{marginLeft:5,fontWeight:"bold",color:"black",cursor:"pointer"}}>Masuk</label></Link>
+                            </div>
+                        </Col>
+                      }
                       <Col lg={4} style={{paddingLeft:40,paddingRight:40}}>
                           <div style={{border:"solid 1px #e8e8e8",borderRadius:10,paddingTop:20,paddingBottom:20}}>
                               <div style={{fontWeight:"bold",borderBottom:"solid 1px #e8e8e8",paddingBottom:20,marginRight:20,marginLeft:20}}>Pemesanan Anda</div>
                               <div style={{marginTop:10,marginLeft:20,marginRight:20}}>
-                                  <div style={{display:"flex",marginBottom:20}}>
-                                        <div style={{flex:1}}>
-                                            <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>Ahli K3 asdasdasdsadadasdsasadasdUmum Batcasdadadsadsadsadh 11asdsadasdassadasdasdasd5</div>
-                                            <div style={{fontSize:13,marginTop:10}}>28 Ag 2021</div>
-                                        </div>
-                                        <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
-                                            <img src="https://mos.is3.cloudhost.id/photos/midiatama-58210629085720.png" style={{width:90,borderRadius:10}}></img>
-                                        </div>
-                                  </div>
+                                 {
+                                     globalContext.pemesanan.keranjang.map((item,index)=>{
+                                         return (
+                                            <div style={{display:"flex",marginBottom:20}}>
+                                                    <div style={{flex:1}}>
+                                                        <div style={{fontWeight:"bold",overflow:"hidden",textOverflow:"ellipsis",wordBreak:"break-word",paddingRight:20}}>{item.itemtraining.namapaketpelatihan}</div>
+                                                        <div style={{fontSize:13,marginTop:10}}>{toLocaleTimestamp(new Date())}</div>
+                                                    </div>
+                                                    <div style={{padding:5,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                                                        <img src={`${endpoint}/storage/public/training/${item.training.foto}`} style={{width:90,borderRadius:10}}></img>
+                                                    </div>
+                                            </div>
+                                         )
+                                     })
+                                 }
                                   
                               </div>
                               <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
@@ -247,16 +306,25 @@ let settings = {
                               <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
                                   <div style={{fontWeight:"bold",marginBottom:10}}>Diskon</div>
                                   <div style={{display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:30}}>
-                                      <div style={{flex:1}}>
-                                          <div style={{fontSize:15}}>Promo K3 Perusahan</div>
-                                      </div>
-                                      <div style={{width:100,textAlign:"right"}}>
-                                          <div style={{fontSize:15}}>-100000</div>
-                                      </div>
+                                     {
+                                         globalContext.pemesanan.diskon===null ?
+                                         <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                             <div>Tidak memakai diskon</div>
+                                        </div>
+                                         :
+                                         <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                            <div style={{flex:1}}>
+                                                <div style={{fontSize:15}}>Promo K3 Perusahan</div>
+                                            </div>
+                                            <div style={{textAlign:"right"}}>
+                                                <div style={{fontSize:15}}>-100000</div>
+                                            </div>
+                                        </div>
+                                     }
                                   </div>
                                   <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
                                         <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
-                                        <div>Rp. 60000000</div>
+                                        <div>Rp. {formatRupiah(jumlahBayar)}</div>
                                   </div>
                               </div>
                           </div>

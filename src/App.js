@@ -50,6 +50,13 @@ function App(props) {
   //   alert("111");
   // },[location.pathname])
 
+  let [pemesanan, setPemesanan] = useState({
+    keranjang:[],
+    voucher:null,
+    diskon:null
+
+  })
+
   let [previewLoaded, setPreviewLoaded] = useState(false);
 
   let [mobileWidth, setMobileWidth] = useState(false);
@@ -221,7 +228,7 @@ function App(props) {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
     ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
-    interval
+    interval, pemesanan, setPemesanan, credentials, setCredentials
     }}>
     
     <Router>
