@@ -33,6 +33,8 @@ import endpoint from '../utils/endpoint';
 
 export default function DetailTraining(props){
 
+  let [query, setQuery] = useState("");
+
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
@@ -45,6 +47,12 @@ export default function DetailTraining(props){
   let fetchGaleri = async()=>{
     let request = await fetch(`${endpoint}/api/galeri`);
     let json = await request.json();
+    json = json.map((prev)=>{
+        return {
+          ...prev,
+          visible:true
+        }
+    })
     setGaleri(json);
     setGaleriLoading(false);
   }
@@ -101,9 +109,32 @@ export default function DetailTraining(props){
                   <Row>
                         <div style={{display:"flex",paddingLeft:30,paddingRight:30}}>
                             <div style={{flex:1,borderTopLeftRadius:10,borderBottomLeftRadius:10,backgroundColor:"white",border:"solid 1px #e8e8e8",padding:"20px 15px 20px 15px"}}>
-                                <input placeholder="Masukkan kata kunci" type="text" style={{width:"100%",border:"none",outline:"none",color:"grey"}}></input>
+                                <input 
+                                onChange={(e)=>{
+                                  setQuery(e.currentTarget.value);
+                                }}
+                                placeholder="Masukkan kata kunci" value={query} type="text" style={{width:"100%",border:"none",outline:"none",color:"grey"}}></input>
                             </div>
-                            <div style={{display:"flex",backgroundColor:"#27b394",justifyContent:"center",alignItems:"center",borderTopRightRadius:10,borderBottomRightRadius:10,width:250}}>
+                            <div 
+                            onClick={()=>{
+                               let filtered = galeri.map((item,index)=>{
+                                   let regex = new RegExp(query,"i");
+                                   if(item.judul.match(regex)){
+                                      return {
+                                        ...item,
+                                        visible:true
+                                      }
+                                   }
+                                   else{
+                                      return {
+                                        ...item,
+                                        visible:false
+                                      }
+                                   }
+                               });
+                               setGaleri(filtered);
+                            }}
+                            style={{display:"flex",cursor:"pointer",backgroundColor:"#27b394",justifyContent:"center",alignItems:"center",borderTopRightRadius:10,borderBottomRightRadius:10,width:250}}>
                                 <div style={{color:"white",flex:1,textAlign:"center",marginLeft:40}}>Search</div>
                                 <div style={{width:60}}>
                                 <BiSearchAlt
@@ -140,7 +171,8 @@ export default function DetailTraining(props){
                                    
                                     {
                                         galeri.map((item,index)=>{
-                                            return (
+                                            if(item.visible){
+                                              return (
                                                 <Col lg="4" style={{marginBottom:40}}>
                                                         <div id="galeriBox" 
                                                         onMouseOut={(e)=>{
@@ -169,6 +201,8 @@ export default function DetailTraining(props){
                                                         </div>
                                                 </Col>
                                             )
+                                            }
+                                            
                                         })
                                     }
                                     

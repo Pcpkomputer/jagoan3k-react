@@ -140,7 +140,10 @@ function App(props) {
         setCredentialsLoaded(true);
      }
      else{
-        setCredentials({});
+
+        let parsed = JSON.parse(window.localStorage.getItem("credentials"));
+
+        setCredentials(parsed);
         setCredentialsLoaded(true);
      }
   }

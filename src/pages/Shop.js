@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -32,12 +32,17 @@ import NavBar from '../components/Navbar';
 
 import endpoint from '../utils/endpoint';
 
+let intervalRef = null;
 
 export default function Shop(props){
+
+
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
+
+  let [query,setQuery] = useState("");
 
 
   let [showcase, setShowcase] = useState([]);
@@ -46,7 +51,7 @@ export default function Shop(props){
   let fetchShop = async()=>{
     let request = await fetch(`${endpoint}/api/shop`);
     let json = await request.json();
-    setShowcase(json);
+    setShowcase(json.map(e=>{return {...e,visible:true}}));
     setShowcaseLoading(false);
   }
 
@@ -110,9 +115,36 @@ export default function Shop(props){
                   <Row>
                         <div style={{display:"flex",paddingLeft:30,paddingRight:30}}>
                             <div style={{flex:1,borderTopLeftRadius:10,borderBottomLeftRadius:10,backgroundColor:"white",border:"solid 1px #e8e8e8",padding:"20px 15px 20px 15px"}}>
-                                <input placeholder="Masukkan nama barang yang dicari" type="text" style={{width:"100%",border:"none",outline:"none",color:"grey"}}></input>
+                                <input 
+                                onChange={(e)=>{
+                                    //clearTimeout(intervalRef)
+                                    setQuery(e.currentTarget.value);
+                                    // intervalRef = setTimeout(() => {
+                                    //   alert("123");
+                                    // }, 500);
+                                }}
+                                value={query} placeholder="Masukkan nama barang yang dicari" type="text" style={{width:"100%",border:"none",outline:"none",color:"grey"}}></input>
                             </div>
-                            <div style={{display:"flex",backgroundColor:"#27b394",justifyContent:"center",alignItems:"center",borderTopRightRadius:10,borderBottomRightRadius:10,width:250}}>
+                            <div
+                            onClick={()=>{
+                              let regex = new RegExp(query,"i");
+                              let filtered = showcase.map((item,index)=>{
+                                  if(item.nama_barang.match(regex)){
+                                      return {
+                                        ...item,
+                                        visible:true
+                                      }
+                                  }
+                                  else{
+                                      return {
+                                        ...item,
+                                        visible:false
+                                      }
+                                  }
+                              });
+                              setShowcase(filtered);
+                            }}
+                            style={{display:"flex",cursor:"pointer",backgroundColor:"#27b394",justifyContent:"center",alignItems:"center",borderTopRightRadius:10,borderBottomRightRadius:10,width:250}}>
                                 <div style={{color:"white",flex:1,textAlign:"center",marginLeft:40}}>Search</div>
                                 <div style={{width:60}}>
                                 <BiSearchAlt
@@ -148,14 +180,21 @@ export default function Shop(props){
                                 <div style={{display:"grid",gridGap:50,gridTemplateColumns:"1fr 1fr 1fr 1fr",marginTop:50}}>
                                    {
                                        showcase.map((item,index)=>{
+                                           if(item.visible){
                                            return (
-                                            <div style={{backgroundColor:"white",display:"flex",flexDirection:"column",overflow:"hidden",height:450,border:"solid 1px grey",borderRadius:10}}>
+                                            <div 
+                                            style={{backgroundColor:"white",display:"flex",flexDirection:"column",overflow:"hidden",height:450,border:"solid 1px grey",borderRadius:10}}>
                                                 <img style={{width:"100%",backgroundColor:"whitesmoke",height:250}} src={`${endpoint}/storage/public/shop/${item.gambar_barang}`}/>
                                                 <div style={{marginTop:20,paddingLeft:20,paddingRight:20,fontWeight:"bold"}}>{item.nama_barang}</div>
                                                 <div style={{marginTop:20,marginBottom:30,flex:1,paddingLeft:20,paddingRight:20,fontWeight:"bold",color:"grey"}}>Rp. {item.harga}</div>
-                                                <div style={{backgroundColor:"#27b394",color:"white",textAlign:"center",paddingTop:20,paddingBottom:20}}>Tambah Ke Keranjang</div>
+                                                <div 
+                                                onClick={()=>{
+                                                    console.log(item);
+                                                }}
+                                                style={{backgroundColor:"#27b394",cursor:"pointer",color:"white",textAlign:"center",paddingTop:20,paddingBottom:20}}>Tambah Ke Keranjang</div>
                                             </div>
                                            )
+                                           }
                                        })
                                    }
                                   

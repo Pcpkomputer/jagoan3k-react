@@ -48,6 +48,10 @@ export default function PemesananTraining(props){
   let query = useQuery();
   let history = useHistory();
 
+  
+
+  let [txtKodeVoucher, setTxtKodeVoucher] = useState("");
+
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
@@ -96,6 +100,8 @@ let settings = {
     window.$ = $;
   },[])
 
+  let [referral, setReferral] = useState(null);
+
   useEffect(()=>{
     let total = 0;
     let diskon = 0;
@@ -118,22 +124,58 @@ let settings = {
         diskon = 0;
     }
     else{
-        diskon = 0;
+        diskon = globalContext.pemesanan.diskon.nominal;
     }
 
-    let t = total-diskon;
+    if(referral){
+        referral = globalContext.pemesanan?.keranjang[0]?.training.nominalpemotonganreferral || 0;
+    }   
+    else{
+        referral=0;
+    }
+
+    let t = total-(diskon+referral);
     setJumlahBayar(t);
 
-  },[])
+  },[referral])
 
-  let [referral, setReferral] = useState(null);
+ 
   let [pendaftaranLoading, setPendaftaranLoading] = useState(false);
+
+  let [invoice, setInvoice] = useState(null);
+
+  let checkReferral = async ()=>{
+    let request = await fetch(`${endpoint}/api/checkreferral`,{
+        method:"POST",
+        headers:{
+            "content-type":"application/json"
+        },
+        body:JSON.stringify({
+            referral:query.get("referral")
+        })
+    });
+    let json = await request.json();
+    if(json.exist){ 
+        setReferral(query.get("referral"));
+    }
+    else{
+        history.replace("/");
+    }
+  }
 
   useEffect(()=>{
     if(query.get("referral")){
-        alert("cek referral");
+        checkReferral();
+    }else{
+        setReferral(null);
     }
-  },[query]);
+  },[query.get("referral")]);
+
+  useEffect(()=>{ 
+      if(globalContext.pemesanan.keranjang.length===0){
+          history.replace("/");
+      }
+  },[])
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
@@ -321,7 +363,8 @@ let settings = {
                               </div>
                               <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
                                   <div style={{fontWeight:"bold"}}>Kode Voucher</div>
-                                  <input type="text" value="" placeholder="Kode Voucher" readOnly={true} style={{marginTop:20,cursor:"not-allowed",padding:5,paddingLeft:15,fontSize:15,paddingRight:15, outline:"none",width:"100%",color:"grey",backgroundColor:"#e8e8e8",borderRadius:5,border:"solid 1px #f8f8f8"}}></input>
+                                  <input 
+                                  type="text" value={globalContext.pemesanan?.voucher?.kode_voucher || ""} placeholder="Kode Voucher" readOnly={true} style={{marginTop:20,cursor:"not-allowed",padding:5,paddingLeft:15,fontSize:15,paddingRight:15, outline:"none",width:"100%",color:"grey",backgroundColor:"#e8e8e8",borderRadius:5,border:"solid 1px #f8f8f8"}}></input>
                               </div>
                               <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
                                   <div style={{fontWeight:"bold",marginBottom:10}}>Diskon</div>
@@ -334,14 +377,32 @@ let settings = {
                                          :
                                          <div style={{display:"flex",flex:1,flexDirection:"row"}}>
                                             <div style={{flex:1}}>
-                                                <div style={{fontSize:15}}>Promo K3 Perusahan</div>
+                                                <div style={{fontSize:15}}>Promo Voucher {globalContext.pemesanan?.voucher?.kode_voucher || ""}</div>
                                             </div>
                                             <div style={{textAlign:"right"}}>
-                                                <div style={{fontSize:15}}>-100000</div>
+                                                <div style={{fontSize:15}}>-{formatRupiah(globalContext.pemesanan?.voucher?.nominal || 0)}</div>
                                             </div>
                                         </div>
                                      }
                                   </div>
+                                  {
+                                      (referral) &&
+                                      <div style={{marginTop:20}}>
+                                      <div style={{fontWeight:"bold",marginBottom:10}}>Pemotongan dari referral</div>
+                                      <div style={{display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:30}}>
+                      
+                                              <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                                  <div style={{flex:1}}>
+                                                      <div style={{fontSize:15}}>{referral}</div>
+                                                  </div>
+                                                  <div style={{textAlign:"right"}}>
+                                                      <div style={{fontSize:15}}>-{globalContext.pemesanan?.keranjang[0]?.training?.nominalpemotonganreferral || 0}</div>
+                                                  </div>
+                                              </div>
+                                          
+                                      </div>
+                                    </div>
+                                  }
                                   <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
                                         <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
                                         <div>Rp. {formatRupiah(jumlahBayar)}</div>
@@ -414,7 +475,7 @@ let settings = {
                               </div>
                               <div style={{marginLeft:20,marginRight:20,paddingTop:30,paddingBottom:30,borderTop:"solid 1px #e8e8e8",borderBottom:"solid 1px #e8e8e8"}}>
                                   <div style={{fontWeight:"bold"}}>Kode Voucher</div>
-                                  <input type="text" value="" placeholder="Kode Voucher" readOnly={true} style={{marginTop:20,cursor:"not-allowed",padding:5,paddingLeft:15,fontSize:15,paddingRight:15, outline:"none",width:"100%",color:"grey",backgroundColor:"#e8e8e8",borderRadius:5,border:"solid 1px #f8f8f8"}}></input>
+                                  <input type="text" value={globalContext.pemesanan?.voucher?.kode_voucher || ""}  placeholder="Kode Voucher" readOnly={true} style={{marginTop:20,cursor:"not-allowed",padding:5,paddingLeft:15,fontSize:15,paddingRight:15, outline:"none",width:"100%",color:"grey",backgroundColor:"#e8e8e8",borderRadius:5,border:"solid 1px #f8f8f8"}}></input>
                               </div>
                               <div style={{marginTop:25,marginLeft:20,marginRight:20}}>
                                   <div style={{fontWeight:"bold",marginBottom:10}}>Diskon</div>
@@ -427,14 +488,32 @@ let settings = {
                                          :
                                          <div style={{display:"flex",flex:1,flexDirection:"row"}}>
                                             <div style={{flex:1}}>
-                                                <div style={{fontSize:15}}>Promo K3 Perusahan</div>
+                                                <div style={{fontSize:15}}>Promo Voucher {globalContext.pemesanan?.voucher?.kode_voucher || ""}</div>
                                             </div>
                                             <div style={{textAlign:"right"}}>
-                                                <div style={{fontSize:15}}>-100000</div>
+                                                <div style={{fontSize:15}}>-{formatRupiah(globalContext.pemesanan?.voucher?.nominal || 0)}</div>
                                             </div>
                                         </div>
                                      }
                                   </div>
+                                  {
+                                      (referral) &&
+                                      <div style={{marginTop:20}}>
+                                      <div style={{fontWeight:"bold",marginBottom:10}}>Pemotongan dari referral</div>
+                                      <div style={{display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:30}}>
+                      
+                                              <div style={{display:"flex",flex:1,flexDirection:"row"}}>
+                                                  <div style={{flex:1}}>
+                                                      <div style={{fontSize:15}}>{referral}</div>
+                                                  </div>
+                                                  <div style={{textAlign:"right"}}>
+                                                      <div style={{fontSize:15}}>-{globalContext.pemesanan?.keranjang[0]?.training?.nominalpemotonganreferral || 0}</div>
+                                                  </div>
+                                              </div>
+                                          
+                                      </div>
+                                    </div>
+                                  }
                                   <div style={{marginTop:20,paddingBottom:55,display:"flex",justifyContent:"space-between"}}>
                                         <div style={{fontWeight:"bold"}}>Jumlah Bayar</div>
                                         <div>Rp. {formatRupiah(jumlahBayar)}</div>
@@ -480,8 +559,8 @@ let settings = {
                                                (globalContext.pemesanan.voucher) &&
                                                <tr>
                                                     <th scope="row">#</th>
-                                                    <td>Diskon Potongan Voucher ()</td>
-                                                    <td>Rp. 123</td>
+                                                    <td>Diskon Potongan Voucher ({globalContext.pemesanan.voucher.kode_voucher})</td>
+                                                    <td>Rp. {formatRupiah(globalContext.pemesanan.voucher.nominal)}</td>
                                                 </tr>
                                            }
                                            {
@@ -489,7 +568,7 @@ let settings = {
                                                <tr>
                                                     <th scope="row">#</th>
                                                     <td>Potongan Dari Referral</td>
-                                                    <td>Rp. {formatRupiah(referral.nominal)}</td>
+                                                    <td>Rp. {globalContext.pemesanan.keranjang[0].training.nominalpemotonganreferral}</td>
                                                 </tr>
                                            }
                                         </tbody>
@@ -506,6 +585,12 @@ let settings = {
                                                <Spinner style={{marginLeft:15}} variant="light" size="sm" animation="border" />
                                             </div>
                                             
+                                            :
+                                            (jumlahBayar===0) ?
+                                            <div                
+                                            style={{backgroundColor:"#e23b25",opacity:0.5,letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
+                                                SELANJUTNYA
+                                            </div>
                                             :
                                             <div 
                                             onClick={async ()=>{
@@ -530,7 +615,19 @@ let settings = {
                                                 let json = await request.json();
 
                                                 setPendaftaranLoading(false);
-                                                setCurrentStep(5);
+
+                            
+                                                
+                                                if(json.success){
+                                                    console.log(json);
+                                                    setInvoice(json);
+                                                    
+                                                    setCurrentStep(5);
+                                                }
+                                                else{
+                                                    alert(json.msg);
+                                                }
+                                               
                                                 
                                             }}                                        
                                             style={{cursor:"pointer",backgroundColor:"#e23b25",letterSpacing:1,color:"white",borderRadius:5,textAlign:"center",width:200,padding:"10px 15px 10px 15px"}}>
@@ -602,7 +699,7 @@ let settings = {
                                   <div style={{fontSize:25,marginTop:20,paddingBottom:20,fontWeight:"bold",textAlign:"center",borderBottom:"solid 1px black",width:"100%"}}>Detail Pembayaran</div>
                                   <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
                                       <div>Tanggal</div>
-                                      <div>24-02-2021</div>
+                                      <div>{toLocaleTimestamp(new Date())}</div>
                                   </div>
                                   <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
                                       <div>Metode Pembayaran</div>
@@ -610,14 +707,25 @@ let settings = {
                                   </div>
                                   <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
                                       <div>Nomor Rekening</div>
-                                      <div>1111111111111111111</div>
+                                      <div>24-00-0994-4514 an PT LIMA PRIMA SOLUSINDO</div>
                                   </div>
                                   <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"space-between"}}>
                                       <div>Total Pembayaran</div>
-                                      <div>Rp. 600.000.000</div>
+                                      <div>Rp. {formatRupiah(invoice.totaldibayar)}</div>
                                   </div>
                               </Col>
                           </Row>
+
+                          <Row style={{marginTop:30}}>
+                              <Col style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",borderRadius:20,padding:"20px 40px 40px 40px"}} lg={12}>
+                                  <div style={{fontSize:25,marginTop:20,paddingBottom:20,fontWeight:"bold",textAlign:"center",borderBottom:"solid 1px black",width:"100%"}}>Konfirmasi Pembayaran</div>
+                                  <div style={{marginTop:15,width:"100%",display:"flex",borderBottom:"solid 1px #e8e8e8",paddingBottom:10,justifyContent:"center",alignItems:"center"}}>
+                                      <div style={{textAlign:"center"}}>Untuk konfirmasi pembayaran dan pemesanan silakan melakukan whatsapp ke nomer ini dengan menyertakan nomor invoice <br/>+62-811-6565-850</div>
+                                  </div>
+                            
+                              </Col>
+                          </Row>
+
 
                           <Row style={{marginTop:30}}>
                               <Col style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center",borderRadius:20,padding:"20px 40px 40px 40px"}} lg={12}>
@@ -626,35 +734,52 @@ let settings = {
                                   <div style={{display:"flex",justifyContent:"space-between",width:"100%",marginBottom:20,marginTop:20}}>
                                       <div>
                                           <div>Kepada Yth.</div>
-                                          <div style={{marginTop:5,fontWeight:"bold"}}>Padang P.Y</div>
+                                          <div style={{marginTop:5,fontWeight:"bold"}}>{invoice.data.credentials.detail.nama}</div>
                                       </div>
                                       <div>
-                                          <div style={{fontWeight:"bold",textAlign:"right"}}>Nomor Invoice : 12/12/12/12/12/IV</div>
+                                          <div style={{fontWeight:"bold",textAlign:"right"}}>Nomor Invoice : {invoice.kodeinvoice}</div>
                                           <div style={{marginTop:5,textAlign:"right"}}>Simpan nomor invoice untuk pengecekan status invoice di kemudian hari</div>
                                       </div>
                                   </div>
                                   
                                   <div style={{width:"100%",marginTop:40}}>
                                   <table class="table">
-                                        <thead>
-                                            <tr>
+                                  <thead>
+                                        <tr>
                                             <th scope="col">#</th>
                                             <th scope="col">Training</th>
                                             <th scope="col">Harga</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                            <th scope="row">1</th>
-                                            <td>Ahli K3 Umum Batch 11</td>
-                                            <td>8.000.000</td>
-                                            </tr>
-                                            <tr>
-                                            <th scope="row">2</th>
-                                            <td>Promo Ahli K3 Umum Perusahaan</td>
-                                            <td>-2.000.000</td>
-                                            </tr>
-                                          
+                                           {
+                                               globalContext.pemesanan.keranjang.map((item,index)=>{
+                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+                                                return (
+                                                    <tr>
+                                                    <th scope="row">{index+1}</th>
+                                                    <td>{item.itemtraining.namapaketpelatihan}</td>
+                                                    <td>Rp. {promosudahlewat ? formatRupiah(item.itemtraining.hargapaketpelatihan):formatRupiah(item.itemtraining.hargapromopaketpelatihan)}</td>
+                                                    </tr>
+                                                   )
+                                               })
+                                           }
+                                           {
+                                               (globalContext.pemesanan.voucher) &&
+                                               <tr>
+                                                    <th scope="row">#</th>
+                                                    <td>Diskon Potongan Voucher ({globalContext.pemesanan.voucher.kode_voucher})</td>
+                                                    <td>Rp. {formatRupiah(globalContext.pemesanan.voucher.nominal)}</td>
+                                                </tr>
+                                           }
+                                           {
+                                               (referral) &&
+                                               <tr>
+                                                    <th scope="row">#</th>
+                                                    <td>Potongan Dari Referral</td>
+                                                    <td>Rp. {formatRupiah(referral.nominal)}</td>
+                                                </tr>
+                                           }
                                         </tbody>
                                         </table>
                                   </div>

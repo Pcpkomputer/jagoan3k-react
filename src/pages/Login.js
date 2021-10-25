@@ -178,6 +178,7 @@ export default function Login(props){
                                                
                                                 if(json.success){
                                                     globalContext.setCredentials(json.credentials);
+                                                    window.localStorage.setItem("credentials",JSON.stringify(json.credentials));
                                                     if(ingatkanSaya){
                                                         window.localStorage.setItem("ingatkansaya",JSON.stringify({
                                                             email:loginEmail,

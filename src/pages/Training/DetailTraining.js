@@ -41,7 +41,12 @@ import { toLocaleTimestamp, formatRupiah, makeid} from '../../utils/function';
 
 export default function DetailTraining(props){
 
+ 
+
   let history = useHistory();
+
+  let [btnVoucherLoading, setBtnVoucherLoading] = useState(false);
+  let [txtvoucher, setTxtVoucher] = useState("");
 
   function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -60,6 +65,8 @@ export default function DetailTraining(props){
 
   let [jumlahStok, setJumlahStok] = useState(0);
   let [stokTerpenuhi, setStokTerpenuhi] = useState(0);
+
+  let [useVoucher, setUseVoucher] = useState(false);
 
   let params = useParams();
 
@@ -114,6 +121,16 @@ let settings = {
 
   useEffect(()=>  {
     fetchDetailTraining();
+  },[])
+
+  useEffect(()=>{
+      globalContext.setPemesanan((prev)=>{
+        return {
+          ...prev,
+          diskon:null,
+          voucher:null
+        }
+      })
   },[])
 
 
@@ -378,7 +395,7 @@ let settings = {
                                                           <div style={{marginTop:20,padding:5,border:"solid 1px black",width:"fit-content",borderRadius:20,fontSize:12,color:"green",opacity:(index===selectedIndexPromo) ? 1:0,borderColor:"green"}}>Yang anda pilih</div>
                                                         </div>
                                                         <div style={{display:"flex",flexDirection:"column",justifyContent:"space-between"}}>
-                                                            <div style={{textAlign:"right"}}>{item.hargapaketpelatihan}</div>
+                                                            <div style={{textAlign:"right",textDecoration:"line-through"}}>{item.hargapaketpelatihan}</div>
                                                             <div style={{fontSize:23,fontWeight:"bold",width:250,textAlign:"right",color:"green"}}>IDR {formatRupiah(item.hargapromopaketpelatihan)}</div>
                                                         </div>
                                                       </div>
@@ -398,10 +415,67 @@ let settings = {
                                            <label style={{fontWeight:"bold"}}>Kode Voucher</label>
                                            <div style={{display:"flex",flexDirection:"row",marginTop:13}}>
                                                <div style={{flex:1}}>
-                                                 <input class="form-control" placeholder="Kode Voucher" style={{width:"100%",padding:5,paddingLeft:10,paddingRight:10,outline:"none",boxShadow:"none",border:"solid 1px #d8d8d8"}} type="text"/>
-                                               </div>
+                                                    {
+                                                      (useVoucher) ?
+                                                      <input       
+                                                      class="form-control" disabled readOnly value={globalContext.pemesanan.voucher.kode_voucher} placeholder="Kode Voucher" style={{width:"100%",padding:5,paddingLeft:10,paddingRight:10,outline:"none",boxShadow:"none",border:"solid 1px #d8d8d8"}} type="text"/>
+                                                   
+                                                      :
+                                                      <input 
+                                                      onChange={(e)=>{
+                                                         setTxtVoucher(e.target.value);
+                                                      }}
+                                                      class="form-control" value={txtvoucher} placeholder="Kode Voucher" style={{width:"100%",padding:5,paddingLeft:10,paddingRight:10,outline:"none",boxShadow:"none",border:"solid 1px #d8d8d8"}} type="text"/>
+                                                   
+                                                    }
+                                                </div>
                                                <div>
-                                                   <div style={{paddingLeft:20,paddingRight:20,backgroundColor:"#198753",height:"100%",borderRadius:5,textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",color:"white"}}>Proses</div>
+                                                 {
+                                                   (btnVoucherLoading) ?
+                                                   <div 
+                                                   style={{paddingLeft:20,paddingRight:20,backgroundColor:"#198753",height:"100%",borderRadius:5,textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",color:"white"}}>
+                                                     <Spinner size="sm" animation="border" variant="light" />
+                                                   </div>
+                                                   :
+                                                   <div 
+                                                   onClick={async ()=>{
+                                                      if(txtvoucher.length===0){
+                                                        alert("Masukkan kode voucher...");
+                                                      }
+                                                      else{
+                                                        setBtnVoucherLoading(true);
+
+                                                        let request = await fetch(`${endpoint}/api/checkvoucher`,{
+                                                          method:"POST",
+                                                          headers:{
+                                                            "content-type":"application/json"
+                                                          },
+                                                          body:JSON.stringify({
+                                                             kodevoucher:txtvoucher
+                                                          })
+                                                        });
+                                                        let json = await request.json();
+                                                        
+                                                        if(json.success){
+                                                          let {voucher} = json.data;
+                                                          globalContext.setPemesanan((prev)=>{
+                                                            return {
+                                                              ...prev,
+                                                              voucher:voucher,
+                                                              diskon:voucher
+                                                            }
+                                                          });
+                                                          setUseVoucher(true);
+                                                        }
+                                                        else{
+                                                          alert(json.msg);
+                                                        }
+
+                                                        setBtnVoucherLoading(false);
+                                                      }
+                                                   }}
+                                                   style={{paddingLeft:20,cursor:"pointer",paddingRight:20,backgroundColor:"#198753",height:"100%",borderRadius:5,textAlign:"center",display:"flex",justifyContent:"center",alignItems:"center",color:"white"}}>Proses</div>
+                                                 }
                                                </div>
                                            </div>
                                        </div>
