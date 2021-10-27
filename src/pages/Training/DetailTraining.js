@@ -220,7 +220,7 @@ let settings = {
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
-      <Helmet>
+      {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script defer type="text/javascript" src="../jquery.js"/>
                 <script type="text/javascript" src="../owl_carousel/owl.carousel.min.js"></script>
@@ -230,7 +230,7 @@ let settings = {
                 <script>
                     console.log(document.querySelector("#promodanpaket-0"));
                 </script>
-            </Helmet>
+            </Helmet> */}
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-training.7cc257e.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 

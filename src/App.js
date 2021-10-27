@@ -9,6 +9,8 @@ import Detailnstruktur from "./pages/Instruktur/DetailInstruktur";
 import DetailTraining from "./pages/Training/DetailTraining";
 import PemesananTraining from "./pages/Training/PemesananTraining";
 import DetailArtikel from "./pages/DetailArtikel";
+import Dashboard from "./pages/Dashboard";
+import PemesananShop from "./pages/PemesananShop";
 
 import {
   BrowserView,
@@ -49,6 +51,8 @@ function App(props) {
   // useEffect(()=>{
   //   alert("111");
   // },[location.pathname])
+
+  let [keranjangShop, setKeranjangShop] = useState([]);
 
   let [pemesanan, setPemesanan] = useState({
     keranjang:[],
@@ -231,7 +235,7 @@ function App(props) {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
     ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
-    interval, pemesanan, setPemesanan, credentials, setCredentials
+    interval, pemesanan, setPemesanan, credentials, setCredentials, keranjangShop, setKeranjangShop
     }}>
     
     <Router>
@@ -257,13 +261,18 @@ function App(props) {
           </div>
          }
 
+        <Route  path="/shop/checkout" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <PemesananShop/>;
+          }} />
+
         <Route  path="/dashboard" render={()=>{
              Object.keys(interval).forEach((keys)=>{
               clearInterval(interval[keys]);
           })
-            return (
-              <div>ini dashboard</div>
-            )
+            return <Dashboard/>;
           }} />
 
 

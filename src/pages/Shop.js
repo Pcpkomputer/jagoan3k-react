@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useContext } from 'react';
 
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -18,7 +18,7 @@ import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaShareAlt, FaShoppingCart } from "react-icons/fa";
 
-
+import {GlobalContext} from '../App';
 
 import {
   BrowserRouter as Router,
@@ -36,7 +36,7 @@ let intervalRef = null;
 
 export default function Shop(props){
 
-
+  let globalContext = useContext(GlobalContext);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -81,7 +81,7 @@ export default function Shop(props){
        <div className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
           <FaShoppingCart color="white" size={30}/>
           <div style={{position:"absolute",position:"absolute",top:-10,right:-10,backgroundColor:"white",fontWeight:"bold",width:28,height:28,borderRadius:999,justifyContent:"center",alignItems:"center",display:"flex"}}>
-            0
+            {globalContext.keranjangShop.length}
           </div>
        </div>
       
@@ -189,7 +189,29 @@ export default function Shop(props){
                                                 <div style={{marginTop:20,marginBottom:30,flex:1,paddingLeft:20,paddingRight:20,fontWeight:"bold",color:"grey"}}>Rp. {item.harga}</div>
                                                 <div 
                                                 onClick={()=>{
-                                                    console.log(item);
+                                                    let selectedid = item.id_item;
+
+                                                    let exist = false;
+
+                                                    globalContext.keranjangShop.forEach((item)=>{
+                                                       if(item.id_item===selectedid){
+                                                          exist = true;
+                                                       }
+                                                    });
+
+                                                    if(exist){
+                                                      alert("Barang sudah dimasukkan dalam keranjang...");
+                                                    }
+                                                    else{
+                                                      globalContext.setKeranjangShop((prev)=>{
+                                                        return [
+                                                          ...prev,
+                                                          item
+                                                        ]
+                                                      });
+                                                    }
+
+                                                  
                                                 }}
                                                 style={{backgroundColor:"#27b394",cursor:"pointer",color:"white",textAlign:"center",paddingTop:20,paddingBottom:20}}>Tambah Ke Keranjang</div>
                                             </div>

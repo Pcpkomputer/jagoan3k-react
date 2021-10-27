@@ -98,6 +98,33 @@ useEffect(()=>{
 },[instrukturLoaded, allInstrukturLoaded])
 
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <FaArrowAltCircleRight
+      color="grey"
+      size="30px"
+      className={className}
+      style={{ ...style, display: "block",width:25,height:25,marginRight:(isTabletOrMobile) ? 20:0,marginLeft:0 }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <FaArrowAltCircleLeft
+      color="grey"
+      size="30px"
+      className={className}
+      style={{ ...style, display: "block",width:25,height:25,marginLeft:0 }}
+      onClick={onClick}
+    />
+  );
+}
+
+
 
 let settings = {
   dots: true,
@@ -105,21 +132,22 @@ let settings = {
   speed: 200,
   slidesToShow: (allInstruktur.length>2) ? (max991) ? 1:(max1400) ? 2:3:allInstruktur.length,
   slidesToScroll: (max991) ? 1:(max1400) ? 2:3,
-  
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
-      <Helmet>
+      {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script type="text/javascript" src="../jquery.js"/>
                 <script  src="../owl_carousel/owl.carousel.min.js"></script>
                 <script>
                    window.$ = $;
                 </script>
-            </Helmet>
+            </Helmet> */}
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-instruktor.5a82ee0.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 

@@ -63,6 +63,15 @@ export default function Login(props){
   let [loginKataSandi, setLoginKataSandi] = useState("");
   let [loginLoading, setLoginLoading] = useState(false);
 
+
+  let [registerNama, setRegisterNama] = useState("");
+  let [registerUsername, setRegisterUsername] = useState("");
+  let [registerNickname, setRegisterNickname] = useState("");
+  let [registerEmail, setRegisterEmail] = useState("");
+  let [registerNoTelepon, setRegisterNoTelepon] = useState("");
+  let [registerKataSandi, setRegisterKataSandi] = useState("");
+  let [registerKonfirmasiKataSandi, setRegisterKonfirmasiKataSandi] = useState("");
+  
   let query = useQuery();
   let history = useHistory();
 
@@ -146,7 +155,7 @@ export default function Login(props){
                                 </label>
                                 </div>
                                 </div>
-                                <div style={{color:"#23b697",fontSize:13}}>Lupa kata sandi?</div>
+                                {/* <div style={{color:"#23b697",fontSize:13}}>Lupa kata sandi?</div> */}
                             </div>
                             <div style={{marginTop:30,marginBottom:20}}>
                                 {
@@ -215,34 +224,126 @@ export default function Login(props){
                             <div style={{fontWeight:"bold",fontSize:22}}>REGISTER</div>
                             <div style={{marginTop:25}}>
                                 <div style={{fontWeight:"bold"}}>Nama</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nama" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterNama(e.target.value);
+                                }}
+                                value={registerNama} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nama" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Username</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Username" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterUsername(e.target.value);
+                                }}
+                                value={registerUsername} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Username" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Nickname</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nickname" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterNickname(e.target.value);
+                                }}
+                                value={registerNickname} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Nickname" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Email</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Email" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterEmail(e.target.value);
+                                }}
+                                value={registerEmail} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan Email" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>No. Telepon</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan No. Telepon" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterNoTelepon(e.target.value);
+                                }}
+                                value={registerNoTelepon} id="inputID" style={{marginTop:10,fontSize:15}} type="text" placeholder="Masukkan No. Telepon" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Kata Sandi</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="password" placeholder="Masukkan kata sandi" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterKataSandi(e.target.value);
+                                }}
+                                value={registerKataSandi} id="inputID" style={{marginTop:10,fontSize:15}} type="password" placeholder="Masukkan kata sandi" />
                             </div>
                             <div style={{marginTop:20}}>
                                 <div style={{fontWeight:"bold"}}>Konfirmasi Kata Sandi</div>
-                                <Form.Control id="inputID" style={{marginTop:10,fontSize:15}} type="password" placeholder="Konfirmasi kata sandi" />
+                                <Form.Control 
+                                onChange={(e)=>{
+                                    setRegisterKonfirmasiKataSandi(e.target.value);
+                                }}
+                                value={registerKonfirmasiKataSandi} id="inputID" style={{marginTop:10,fontSize:15}} type="password" placeholder="Konfirmasi kata sandi" />
                             </div>
                             <div style={{marginTop:30,marginBottom:20}}>
-                                <div style={{backgroundColor:"#23b697",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>
+                                <div 
+                                onClick={async ()=>{
+                                    if(registerNama.length===0 || registerUsername.length===0 || registerNickname.length===0 || registerEmail.length===0 || registerNoTelepon.length===0 || registerKataSandi.length===0 || registerKonfirmasiKataSandi.length===0){
+                                        alert("Isikan semua data...");
+                                    }
+                                    else{
+                                        if(registerKataSandi!==registerKonfirmasiKataSandi){
+                                            alert("Konfirmasi kata sandi salah...");
+                                        }   
+                                        else{   
+                                            let request = await fetch(`${endpoint}/api/register`,{
+                                                method:"POST",
+                                                headers:{
+                                                    "content-type":"application/json"
+                                                },
+                                                body:JSON.stringify({
+                                                    nama:registerNama,
+                                                    username:registerUsername,
+                                                    nickname:registerNickname,
+                                                    email:registerEmail,
+                                                    notelepon:registerNoTelepon,
+                                                    katasandi:registerKataSandi
+                                                })
+                                            });
+                                            let response = await request.json();
+
+                                            
+
+                                            if(response.success){
+                                                alert("Berhasil mendaftar...");
+                                                let {data} = response;
+                                                globalContext.setCredentials({
+                                                    detail:{
+                                                        email:data[0].email,
+                                                        id:data[0].user_id,
+                                                        nama:data[0].nama,
+                                                        notelepon:data[0].no_telepon
+                                                    },
+                                                    token:data[0].token
+                                                });
+                                                window.localStorage.setItem("credentials",JSON.stringify({
+                                                    detail:{
+                                                        email:data[0].email,
+                                                        id:data[0].user_id,
+                                                        nama:data[0].nama,
+                                                        notelepon:data[0].no_telepon
+                                                    },
+                                                    token:data[0].token
+                                                }));
+
+                                                if(query.get("origin")==="pemesanan"){
+                                                    history.goBack();
+                                                }
+                                                else{
+                                                    history.replace("/dashboard");
+                                                }
+
+                                            }
+                                            else{
+                                                alert(response.msg);
+                                            }
+                                        }
+                                    }
+                                }}
+                                style={{backgroundColor:"#23b697",cursor:"pointer",color:"white",borderRadius:10,textAlign:"center",padding:5,paddingTop:10,paddingBottom:10}}>
                                     Daftar
                                 </div>
                             </div>

@@ -8,7 +8,51 @@ import "slick-carousel/slick/slick-theme.css";
 import "../css/DetailArtikel.css";
 
 import { BiCommentDetail, BiNotepad, BiShare } from "react-icons/bi";
+import {
+  EmailShareButton,
+  FacebookShareButton,
+  HatenaShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  OKShareButton,
+  PinterestShareButton,
+  PocketShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TumblrShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  VKShareButton,
+  WhatsappShareButton,
+  WorkplaceShareButton
+} from "react-share";
 
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  HatenaIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WorkplaceIcon
+} from "react-share";
 
 import "../custom.css";
 
@@ -37,6 +81,8 @@ export default function DetailArtikel(props){
 
 
   let params = useParams();
+
+  let [shareOpened, setShareOpened] = useState(false);
 
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 638px)' })
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
@@ -157,12 +203,39 @@ return (
                         <BiNotepad size={35}/>
                         <div style={{marginLeft:10,fontSize:20}}>{artikel[0].username}</div>
                     </div>
-                    <div style={{flexDirection:"row",marginLeft:30,display:"flex",justifyContent:"center",alignItems:"center"}}>
+                    <div 
+                    onClick={()=>{
+                       setShareOpened(!shareOpened);
+                    }}
+                    style={{flexDirection:"row",cursor:"pointer",marginLeft:30,display:"flex",justifyContent:"center",alignItems:"center"}}>
                         <BiShare size={35}/>
                         <div style={{marginLeft:10,fontSize:20}}>Bagikan</div>
                     </div>
+                 
                 </div>
+                {
+                  (shareOpened) &&
+                  <div style={{paddingLeft:40,paddingRight:40,marginTop:30}}>
+                     <EmailShareButton>
+                        <EmailIcon style={{marginRight:10}}/>
+                        <div></div>
+                     </EmailShareButton>
+                     <FacebookShareButton>
+                        <FacebookIcon style={{marginRight:10}}/>
+                        <div></div>
+                     </FacebookShareButton>
+                     <TwitterShareButton>
+                        <TwitterIcon style={{marginRight:10}}/>
+                        <div></div>
+                     </TwitterShareButton>
+                     <WhatsappShareButton>
+                        <WhatsappIcon style={{marginRight:10}}/>
+                        <div></div>
+                     </WhatsappShareButton>
+                  </div>
+                }
              </Container>
+           
          </div>
          <Footer/>
     </div>

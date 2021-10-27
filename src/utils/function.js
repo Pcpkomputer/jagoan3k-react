@@ -16,6 +16,16 @@ export function formatRupiah(angka, prefix){
 	return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 }
 
+export const groupBy = (items, key) => items.reduce(
+  (result, item) => ({
+    ...result,
+    [item[key]]: [
+      ...(result[item[key]] || []),
+      item,
+    ],
+  }), 
+  {},
+);
 
 
 export function toLocaleTimestamp(date){
