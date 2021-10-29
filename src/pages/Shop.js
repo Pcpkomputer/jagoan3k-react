@@ -16,6 +16,9 @@ import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';
 
+
+import SidebarMobile from '../components/SidebarMobile';
+
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaShareAlt, FaShoppingCart } from "react-icons/fa";
 
 import {GlobalContext} from '../App';
@@ -75,8 +78,15 @@ export default function Shop(props){
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 
+  let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
+
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+{
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
 
        <div className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
           <FaShoppingCart color="white" size={30}/>
@@ -101,13 +111,12 @@ export default function Shop(props){
          {/* Sticky Header */}
          {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
-
-
-
-         <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
 
           <div style={{marginTop:(isTabletOrMobile) ? 80:80,marginBottom:(isTabletOrMobile) ? 80:100}}>

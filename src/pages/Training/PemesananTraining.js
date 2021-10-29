@@ -11,6 +11,9 @@ import DetailTrainingTabs from './DetailTrainingTabs';
 
 import { FaCheck } from "react-icons/fa";
 
+
+import SidebarMobile from '../../components/SidebarMobile';
+
 import "../../custom.css";
 import $ from 'jquery';
 
@@ -177,8 +180,18 @@ let settings = {
       }
   },[])
 
+  let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
+
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+    {
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+      
+
+
       {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script defer type="text/javascript" src="../jquery.js"/>
@@ -202,16 +215,15 @@ let settings = {
            </div>
         </Container>
 
-         {/* Sticky Header */}
-         {
+       {/* Sticky Header */}
+   {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
         
-
-
-         <NavBar/>
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
 
           <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>

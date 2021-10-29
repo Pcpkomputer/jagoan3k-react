@@ -2,7 +2,7 @@
     width:15px;
     height:15px;
     background-color:"#999999";
-    border:solid 2px white;
+    border:solid 2px rgb(36, 183, 152);
     border-radius: 999px;
     margin-right:10px;
 }
@@ -12,6 +12,3 @@
     border:solid 2px white;
 }
 
-a:hover {
-
-}

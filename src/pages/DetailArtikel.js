@@ -63,6 +63,7 @@ import { useLocation } from 'react-router';
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 
+import SidebarMobile from '../components/SidebarMobile';
 
 import {
   BrowserRouter as Router,
@@ -121,11 +122,18 @@ export default function DetailArtikel(props){
 },[])
 
 let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
-
+let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
 
 if(!artikelLoaded){
     return (
       <div style={{fontFamily:"Poppins, sans-serif"}}>
+    {
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+
+
+
       <Container fluid={true} style={{margin:0,padding:0,overflow:"hidden",backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-artikel.14b54ae.png')",height:300}}>
       <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
@@ -141,14 +149,15 @@ if(!artikelLoaded){
       </div>
    </Container>
 
-    {/* Sticky Header */}
-    {
-     (stickyHeaderShow) &&
-     <NavBar sticky={true}/>
-   }
+   {/* Sticky Header */}
+   {
+          (stickyHeaderShow) &&
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
 
+        }
 
-    <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
     <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
         <Container style={{backgroundColor:"white",padding:0,height:1200,borderRadius:20,paddingBottom:30,boxShadow:"1px 8px 29px -6px rgba(0,0,0,0.53)"}}>
@@ -163,6 +172,11 @@ if(!artikelLoaded){
 
 return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+{
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
            <Container fluid={true} style={{margin:0,overflow:"hidden",padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-artikel.14b54ae.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 

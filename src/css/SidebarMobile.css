@@ -1,0 +1,13 @@
+.menu:hover {
+    background-color:white;
+    cursor:"pointer";
+    color:#24b596
+}
+
+
+
+.menu {
+    color:white;
+    transition: all 0.5s;
+    
+}

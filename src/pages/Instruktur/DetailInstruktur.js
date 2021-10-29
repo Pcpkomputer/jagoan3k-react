@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import SidebarMobile from '../../components/SidebarMobile';
 import { Container, Row, Col, Spinner, NavLink } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
@@ -136,10 +137,17 @@ let settings = {
   prevArrow: <SamplePrevArrow />
 };
 
-
+let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+
+      {
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+
       {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script type="text/javascript" src="../jquery.js"/>
@@ -163,16 +171,16 @@ let settings = {
            </div>
         </Container>
 
-         {/* Sticky Header */}
-         {
+        {/* Sticky Header */}
+        {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
-
-
-
-         <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
+        
 
          {
            (pageLoaded) &&

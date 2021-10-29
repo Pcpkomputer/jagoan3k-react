@@ -12,6 +12,9 @@ import { useMediaQuery } from 'react-responsive'
 import Slider from "react-slick";
 import { useLocation } from 'react-router';
 
+
+import SidebarMobile from '../components/SidebarMobile';
+
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 
@@ -93,8 +96,17 @@ export default function Login(props){
      }
   },[])
 
+  let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
+
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+{
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+
+
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-login.03fdc67.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
@@ -108,16 +120,15 @@ export default function Login(props){
            </div>
         </Container>
 
-         {/* Sticky Header */}
-         {
+        {/* Sticky Header */}
+        {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
-
-
-
-         <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
 
           <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>

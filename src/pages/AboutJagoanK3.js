@@ -15,6 +15,9 @@ import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
 import { GlobalContext } from '../App';
 
+
+import SidebarMobile from '../components/SidebarMobile';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -50,8 +53,17 @@ export default function AboutJagoanK3(props){
 
   let [stickyHeaderShow, setStickyHeaderShow] = useState(false);
 
+  let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
+
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+      {
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+      
+
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-1.df32a04.jpg')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
@@ -65,16 +77,15 @@ export default function AboutJagoanK3(props){
            </div>
         </Container>
 
-         {/* Sticky Header */}
-         {
+       {/* Sticky Header */}
+       {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
-
-
-
-         <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
 
           <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>

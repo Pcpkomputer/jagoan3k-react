@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick-theme.css";
 import DetailTrainingTabs from './DetailTrainingTabs';
 
 
+import SidebarMobile from '../../components/SidebarMobile';
 
 import "../../custom.css";
 import $ from 'jquery';
@@ -216,10 +217,17 @@ let settings = {
       fetchStokKursi(id_training,id);
     }
   },[dataLoaded])
-  
+
+  let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
 
   return (
     <div style={{fontFamily:"Poppins, sans-serif"}}>
+
+      {
+        (isTabletOrMobile && mobileSidebarOpened) &&
+        <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+      }
+      
       {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script defer type="text/javascript" src="../jquery.js"/>
@@ -246,16 +254,15 @@ let settings = {
            </div>
         </Container>
 
-         {/* Sticky Header */}
-         {
+       {/* Sticky Header */}
+   {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
+
         }
 
-
-
-
-         <NavBar/>
+        
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
          {
            (!dataLoaded) &&

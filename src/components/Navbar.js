@@ -5,6 +5,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+import { GiHamburgerMenu } from "react-icons/gi";
+
 import Logo from '../assets/logo.png'
 
 import "../custom.css";
@@ -15,6 +17,7 @@ import Slider from "react-slick";
 import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
+import {AiOutlineClose} from "react-icons/ai";
 
 import { GlobalContext } from '../App';
 
@@ -69,7 +72,11 @@ export default function NavBar(props){
                   {
                     (max991) ?
                     <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                      <div style={{marginRight:30}}>Burger Menu</div>
+                       <div onClick={()=>{
+                           props.setMobileSidebarOpened(true);
+                       }} style={{marginRight:30,cursor:"pointer"}}>
+                              <GiHamburgerMenu size={25}/>
+                          </div>
                   </Col>
                     :
                     <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>
@@ -113,7 +120,11 @@ export default function NavBar(props){
                       {
                         (max991) ?
                         <Col style={{alignItems:"center",color:"white",height:"100%",display:"flex",justifyContent:"flex-end",flexDirection:"row"}}>
-                          <div style={{marginRight:30}}>Burger Menu</div>
+                          <div onClick={()=>{
+                           props.setMobileSidebarOpened(true);
+                       }} style={{marginRight:30,cursor:"pointer"}}>
+                              <GiHamburgerMenu size={25}/>
+                          </div>
                       </Col>
                         :
                         <Col style={{alignItems:"center",paddingLeft:50,paddingRight:50,color:"white",height:"100%",display:"flex",justifyContent:"space-around",flexDirection:"row"}}>

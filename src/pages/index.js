@@ -1,5 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 
+import SidebarMobile from '../components/SidebarMobile';
+
 import { Container, Row, Col } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "slick-carousel/slick/slick.css";
@@ -172,9 +174,19 @@ function Index() {
     },[])
 
 
+    let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
+
+
     return (
       <div style={{overflow:"hidden",fontFamily:"Poppins, sans-serif"}}>
+
+          {
+            (isTabletOrMobile && mobileSidebarOpened) &&
+            <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
+          }
+
           <div style={{flex:1}}>
+            
               <div class="dotsContainer" style={{position:"absolute",transform:"bottom",bottom:(isTabletOrMobile) ? 80:100,left:80,zIndex:999}}>
               </div>
               <div class="owl-carousel">
@@ -183,18 +195,18 @@ function Index() {
                   (globalContext.banner).map((item,index)=>{
                     return (
                       <div class="item">
-                          <div style={{position:"absolute",backgroundColor:"black",opacity:0.5,width:"100%",height:"100%",zIndex:100}}></div>
-                          <div style={{display:"flex",alignItems:"center",backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/public/banner/${item.gambar}")`,height:"100vh"}}>
+                          <div style={{position:"absolute",width:"100%",height:"100%",zIndex:100}}></div>
+                          <div style={{display:"flex",alignItems:"center",backgroundPositionX:(isTabletOrMobile) ? 900:null,backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/public/banner/${item.gambar}")`,height:"100vh"}}>
                               {
                                 (isTabletOrMobile) ?
                                   <div style={{position:"absolute",paddingRight:100,width:300,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
-                                    <div style={{fontWeight:"bold"}}>{item.caption}</div>
-                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>{item.deskripsi}</div>
+                                    <div style={{fontWeight:"bold",color:"#333333"}}>{item.caption.toUpperCase()}</div>
+                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word",color:"#0ab99d"}}>{item.deskripsi}</div>
                                 </div>
                                 :
                                 <div style={{position:"absolute",paddingRight:100,width:800,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
-                                    <div style={{fontWeight:"bold"}}>{item.caption}</div>
-                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word"}}>{item.deskripsi}</div>
+                                    <div style={{fontWeight:"bold",color:"#333333"}}>{item.caption.toUpperCase()}</div>
+                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word",color:"#0ab99d"}}>{item.deskripsi}</div>
                                 </div>
                               } 
                           </div>
@@ -211,14 +223,14 @@ function Index() {
         {/* Sticky Header */}
         {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
 
         }
 
         
-        <NavBar/>
+        <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
-
+    
           
           <div style={{paddingTop:50,paddingBottom:70,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                 <div style={{fontSize:30,fontWeight:"bold"}}>TENTANG KAMI</div>
