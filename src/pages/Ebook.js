@@ -186,7 +186,7 @@ export default function Ebook(props){
                                                 <Col lg="4" style={{marginBottom:40}}>
                                                         <div id="galeriBox" 
                                                         onClick={()=>{
-                                                          window.open(`${endpoint}/storage/ebook/${item.file_ebook}`,`__self`);
+                                                          window.open(`${endpoint}/storage/public/ebook/${item.file_ebook}`,`__self`);
                                                         }}
                                                         onMouseOut={(e)=>{
                                                                 try {
@@ -206,7 +206,7 @@ export default function Ebook(props){
                                                         }}  style={{position:"relative",backgroundColor:"#f8f8f8",overflow:"hidden",borderRadius:20,height:250}}>
                                                         
                                                                 <div className="smokescreen"></div>
-                                                                <iframe width="100%" height="100%" src={`${endpoint}/storage/ebook/${item.file_ebook}`}>
+                                                                <iframe width="100%" height="100%" src={`${endpoint}/storage/public/ebook/${item.file_ebook}`}>
 
                                                                 </iframe>
                    

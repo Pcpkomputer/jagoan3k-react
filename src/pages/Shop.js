@@ -27,7 +27,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 
 import Footer from '../components/Footer';
@@ -48,6 +49,7 @@ export default function Shop(props){
   let [query,setQuery] = useState("");
 
 
+  let history = useHistory();
   let [showcase, setShowcase] = useState([]);
   let [showcaseLoading, setShowcaseLoading] = useState(true);
 
@@ -88,7 +90,9 @@ export default function Shop(props){
         <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
       }
 
-       <div className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
+       <div onClick={()=>{
+         history.push("/shop/checkout");
+       }} className="cart" style={{zIndex:99999,position:"fixed",cursor:"pointer",backgroundColor:"#23b697",padding:15,borderRadius:999,right:40,top:(stickyHeaderShow) ? 100:40}}>
           <FaShoppingCart color="white" size={30}/>
           <div style={{position:"absolute",position:"absolute",top:-10,right:-10,backgroundColor:"white",fontWeight:"bold",width:28,height:28,borderRadius:999,justifyContent:"center",alignItems:"center",display:"flex"}}>
             {globalContext.keranjangShop.length}

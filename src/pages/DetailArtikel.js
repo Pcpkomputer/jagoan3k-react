@@ -195,11 +195,11 @@ return (
          {/* Sticky Header */}
          {
           (stickyHeaderShow) &&
-          <NavBar sticky={true}/>
+          <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
         }
 
 
-         <NavBar/>
+         <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
          <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
              <Container style={{backgroundColor:"white",overflow:"hidden",padding:0,borderRadius:20,paddingBottom:30,boxShadow:"1px 8px 29px -6px rgba(0,0,0,0.53)"}}>

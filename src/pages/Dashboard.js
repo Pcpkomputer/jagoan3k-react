@@ -226,11 +226,11 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
             {/* Sticky Header */}
             {
             (stickyHeaderShow) &&
-            <NavBar sticky={true}/>
+            <NavBar setMobileSidebarOpened={setMobileSidebarOpened} sticky={true}/>
             }
 
 
-            <NavBar/>
+            <NavBar setMobileSidebarOpened={setMobileSidebarOpened}/>
 
             <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
                 <Container>
