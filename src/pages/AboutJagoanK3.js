@@ -27,6 +27,7 @@ import {
 
 import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
+import endpoint from '../utils/endpoint';
 
 
 export default function AboutJagoanK3(props){
@@ -97,7 +98,7 @@ export default function AboutJagoanK3(props){
                                 (max991) ?
                                 null
                                 :
-                                <img  style={{width:480,height:480}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:480,height:480}} src={`${endpoint}/storage/public/tentangjagoank3/thumbnail.jpg`}></img>
                               }
                           </div>
                       </Col>
@@ -109,7 +110,7 @@ export default function AboutJagoanK3(props){
                                         </h2>
                                         {/* <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3> */}
                                         <div style={{marginTop:30}}>
-                                        {globalContext.dashboardText.tentangkami}
+                                        {globalContext.tentangJagoanK3}
                                         </div>
                                     </div>
                                   

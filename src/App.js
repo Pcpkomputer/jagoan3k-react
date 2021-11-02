@@ -207,6 +207,15 @@ function App(props) {
     console.log(json);
   }
 
+  let [tentangJagoanK3, setTentangJagoanK3] = useState(``);
+  let [tentangJagoanK3Loaded, setTentangJagoanK3Loaded] = useState(false);
+  let fetchTentangJagoanK3 = async ()=>{
+    let request = await fetch(`${endpoint}/api/getjagoank3`);
+    let json = await request.json();
+    setTentangJagoanK3(json[0].text);
+    setTentangJagoanK3Loaded(true);
+  }
+
 
   ///////////////
   let initialFetch = async()=>{
@@ -222,6 +231,7 @@ function App(props) {
         fetchHubungiKamiHTML();
         fetchAlamatKamiHTML();
         fetchHalamanBantuan();
+        fetchTentangJagoanK3();
      } catch (error) {
         alert(error.message);
      }
@@ -232,10 +242,10 @@ function App(props) {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded && hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded && hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded && tentangJagoanK3Loaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded, hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded, hubungiKamiHTMLLoaded, alamatKamiHTMLLoaded, halamanBantuanLoaded, tentangJagoanK3Loaded])
 
 
   if(isMobile && continueWeb===false){
@@ -274,7 +284,7 @@ function App(props) {
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
     ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
     interval, pemesanan, setPemesanan, credentials, setCredentials, keranjangShop, setKeranjangShop,
-    alamatKamiHTML,hubungiKamiHTML, halamanBantuan
+    alamatKamiHTML,hubungiKamiHTML, halamanBantuan, tentangJagoanK3
     }}>
     
     <Router>
