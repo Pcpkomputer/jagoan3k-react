@@ -86,6 +86,8 @@ export default function NavBar(props){
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/ebook" >E-Book</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/webinar" >Webinar</Link>
                       {
                           (globalContext.credentials) ?
                           <Link className={`${menuFocused ? "dimmed":""}`} to="/dashboard" >Dashboard</Link>
@@ -134,6 +136,8 @@ export default function NavBar(props){
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/shop" >Shop</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/galeri" >Galeri</Link>
                       <Link className={`${menuFocused ? "dimmed":""}`} to="/artikel" >Artikel</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/ebook" >E-Book</Link>
+                      <Link className={`${menuFocused ? "dimmed":""}`} to="/webinar" >Webinar</Link>
                       {
                           (globalContext.credentials) ?
                           <Link className={`${menuFocused ? "dimmed":""}`} to="/dashboard" >Dashboard</Link>

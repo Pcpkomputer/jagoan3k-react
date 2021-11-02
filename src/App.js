@@ -11,6 +11,12 @@ import PemesananTraining from "./pages/Training/PemesananTraining";
 import DetailArtikel from "./pages/DetailArtikel";
 import Dashboard from "./pages/Dashboard";
 import PemesananShop from "./pages/PemesananShop";
+import Webinar from './pages/Webinar';
+import Ebook from "./pages/Ebook";
+import HubungiKami from './pages/Bantuan/HubungiKami';
+import SyaratDanKetentuan from './pages/Bantuan/SyaratDanKetentuan';
+import FAQ from './pages/Bantuan/FAQ';
+import SosialMedia from './pages/Bantuan/Sosial Media';
 
 import {
   BrowserView,
@@ -172,6 +178,35 @@ function App(props) {
     setKategoriTrainingLoaded(true);
   }
 
+  let [hubungiKamiHTML, setHubungiKamiHTML] = useState({html:``});
+  let [hubungiKamiHTMLLoaded, setHubungiKamiHTMLLoaded] = useState(false);
+  let fetchHubungiKamiHTML = async ()=>{
+    let request = await fetch(`${endpoint}/api/gethubungikami`);
+    let json = await request.json();
+    setHubungiKamiHTML(json);
+    setHubungiKamiHTMLLoaded(true);
+  }
+
+
+  let [alamatKamiHTML, setAlamatKamiHTML] = useState({html:``});
+  let [alamatKamiHTMLLoaded, setAlamatKamiHTMLLoaded] = useState(false);
+  let fetchAlamatKamiHTML = async ()=>{
+    let request = await fetch(`${endpoint}/api/getalamatkami`);
+    let json = await request.json();
+    setAlamatKamiHTML(json);
+    setAlamatKamiHTMLLoaded(true);
+  }
+
+  let [halamanBantuan, setHalamanBantuan] = useState(null);
+  let [halamanBantuanLoaded, setHalamanBantuanLoaded] = useState(false);
+  let fetchHalamanBantuan = async()=>{
+    let request = await fetch(`${endpoint}/api/gethalamanbantuan`);
+    let json = await request.json();
+    setHalamanBantuan(json);
+    setHalamanBantuanLoaded(true);
+    console.log(json);
+  }
+
 
   ///////////////
   let initialFetch = async()=>{
@@ -184,6 +219,9 @@ function App(props) {
         fetchCredentials();
         fetchTrainingTerdekat();
         fetchKategoriTraining();
+        fetchHubungiKamiHTML();
+        fetchAlamatKamiHTML();
+        fetchHalamanBantuan();
      } catch (error) {
         alert(error.message);
      }
@@ -194,10 +232,10 @@ function App(props) {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded && hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded, hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -235,7 +273,8 @@ function App(props) {
     <GlobalContext.Provider value={{previewLoaded,setPreviewLoaded, setMobileWidth, 
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
     ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
-    interval, pemesanan, setPemesanan, credentials, setCredentials, keranjangShop, setKeranjangShop
+    interval, pemesanan, setPemesanan, credentials, setCredentials, keranjangShop, setKeranjangShop,
+    alamatKamiHTML,hubungiKamiHTML, halamanBantuan
     }}>
     
     <Router>
@@ -275,6 +314,37 @@ function App(props) {
             return <Dashboard/>;
           }} />
 
+
+        <Route path="/bantuan/hubungikami" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <HubungiKami/>;
+          }} />
+
+
+<Route path="/bantuan/syaratdanketentuan" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <SyaratDanKetentuan/>;
+          }} />
+
+<Route path="/bantuan/faq" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <FAQ/>;
+          }} />
+
+<Route path="/bantuan/sosialmedia" render={()=>{
+             Object.keys(interval).forEach((keys)=>{
+              clearInterval(interval[keys]);
+          })
+            return <SosialMedia/>;
+          }} />
+
+          
 
           <Route  path="/artikel/:idartikel" render={()=>{
              Object.keys(interval).forEach((keys)=>{
@@ -345,6 +415,23 @@ function App(props) {
           })
             return  <AboutJagoanK3/>
           }} />
+
+        <Route  path="/ebook" render={()=>{
+            Object.keys(interval).forEach((keys)=>{
+                clearInterval(interval[keys]);
+            })
+
+            return  <Ebook />
+          }}/>
+           
+
+        <Route  path="/webinar" render={()=>{
+            Object.keys(interval).forEach((keys)=>{
+                clearInterval(interval[keys]);
+            })
+
+            return  <Webinar />
+          }}/>
            
           <Route  path="/" render={()=>{
             Object.keys(interval).forEach((keys)=>{
