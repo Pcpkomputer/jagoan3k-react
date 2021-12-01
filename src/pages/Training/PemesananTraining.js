@@ -110,7 +110,7 @@ let settings = {
     let diskon = 0;
     globalContext.pemesanan.keranjang.map((item,index)=>{
         if(item.itemtraining.sedangpromo){
-            let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+            let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir.replace(/-/g,"/")).getTime();
             if(promosudahlewat){
                 total = total+item.itemtraining.hargapaketpelatihan;
             }
@@ -557,7 +557,7 @@ let settings = {
                                         <tbody>
                                            {
                                                globalContext.pemesanan.keranjang.map((item,index)=>{
-                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir.replace(/-/g,"/")).getTime();
                                                 return (
                                                     <tr>
                                                     <th scope="row">{index+1}</th>
@@ -766,7 +766,7 @@ let settings = {
                                         <tbody>
                                            {
                                                globalContext.pemesanan.keranjang.map((item,index)=>{
-                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir).getTime();
+                                                let promosudahlewat = new Date().getTime()>new Date(item.itemtraining.tanggalpromoberakhir.replace(/-/g,"/")).getTime();
                                                 return (
                                                     <tr>
                                                     <th scope="row">{index+1}</th>
