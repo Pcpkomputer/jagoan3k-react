@@ -38,7 +38,7 @@ export default function SidebarMobile(props){
     let globalContext = useContext(GlobalContext);
 
     return (
-        <div style={{flex:1,backgroundColor:"#23b697",opacity:1,width:"100%",height:"100%",position:"fixed",zIndex:999999}}>
+        <div style={{flex:1,overflow:"auto",backgroundColor:"#23b697",opacity:1,width:"100%",height:"100%",position:"fixed",zIndex:999999}}>
                 <div style={{display:"flex",justifyContent:"flex-end",paddingLeft:20,paddingRight:20,paddingTop:30,paddingBottom:30}}>
                     <AiOutlineClose onClick={()=>{
                         props.setMobileSidebarOpened(false);

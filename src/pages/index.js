@@ -196,7 +196,7 @@ function Index() {
                     return (
                       <div class="item">
                           <div style={{position:"absolute",width:"100%",height:"100%",zIndex:100}}></div>
-                          <div style={{display:"flex",alignItems:"center",backgroundPositionX:(isTabletOrMobile) ? 900:null,backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/public/banner/${item.gambar}")`,height:"100vh"}}>
+                          <div style={{display:"flex",alignItems:"center",backgroundPositionX:(isTabletOrMobile) ? "40rem":null,backgroundSize:"cover",backgroundImage:`url("${endpoint}/storage/public/banner/${item.gambar}")`,height:"100vh"}}>
                               {
                                 (isTabletOrMobile) ?
                                   <div style={{position:"absolute",paddingRight:100,width:300,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
@@ -378,7 +378,7 @@ ahli di bidangnya masing-masing
                                 <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%",marginBottom:40}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
                                         <img style={{width:"100%",height:300}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
-                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,color:"black",fontWeight:"bold"}}>{item.nama}</div>
+                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,height:150,color:"black",overflowWrap:"break-word",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>
                                 </Link>
