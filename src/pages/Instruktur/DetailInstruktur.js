@@ -224,11 +224,11 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
                                   return (
                                     <Link style="color:black" to={`/instruktur/${item.id_instruktur}`}>
                                     <div style={{backgroundColor:"white",height:"100%"}}>
-                                        <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:300,marginRight:20}}>
-                                            <div style={{display:"flex",backgroundSize:"cover",flex:1,background:`url('${endpoint}/storage/public/instruktur/${item.foto}')`}}>
-                                          
+                                        <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:500,marginRight:20}}>
+                                            <div style={{display:"flex",overflow:"hidden",height:300,flex:1}}>
+                                              <img src={`${endpoint}/storage/public/instruktur/${item.foto}`} style={{width:"100%",height:"100%"}}></img>
                                             </div>
-                                            <div style={{paddingBottom:50,textAlign:"center",color:"black",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
+                                            <div style={{paddingBottom:50,height:200,textAlign:"center",color:"black",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
                                         </div>
                                     </div>
                                     </Link>
