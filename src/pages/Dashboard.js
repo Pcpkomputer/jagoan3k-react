@@ -546,6 +546,11 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
                     :
                     (selectedMenu===3) ?
                     <Col lg={8}>
+                    <form id="formgeneratesertifikat" method="POST" action={`${endpoint}/api/generatesertifikat`}>
+                        <input name="id_invoice" id="id_invoice"></input>
+                        <input name="token" id="token" value={`${globalContext.credentials.token}`} type="text"></input>
+                        <input name="iditemtraining" id="iditemtraining" type="text" value=""></input>
+                    </form>
                     {
                         riwayatPemesanan.map((el,index)=>{
                             if(el.status==="Sudah Dibayar"){
@@ -558,8 +563,11 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
                                         <div style={{marginBottom:5}}>Status Pemesanan : <b>{el.status}</b></div>
                                         <div style={{marginTop:15}}>{new Date(el.tanggalpemesanan).getTime()<new Date().getTime() ? 
                                             <div 
-                                            onClick={()=>{
-                                                alert("Request Sertifikat");
+                                            onClick={async ()=>{
+                                                window.document.querySelector("#id_invoice").value=el.id_invoicetraining;
+                                                window.document.querySelector("#iditemtraining").value=el.id_itemtraining;
+                                                window.document.querySelector("#formgeneratesertifikat").submit();
+                                                
                                             }}
                                             class="btn btn-primary">
                                                 Ambil Sertifikat

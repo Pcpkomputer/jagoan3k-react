@@ -1,4 +1,4 @@
-const env = "production"
+const env = "development"
 
 const endpoint = (env==="production") ? "https://jagoank3.com":"http://localhost:8000";
 
