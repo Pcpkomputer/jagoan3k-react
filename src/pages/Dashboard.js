@@ -546,7 +546,7 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
                     :
                     (selectedMenu===3) ?
                     <Col lg={8}>
-                    <form id="formgeneratesertifikat" method="POST" action={`${endpoint}/api/generatesertifikat`}>
+                    <form id="formgeneratesertifikat" style={{display:"none"}} method="POST" action={`${endpoint}/api/generatesertifikat`}>
                         <input name="id_invoice" id="id_invoice"></input>
                         <input name="token" id="token" value={`${globalContext.credentials.token}`} type="text"></input>
                         <input name="iditemtraining" id="iditemtraining" type="text" value=""></input>
