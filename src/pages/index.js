@@ -346,7 +346,7 @@ function Index() {
               </Container>
           </div>
           <div style={{backgroundColor:"#24b596",paddingLeft:(isTabletOrMobile) ? 20:null}}>
-              <Container style={{paddingTop:50,paddingBottom:60,background:"url(https://midiatama.co.id/_nuxt/img/keunggulan.7cfd70d.png)",backgroundPosition: "right",backgroundRepeat: "no-repeat",backgroundSize: "contain"}}>
+              <Container style={{paddingTop:50,paddingBottom:60,background:`url(${endpoint}/storage/public/section2dashboard/thumbnail.jpg)`,backgroundPosition: "right",backgroundRepeat: "no-repeat",backgroundSize: "contain"}}>
                     <Col lg={12}>
                             <div style={{width:(isTabletOrMobile) ? 360:650}}>
                                 <div style={{fontSize:30,fontWeight:"bold",marginBottom:5}}>Kebijakan Jagoan K3</div>
