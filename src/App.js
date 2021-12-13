@@ -217,6 +217,16 @@ function App(props) {
   }
 
 
+  let [linkmobile, setLinkMobile] = useState(null);
+  let [linkMobileLoaded, setLinkMobileLoaded] = useState(false);
+  let fetchLinkMobile = async ()=>{
+    let request = await fetch(`${endpoint}/api/linkmobile`);
+    let json = await request.json();
+    setLinkMobile(json);
+    setLinkMobileLoaded(true);
+  }
+
+
   ///////////////
   let initialFetch = async()=>{
      try {
@@ -232,6 +242,7 @@ function App(props) {
         fetchAlamatKamiHTML();
         fetchHalamanBantuan();
         fetchTentangJagoanK3();
+        fetchLinkMobile();
      } catch (error) {
         alert(error.message);
      }
@@ -242,10 +253,10 @@ function App(props) {
   },[])
 
   useEffect(()=>{
-    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded && hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded && tentangJagoanK3Loaded){
+    if(chacheLoaded && bannerLoaded && instrukturLoaded && dashboardTextLoaded && ourClientLoaded && credentialsLoaded && trainingTerdekatLoaded && kategoriTrainingLoaded && hubungiKamiHTMLLoaded && alamatKamiHTMLLoaded && halamanBantuanLoaded && tentangJagoanK3Loaded && linkMobileLoaded){
       setComplete(true);
     }
-  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded, hubungiKamiHTMLLoaded, alamatKamiHTMLLoaded, halamanBantuanLoaded, tentangJagoanK3Loaded])
+  },[chacheLoaded,bannerLoaded,instrukturLoaded, dashboardTextLoaded, ourClientLoaded, credentialsLoaded, trainingTerdekatLoaded, kategoriTrainingLoaded, hubungiKamiHTMLLoaded, alamatKamiHTMLLoaded, halamanBantuanLoaded, tentangJagoanK3Loaded, linkMobileLoaded])
 
 
   if(isMobile && continueWeb===false){
@@ -257,8 +268,8 @@ function App(props) {
             <div style={{paddingTop:20,fontWeight:"bold"}}>Please download android or ios app for this website.</div>
             </div>
             <div style={{marginTop:-20}}>
-              <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
-              <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
+              <a href={linkmobile.android.link}><img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img></a>
+                <a href={linkmobile.ios.link}><img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img></a>
             </div>
             <div 
             onClick={()=>{
@@ -284,7 +295,7 @@ function App(props) {
     banner, setBanner, instruktur, setInstruktur,dashboardText,setDashboardText,
     ourclient,setOurClient,trainingTerdekat,setTrainingTerdekat,kategoriTraining,setKategoriTraining,
     interval, pemesanan, setPemesanan, credentials, setCredentials, keranjangShop, setKeranjangShop,
-    alamatKamiHTML,hubungiKamiHTML, halamanBantuan, tentangJagoanK3
+    alamatKamiHTML,hubungiKamiHTML, halamanBantuan, tentangJagoanK3, linkmobile
     }}>
     
     <Router>
@@ -299,8 +310,8 @@ function App(props) {
               <div style={{paddingTop:20,fontWeight:"bold"}}>Please download android or ios app for this website.</div>
               </div>
               <div style={{marginTop:-20}}>
-                <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
-                <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
+                <a href={linkmobile.android.link}><img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img></a>
+                <a href={linkmobile.ios.link}><img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img></a>
               </div>
               <div 
               onClick={()=>{

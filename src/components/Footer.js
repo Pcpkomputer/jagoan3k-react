@@ -39,6 +39,10 @@ export default function Footer(){
 
   let globalContext = useContext(GlobalContext);
 
+  useEffect(()=>{
+    console.log(globalContext.linkmobile.android.link);
+  },[])
+
 //   useEffect(()=>{
 //     console.log();
 //   },[])
@@ -93,8 +97,8 @@ export default function Footer(){
                                         Download Aplikasi
                                     </div>
                                     <div style={{marginTop:20}}>
-                                      <img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg"></img>
-                                      <img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img>
+                                       <a href={globalContext.linkmobile.android.link}><img src="https://midiatama.co.id/_nuxt/img/gp.79741d9.svg">{globalContext.linkmobile.android.url}</img></a>
+                                       <a href={globalContext.linkmobile.ios.link}><img src="https://midiatama.co.id/_nuxt/img/as.190ce99.svg"></img></a>
                                     </div>
                                 </Col>
                             </Row>
