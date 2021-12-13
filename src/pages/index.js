@@ -201,7 +201,7 @@ function Index() {
                                 (isTabletOrMobile) ?
                                   <div style={{position:"absolute",paddingRight:100,width:300,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
                                     <div style={{fontWeight:"bold",color:"#333333"}}>{item.caption.toUpperCase()}</div>
-                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word",color:"#0ab99d"}}>{item.deskripsi}</div>
+                                    <div style={{fontSize:25,marginTop:20,wordBreak:"break-word",color:"black"}}>{item.deskripsi}</div>
                                 </div>
                                 :
                                 <div style={{position:"absolute",paddingRight:100,width:800,marginLeft:80,fontSize:40,zIndex:999,color:"white"}}>
