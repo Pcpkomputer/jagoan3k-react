@@ -48,6 +48,7 @@ function Index() {
   const max991 = useMediaQuery({ query: '(max-width: 991px)' })
   const max1400 = useMediaQuery({ query: '(max-width: 1400px)' })
   const is460 = useMediaQuery({ query: '(max-width: 460px)' })
+  const is600 = useMediaQuery({ query: '(max-width: 600px)' })
 
 
   let changeToLocalDateIndonesia = (date)=>{
@@ -100,7 +101,7 @@ function Index() {
       infinite: true,
       nav:true,
       speed: 200,
-      slidesToShow: (globalContext.instruktur.length>3) ? (max991) ? 1:(max1400) ? 1:4:globalContext.instruktur.length,
+      slidesToShow: (globalContext.instruktur.length>3) ? (is600) ? 1:(max991) ? 2:(max1400) ? 3:4:globalContext.instruktur.length,
       slidesToScroll: (max991) ? 1:(max1400) ? 3:4,
       nextArrow: <SampleNextArrow />,
       prevArrow: <SamplePrevArrow />
@@ -345,7 +346,7 @@ function Index() {
                   </Row>
               </Container>
           </div>
-          <div style={{backgroundColor:"#24b596",paddingLeft:(isTabletOrMobile) ? 20:null}}>
+          {/* <div style={{backgroundColor:"#24b596",paddingLeft:(isTabletOrMobile) ? 20:null}}>
               <Container style={{paddingTop:50,paddingBottom:60,background:`url(${endpoint}/storage/public/section2dashboard/thumbnail.jpg)`,backgroundPosition: "right",backgroundRepeat: "no-repeat",backgroundSize: "contain"}}>
                     <Col lg={12}>
                             <div style={{width:(isTabletOrMobile) ? 360:650}}>
@@ -362,10 +363,10 @@ function Index() {
                             </div>
                     </Col>
               </Container>
-          </div>
-          <div style={{paddingTop:50,paddingBottom:40,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
-                <div style={{fontSize:30,fontWeight:"bold"}}>Instruktur Berbakat</div>
-                <div style={{width:(isTabletOrMobile) ? 320:800,textAlign:"center",marginTop:30,paddingRight:30,paddingLeft:30}}>
+          </div> */}
+          <div style={{paddingTop:50,paddingBottom:40,display:"flex",backgroundColor:"#24b596",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+                <div style={{fontSize:30,fontWeight:"bold",color:"white"}}>Instruktur Berbakat</div>
+                <div style={{width:(isTabletOrMobile) ? 320:800,textAlign:"center",color:"white",marginTop:30,paddingRight:30,paddingLeft:30}}>
                 Training akan dibimbing oleh banyak sekali instruktur yang
 ahli di bidangnya masing-masing
                 </div>
@@ -375,9 +376,9 @@ ahli di bidangnya masing-masing
                             globalContext.instruktur.map((item,index)=>{
                               return (
                                 <Link to={`/instruktur/${item.id_instruktur}`}>
-                                <div className={"boxInstruktur"} style={{backgroundColor:"white",width:300,height:"100%",marginBottom:40}}>
-                                    <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
-                                        <img style={{width:"100%",height:250}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
+                                <div className={"boxInstruktur"} style={{overflow:"hidden",marginLeft:(is600) ? 55:null,display:"flex",justifyContent:"center",alignContent:"center",width:300,height:"100%",marginBottom:40}}>
+                                    <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden"}}>
+                                        <img style={{width:"100%",height:250,width:300}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
                                         <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,height:150,color:"black",overflowWrap:"break-word",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>
@@ -388,7 +389,7 @@ ahli di bidangnya masing-masing
                     </Slider>
                 </Container>
           </div>
-          <div style={{paddingBottom:50,display:"flex",flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
+          <div style={{paddingBottom:50,display:"flex",paddingTop:40,flexDirection:"column",justifyContent:"center",alignItems:"center"}}>
                 <div style={{fontSize:30,fontWeight:"bold"}}>Our Client</div>
                 <Container style={{marginTop:50,marginBottom:50,paddingLeft:(isTabletOrMobile) ? 50:null}}>
                 <Slider {...settingsOurClient} style={{padding:10}}>

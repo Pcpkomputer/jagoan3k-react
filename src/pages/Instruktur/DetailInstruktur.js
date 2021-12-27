@@ -223,10 +223,10 @@ let [mobileSidebarOpened, setMobileSidebarOpened] = useState(false);
                                 allInstruktur.map((item,index)=>{
                                   return (
                                     <Link style="color:black" to={`/instruktur/${item.id_instruktur}`}>
-                                    <div style={{backgroundColor:"white",height:"100%"}}>
-                                        <div style={{backgroundColor:"whitesmoke",display:"flex",flexDirection:"column",height:500,marginRight:20}}>
-                                            <div style={{display:"flex",overflow:"hidden",height:300,flex:1}}>
-                                              <img src={`${endpoint}/storage/public/instruktur/${item.foto}`} style={{width:"100%",height:"100%"}}></img>
+                                    <div style={{overflow:"hidden",height:"100%"}}>
+                                        <div style={{backgroundColor:"whitesmoke",overflow:"hidden",borderRadius:10,display:"flex",flexDirection:"column",height:400,marginRight:20}}>
+                                            <div style={{display:"flex",overflow:"hidden",height:300}}>
+                                              <img src={`${endpoint}/storage/public/instruktur/${item.foto}`} style={{width:"100%",overflow:"hidden",height:"100%"}}></img>
                                             </div>
                                             <div style={{paddingBottom:50,height:200,textAlign:"center",color:"black",paddingTop:50,fontWeight:"bold",paddingLeft:50,paddingRight:50}}>{item.nama}</div>
                                         </div>
