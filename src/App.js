@@ -217,7 +217,14 @@ function App(props) {
   }
 
 
-  let [linkmobile, setLinkMobile] = useState(null);
+  let [linkmobile, setLinkMobile] = useState({
+    android:{
+      link:""
+    },
+    ios:{
+      link:""
+    }
+  });
   let [linkMobileLoaded, setLinkMobileLoaded] = useState(false);
   let fetchLinkMobile = async ()=>{
     let request = await fetch(`${endpoint}/api/linkmobile`);
