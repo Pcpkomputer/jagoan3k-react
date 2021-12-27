@@ -312,10 +312,11 @@ export default function Training(props){
                                     {
                                       (training.length>0 && trainingLoaded) &&
                                       training.map((item,index)=>{
+                                       
                                         return (
                                           <div style={{backgroundColor:"white"}}>
                                               <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
-                                                <img src="https://apimicca.midiatama.co.id/storage/cover/midiatama-98210609110601.png" style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                                <img src={`${endpoint}/storage/public/training/${item.foto}`} style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
                                                 <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:220,position:"relative",top:110,bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>{item.namatraining}</div>
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi {item.subkategoritraining}</div>

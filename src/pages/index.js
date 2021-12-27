@@ -375,9 +375,9 @@ ahli di bidangnya masing-masing
                             globalContext.instruktur.map((item,index)=>{
                               return (
                                 <Link to={`/instruktur/${item.id_instruktur}`}>
-                                <div className={"boxInstruktur"} style={{backgroundColor:"white",height:"100%",marginBottom:40}}>
+                                <div className={"boxInstruktur"} style={{backgroundColor:"white",width:300,height:"100%",marginBottom:40}}>
                                     <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden",marginRight:20}}>
-                                        <img style={{width:"100%",height:300}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
+                                        <img style={{width:"100%",height:250}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
                                         <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,height:150,color:"black",overflowWrap:"break-word",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>

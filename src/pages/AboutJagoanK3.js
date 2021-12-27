@@ -109,7 +109,9 @@ export default function AboutJagoanK3(props){
                                           Tentang Jagoan K3
                                         </h2>
                                         {/* <h3 style={{fontWeight:"bold"}}>Sudah Mengikuti Sertifikasi K3 Bersama Kami</h3> */}
-                                        <div dangerouslySetInnerHTML={globalContext.tentangJagoanK3} style={{marginTop:30}}>
+                                        <div dangerouslySetInnerHTML={{
+                                          __html:globalContext.tentangJagoanK3
+                                        }} style={{marginTop:30}}>
                                         </div>
                                     </div>
                                   
