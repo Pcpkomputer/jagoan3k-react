@@ -49,55 +49,68 @@ export default function SidebarMobile(props){
                     <div onClick={()=>{
                         history.push("/");
                         props.setMobileSidebarOpened(false);
-                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Home
                     </div>
                     <div onClick={()=>{
                         history.push("/jagoank3");
                         props.setMobileSidebarOpened(false);
-                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Jagoan K3
                     </div>
                     <div onClick={()=>{
                         history.push("/training");
                         props.setMobileSidebarOpened(false);
-                    }}  class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }}  class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Training
                     </div>
                     <div onClick={()=>{
                         history.push("/shop");
                         props.setMobileSidebarOpened(false);
-                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Shop
                     </div>
                     <div onClick={()=>{
                         history.push("/galeri");
                         props.setMobileSidebarOpened(false);
-                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Galeri
                     </div>
                     <div onClick={()=>{
                         history.push("/artikel");
                         props.setMobileSidebarOpened(false);
-                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
                         Artikel
+                    </div>
+                    <div onClick={()=>{
+                        history.push("/ebook");
+                        props.setMobileSidebarOpened(false);
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
+                        E-Book
+                    </div>
+                    <div onClick={()=>{
+                        history.push("/webinar");
+                        props.setMobileSidebarOpened(false);
+                    }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:18}}>
+                        Webinar
                     </div>
                     {
                         (globalContext.credentials) ?
                         <div onClick={()=>{
                             history.push("/dashboard");
                             props.setMobileSidebarOpened(false);
-                        }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                        }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:20}}>
                         Dashboard
                     </div>
                         :
                         <div onClick={()=>{
                             history.push("/login");
                             props.setMobileSidebarOpened(false);
-                        }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:28}}>
+                        }} class="menu" style={{cursor:"pointer",padding:25,paddingLeft:40,paddingRight:40,fontSize:20}}>
                         Login
                     </div>
                     }
+                    <div style={{marginBottom:50}}></div>
                 </div>
             </div>
     )

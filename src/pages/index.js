@@ -36,6 +36,7 @@ import NavBar from '../components/Navbar';
 import {GlobalContext} from '../App';
 
 import endpoint from '../utils/endpoint';
+import { isMobile } from 'react-device-detect';
 
 
 
@@ -303,7 +304,7 @@ function Index() {
                         <div style={{width:"100%",height:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
                               {
                                 (max991) ?
-                                <img  style={{width:350,height:350,marginTop:(isTabletOrMobile) ? 10:40,marginBottom:0}} src="https://apimicca.midiatama.co.id/storage/public/konten-home/gambar1/bageur-901210621043226.png"></img>
+                                <img  style={{width:350,height:350,marginTop:(isTabletOrMobile) ? 10:40,marginBottom:0}} src={`${endpoint}/storage/public/section2/section2gambar-0.jpg`}></img>
                                 :
                                 <img  style={{width:480,height:480,marginBottom:0}} src={`${endpoint}/storage/public/section2/section2gambar-0.jpg`}></img>
                               }
@@ -376,10 +377,10 @@ ahli di bidangnya masing-masing
                             globalContext.instruktur.map((item,index)=>{
                               return (
                                 <Link to={`/instruktur/${item.id_instruktur}`}>
-                                <div className={"boxInstruktur"} style={{overflow:"hidden",marginLeft:(is600) ? 55:null,display:"flex",justifyContent:"center",alignContent:"center",width:300,height:"100%",marginBottom:40}}>
-                                    <div style={{backgroundColor:"whitesmoke",borderRadius:10,overflow:"hidden"}}>
-                                        <img style={{width:"100%",height:250,width:300}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
-                                        <div style={{textAlign:"center",paddingLeft:30,paddingRight:30,paddingTop:20,paddingBottom:50,height:150,color:"black",overflowWrap:"break-word",fontWeight:"bold"}}>{item.nama}</div>
+                                <div className={"boxInstruktur"} style={{overflow:"hidden",display:"flex",height:"100%",marginBottom:40,justifyContent:"center",alignItems:"center"}}>
+                                    <div style={{borderRadius:10,overflow:"hidden",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"}}>
+                                        <img style={{height:250,width:(is460) ? 250:280}} src={`${endpoint}/storage/public/instruktur/${item.foto}`}></img>
+                                        <div style={{textAlign:"center",paddingLeft:30,paddingTop:20,paddingRight:30,width:(is460) ? 250:280,backgroundColor:"whitesmoke",height:150,color:"black",overflowWrap:"break-word",fontWeight:"bold"}}>{item.nama}</div>
                                     </div> 
                                 </div>
                                 </Link>

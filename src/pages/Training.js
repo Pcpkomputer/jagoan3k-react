@@ -263,7 +263,7 @@ export default function Training(props){
             <Container>
                   <Row style={{display:"flex"}}>
                       <Col lg={4} style={{marginBottom:50}}>
-                          <div style={{border:"solid 1px #e8e8e8",padding:20,borderRadius:5}}>
+                          <div style={{border:"solid 1px #e8e8e8",overflow:"scroll",padding:20,borderRadius:5}}>
                               <div style={{color:"black",fontWeight:"bold",marginBottom:20}}>Jadwal Training</div>
                               <DateRange
                                editableDateInputs={true}

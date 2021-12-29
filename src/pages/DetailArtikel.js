@@ -77,6 +77,7 @@ import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
 import endpoint from '../utils/endpoint';
+import { isMobile } from 'react-device-detect';
 
 export default function DetailArtikel(props){
 
@@ -203,7 +204,7 @@ return (
 
          <div style={{marginTop:(isTabletOrMobile) ? 80:100,marginBottom:(isTabletOrMobile) ? 80:100}}>
              <Container style={{backgroundColor:"white",overflow:"hidden",padding:0,borderRadius:20,paddingBottom:30,boxShadow:"1px 8px 29px -6px rgba(0,0,0,0.53)"}}>
-                <img src={`${endpoint}/storage/public/artikel/${artikel[0].gambar_artikel}`} style={{width:"100%",height:800}}></img>
+                <img src={`${endpoint}/storage/public/artikel/${artikel[0].gambar_artikel}`} style={{width:"100%",height:(isMobile) ? "20rem":800}}></img>
                 <div style={{textAlign:"center",fontWeight:"bold",padding:10,marginTop:30,fontSize:26}}>{artikel[0].judul_artikel}</div>
                 <div dangerouslySetInnerHTML={{ __html: artikel[0].konten }} style={{marginTop:40,padding:"0px 40px 0px 40px"}}>
                     

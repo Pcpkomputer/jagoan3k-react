@@ -35,6 +35,7 @@ import Footer from '../components/Footer';
 import NavBar from '../components/Navbar';
 
 import endpoint from '../utils/endpoint';
+import { isMobile } from 'react-device-detect';
 
 let intervalRef = null;
 
@@ -190,7 +191,7 @@ export default function Shop(props){
                             }
                             {
                                 (showcase.length>0 && showcaseLoading===false) &&
-                                <div style={{display:"grid",gridGap:50,gridTemplateColumns:"1fr 1fr 1fr 1fr",marginTop:50}}>
+                                <div style={{display:"grid",gridGap:50,gridTemplateColumns:(isMobile) ? "1fr":"1fr 1fr 1fr 1fr",marginTop:50}}>
                                    {
                                        showcase.map((item,index)=>{
                                            if(item.visible){
