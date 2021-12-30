@@ -20,6 +20,8 @@ import { useLocation } from 'react-router';
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
+import { toLocaleTimestamp } from '../utils/function';
+
 import {
   BrowserRouter as Router,
   Switch,
@@ -316,11 +318,11 @@ export default function Training(props){
                                         return (
                                           <div style={{backgroundColor:"white"}}>
                                               <div style={{borderRadius:10,display:"flex",justifyContent:"center",marginRight:20,height:330}}>
-                                                <img src={`${endpoint}/storage/public/training/${item.foto}`} style={{backgroundColor:"whitesmoke",width:250,height:140,borderRadius:5,position:"absolute"}}></img>
+                                                <img src={`${endpoint}/storage/public/training/${item.foto}`} style={{backgroundColor:"whitesmoke",width:250,height:200,borderRadius:5,position:"absolute"}}></img>
                                                 <div style={{backgroundColor:"white",boxShadow:"1px 2px 12px -1px rgba(0,0,0,0.51)",padding:20,width:220,position:"relative",top:110,bottom:12,height:210,borderRadius:5}}>
                                                 <div style={{textAlign:"center",fontWeight:"bold"}}>{item.namatraining}</div>
                                                 <div  style={{textAlign:"center",fontSize:10,marginTop:8}}>Pembinaan & Sertifikasi {item.subkategoritraining}</div>
-                                                <div style={{textAlign:"center",marginTop:10}}>{changeToLocalDateIndonesia(item.jadwaltraining)}</div>
+                                                <div style={{textAlign:"center",marginTop:10}}>{toLocaleTimestamp(item.jadwaltraining)}</div>
                                                 <Link to={`/training/${item.id_training}`} className={"readmore"} style={{position:"absolute",fontWeight:"bold",color:"#343434",bottom:-13,textAlign:"center",width:180,borderRadius:10,paddingTop:5,paddingBottom:5,backgroundColor:"#fee906"}}>
                                                       Read More
                                                   </Link>
