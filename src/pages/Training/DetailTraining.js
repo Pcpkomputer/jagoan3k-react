@@ -18,7 +18,7 @@ import Slider from "react-slick";
 
 import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from "react-icons/fa";
 
-import {Helmet} from "react-helmet";
+// import {Helmet} from "react-helmet";
 
 import { GlobalContext } from '../../App';
 
@@ -228,14 +228,14 @@ let settings = {
         <SidebarMobile setMobileSidebarOpened={setMobileSidebarOpened}/>
       }
       
-      <Helmet>
+      {/* <Helmet>
                 <meta charSet="utf-8" />
                 <script type="text/javascript" src="../jquery.js"/>
                 <script type="text/javascript" src="../owl_carousel/owl.carousel.min.js"></script>
                 <script>
                    window.$ = $;
                 </script>
-            </Helmet>
+            </Helmet> */}
         <Container fluid={true} style={{margin:0,padding:0,backgroundColor:"whitesmoke",background:"url('https://midiatama.co.id/_nuxt/img/bg-training.7cc257e.png')",height:300}}>
            <div style={{position:"absolute",zIndex:1,width:"100%",height:300,backgroundColor:"black",opacity:0.5}}></div>
 
